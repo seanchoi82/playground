@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="VersionInfo">
+    
+    <typeAlias alias="CommReqVO" type="kr.ko.nexmain.server.MissingU.common.model.CommReqVO" />
+    
+    <resultMap id="versionInfoResultMap" class="hashmap">
+		<result property="id" column="id" />
+		<result property="lang" column="lang" />
+		<result property="versionCode" column="version_code" />
+		<result property="versionName" column="version_name" />
+		<result property="requiredUpgrade" column="required_upgrade" />
+		<result property="requiredUpgradeForVersionCode" column="required_upgrade_for_vc" />
+	</resultMap>
+    
+	<!-- 최신버젼 정보 조회 -->
+	<select id="selectLastVersionInfo" parameterClass="CommReqVO" resultMap="versionInfoResultMap">
+	    <![CDATA[
+	    SELECT 
+	    		id, 
+	    		lang,
+	    		version_code, 
+	    		version_name, 
+	    		required_upgrade, 
+	    		required_upgrade_for_vc
+  		FROM	mu_version_info
+  		WHERE	show_yn = 'Y'
+  					AND		lang = #gLang#  		
+  		ORDER BY id desc
+  		LIMIT 1
+	    ]]>
+	</select>
+	
+	
+	<update id="updateUpgradeVersionInfo" parameterClass="hashmap">
+	    UPDATE mu_version_info SET
+	    	version_code = #version_code#, 
+	    	version_name = #version_name#, 
+	    	required_upgrade = IFNULL(#required_upgrade#, 0),  
+	    	required_upgrade_for_vc = #required_upgrade_for_vc#
+	    WHERE
+	     	lang = #lang#
+	</update>
+	
+	<update id="updateEmrNotice" parameterClass="hashmap">
+	    UPDATE mu_emr_notice SET
+	    	onday = IFNULL(#onday#, onday), 
+	    	msg = #msg#,
+	    	positive_usable = IFNULL(#positive_usable#, positive_usable),
+	    	positive_label = IFNULL(#positive_label#, positive_label),
+	    	positive_action = IFNULL(#positive_action#, positive_action),
+	    	positive_url = IFNULL(#positive_url#, positive_url),
+	    	negative_usable = IFNULL(#negative_usable#, negative_usable),
+	    	negative_label = IFNULL(#negative_label#, negative_label),
+	    	negative_action = IFNULL(#negative_action#, negative_action),
+	    	negative_url = IFNULL(#negative_url#, negative_url),
+	    	ignore_usable = IFNULL(#ignore_usable#, ignore_usable),
+	    	ignore_label = IFNULL(#ignore_label#, ignore_label), 
+	    	ignore_action = IFNULL(#ignore_action#, ignore_action),
+	    	ignore_url = IFNULL(#ignore_url#, ignore_url), 
+	    	show_yn = IFNULL(#show_yn#, show_yn)
+	    WHERE
+	     	lang = #lang#
+	</update>
+	
+	
+	<!-- 최신버젼 정보 조회 -->
+	<select id="selectLastVersionInfoRandomChat" parameterClass="CommReqVO" resultMap="versionInfoResultMap">
+	    <![CDATA[
+	    SELECT 
+	    		id, 
+	    		lang,
+	    		version_code, 
+	    		version_name, 
+	    		required_upgrade, 
+	    		required_upgrade_for_vc
+  		FROM	mu_version_info_randomchat
+  		WHERE	show_yn = 'Y'
+  					AND		lang = #gLang#  		
+  		ORDER BY id desc
+  		LIMIT 1
+	    ]]>
+	</select>
+	
+	
+	<update id="updateUpgradeVersionInfoRandomChat" parameterClass="hashmap">
+	    UPDATE mu_version_info_randomchat SET
+	    	version_code = #version_code#, 
+	    	version_name = #version_name#, 
+	    	required_upgrade = IFNULL(#required_upgrade#, 0),  
+	    	required_upgrade_for_vc = #required_upgrade_for_vc#
+	    WHERE
+	     	lang = #lang#
+	</update>
+	
+	<update id="updateEmrNoticeRandomChat" parameterClass="hashmap">
+	    UPDATE mu_emr_notice_randomchat SET
+	    	onday = IFNULL(#onday#, onday), 
+	    	msg = #msg#,
+	    	positive_usable = IFNULL(#positive_usable#, positive_usable),
+	    	positive_label = IFNULL(#positive_label#, positive_label),
+	    	positive_action = IFNULL(#positive_action#, positive_action),
+	    	positive_url = IFNULL(#positive_url#, positive_url),
+	    	negative_usable = IFNULL(#negative_usable#, negative_usable),
+	    	negative_label = IFNULL(#negative_label#, negative_label),
+	    	negative_action = IFNULL(#negative_action#, negative_action),
+	    	negative_url = IFNULL(#negative_url#, negative_url),
+	    	ignore_usable = IFNULL(#ignore_usable#, ignore_usable),
+	    	ignore_label = IFNULL(#ignore_label#, ignore_label), 
+	    	ignore_action = IFNULL(#ignore_action#, ignore_action),
+	    	ignore_url = IFNULL(#ignore_url#, ignore_url), 
+	    	show_yn = IFNULL(#show_yn#, show_yn)
+	    WHERE
+	     	lang = #lang#
+	</update>
+	
+	
+	
+</sqlMap>

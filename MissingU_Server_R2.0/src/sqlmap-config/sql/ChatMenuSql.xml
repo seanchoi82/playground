@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Chat">
+    <typeAlias alias="CreateRoomReqVO" type="kr.ko.nexmain.server.MissingU.chat.model.CreateRoomReqVO" />
+    <typeAlias alias="RoomInOutReqVO" type="kr.ko.nexmain.server.MissingU.chat.model.RoomInOutReqVO" />
+    <typeAlias alias="chatroomMember" type="kr.ko.nexmain.server.MissingU.chat.model.ChatroomMember" />
+    <typeAlias alias="chatRoom" type="kr.ko.nexmain.server.MissingU.chat.model.ChatRoom" />
+    
+    <typeAlias alias="room" type="kr.ko.nexmain.server.MissingU.chat.model.Room" />
+    <typeAlias alias="simpleMember" type="kr.ko.nexmain.server.MissingU.chat.model.SimpleMember" />
+	
+	<resultMap id="chatroomResultMap" class="chatRoom">
+		<result property="roomId" column="room_id" />
+		<result property="roomPw" column="room_pw" />
+		<result property="roomTitle" column="room_title" />
+		<result property="roomDesc" column="room_desc" />
+		<result property="roomMasterId" column="room_master_id" />
+		<result property="curUserCnt" column="cur_user_cnt" />
+		<result property="maxUserCnt" column="max_user_cnt" />
+		<result property="createdDate" column="created_date" />
+	</resultMap>
+	
+	<resultMap id="chatRoomListResultMap" class="hashmap">
+		<result property="roomId" column="room_id" />
+		<result property="roomPw" column="room_pw" />
+		<result property="roomTitle" column="room_title" />
+		<result property="roomDesc" column="room_desc" />
+		<result property="roomMasterId" column="room_master_id" />
+		<result property="curUserCnt" column="cur_user_cnt" />
+		<result property="maxUserCnt" column="max_user_cnt" />
+		<result property="createdDate" column="created_date" />
+		<result property="nickName" column="nick_name" />
+		<result property="sex" column="sex" />
+		<result property="birthDate" column="birth_date" />
+		<result property="areaCd" column="area_cd" />
+		<result property="mainPhotoUrl" column="main_photo_url" />
+		<result property="membership" column="membership"/>
+		<result property="certification" column="certification" />
+	</resultMap>
+	
+	<resultMap id="chatroomMemberResultMap" class="chatroomMember">
+		<result property="roomId" column="room_id" />
+		<result property="memberId" column="member_id" />
+		<result property="gcmRegId" column="gcm_reg_id" />
+		<result property="masterYn" column="master_yn" />
+		<result property="createdDate" column="created_date" />
+		<result property="status" column="status" />
+	</resultMap>
+	
+	<resultMap id="chatroomMemberInfoResultMap" class="chatroomMember">
+		<result property="roomId" column="room_id" />
+		<result property="memberId" column="member_id" />
+		<result property="gcmRegId" column="gcm_reg_id" />
+		<result property="masterYn" column="master_yn" />
+		<result property="createdDate" column="created_date" />
+	</resultMap>
+	
+	<resultMap id="simpleMemberResultMap" class="hashmap">
+		<result property="memberId" column="member_id" />
+		<result property="gcmRegId" column="gcm_reg_id" />
+		<result property="nickName" column="nick_name" />
+		<result property="sex" column="sex" />
+		<result property="mainPhotoUrl" column="main_photo_url" />
+		<result property="membership" column="membership"/>
+		<result property="certification" column="certification" />
+	</resultMap>
+	
+	<!-- 채팅방 리스트 조회 -->
+	<select id="selectChatRoomList" resultMap="chatRoomListResultMap" >
+	    <![CDATA[
+		SELECT 	room.room_id,
+				room.room_pw,
+				room.room_title,
+				room.room_desc,
+				room.room_master_id,
+				room.max_user_cnt,
+				room.cur_user_cnt,
+				date_format(room.created_date,'%Y-%m-%d %H:%i')		created_date, 
+				(SELECT nick_name FROM mu_member WHERE member_id = room.room_master_id) AS nick_name, 
+				(SELECT sex FROM mu_member WHERE member_id = room.room_master_id) AS sex, 
+				(SELECT birth_date FROM mu_member WHERE member_id = room.room_master_id) AS birth_date, 
+				(SELECT area_cd FROM mu_member WHERE member_id = room.room_master_id) AS area_cd ,
+				(SELECT main_photo_url FROM mu_member WHERE member_id = room.room_master_id) AS main_photo_url, 
+				get_membership(room.room_master_id) as membership,
+				get_certification(room.room_master_id) as  certification 
+		FROM	mu_chatroom  room
+		WHERE	cur_user_cnt > 0
+		AND		room_id < IFNULL(#lastItemId#,99999999999999)
+		ORDER BY room_id DESC
+		LIMIT	15
+		]]>
+	</select>
+	
+	<!-- 채팅방 생성 -->
+	<insert id="insertIntoRoom" parameterClass="CreateRoomReqVO">
+	    insert into mu_chatroom 
+	    	(room_pw, room_title, room_desc, room_master_id, max_user_cnt, cur_user_cnt, created_date)
+	    VALUES
+	    	(#roomPw#, #roomTitle#, #roomDesc#, #roomMasterId#, #maxUserCnt#, 1, now())
+	    <selectKey resultClass="Integer" keyProperty="roomId">
+			SELECT last_insert_id()
+		</selectKey>
+	</insert>
+	
+	<!-- 채팅방 참여자 Insert -->
+	<insert id="insertIntoRoomMember" parameterClass="chatroomMember">
+	    INSERT INTO mu_chatroom_member
+	    	(room_id, member_id, master_yn, created_date, status)
+	    VALUES
+	    	(#roomId#, #memberId#, #masterYn#, now(), 'A')
+	</insert>
+	
+	<!-- 채팅방 참여자 List 조회 -->
+	<select id="selectRoomMemberListByRoomId" resultMap="chatroomMemberResultMap" parameterClass="Integer">
+	    SELECT 
+	    		a.*, 
+	    		(SELECT gcm_reg_id FROM mu_member WHERE member_id=a.member_id) gcm_reg_id
+  		FROM mu_chatroom_member a
+ 		WHERE room_id= #roomId#
+ 		ORDER BY master_yn desc, created_date
+	</select>
+	
+	<!-- 채팅방 참여자 회원정보 List 조회 -->
+	<select id="selectRoomMemberInfoListByRoomId" resultMap="chatroomMemberInfoResultMap" parameterClass="Integer">
+	    SELECT 
+	    		a.*, 
+	    		(SELECT gcm_reg_id FROM mu_member WHERE member_id=a.member_id) gcm_reg_id
+  		FROM mu_chatroom_member a
+ 		WHERE room_id= #roomId#
+ 		ORDER BY master_yn desc, created_date
+	</select>
+	
+	<!-- 채팅방 참여자 List 조회 By MemberId -->
+	<select id="selectRoomMemberListByMemberId" resultMap="chatroomMemberResultMap" parameterClass="Integer">
+	    SELECT 
+	    		a.*, 
+	    		'' gcm_reg_id
+  		FROM mu_chatroom_member a
+ 		WHERE member_id= #memberId#
+ 		ORDER BY master_yn desc, created_date
+	</select>
+	
+	<!-- 채팅방 업데이트 : cur_user_cnt 1 증가 -->
+	<update id="updateRoomToIncreaseCurUserCnt" parameterClass="Integer">
+		UPDATE mu_chatroom SET 
+			cur_user_cnt = cur_user_cnt + 1, 
+			updated_date = now()
+		WHERE room_id = #roomId#
+	</update>
+	
+	<!-- 채팅방 업데이트 : cur_user_cnt 1 감소 -->
+	<update id="updateRoomToDecreaseCurUserCnt" parameterClass="Integer">
+		UPDATE mu_chatroom SET 
+			cur_user_cnt = cur_user_cnt - 1, 
+			updated_date = now()
+		WHERE room_id = #roomId#
+	</update>
+	
+	<!-- 메세지 발송 하는 경우 업데이트 -->
+	<update id="updateUpDTForSendMsg" parameterClass="Integer">
+	    UPDATE mu_chatroom SET  
+			updated_date = now()
+		WHERE room_id = #roomId#
+	</update>
+	
+	<!-- 채팅방 조회 -->
+	<select id="selectRoomByRoomId" resultMap="chatroomResultMap" parameterClass="Integer">
+	    SELECT 
+	    		a.* 
+  		FROM mu_chatroom a
+ 		WHERE room_id= #roomId#
+	</select>
+	
+	<!-- 채팅방 인원 삭제 -->
+	<delete id="deleteFromRoomMemberByMemberId" parameterClass="chatroomMember">
+	    DELETE FROM mu_chatroom_member
+		WHERE room_id = #roomId#
+		AND member_id= #memberId#
+	</delete>
+	
+	<!-- 채팅방 나가기 -->
+	<update id="updateFromRoomMemberByMemberId" parameterClass="chatroomMember">
+	    UPDATE mu_chatroom_member
+	    SET
+	    	status = #status#
+		WHERE 
+				room_id = #roomId#
+		AND 	member_id= #memberId#
+	</update>
+	
+	<!-- 간단 회원정보 조회 -->
+	<select id="selectSimpleMemberInfoByMemberId" resultMap="simpleMemberResultMap" parameterClass="Integer">
+	    SELECT	
+	    		member_id,
+	    		gcm_reg_id,
+	    		main_photo_url,
+	    		nick_name,
+	    		sex, 
+	    		get_membership(member_id) as membership,
+				get_certification(member_id) as  certification
+	    FROM 	mu_member
+	    WHERE	member_id = #memberId#
+	</select>
+	
+	<!-- 방장여부 업데이트 -->
+	<update id="updateRoomMemberMasterYn" parameterClass="chatroomMember">
+		UPDATE	mu_chatroom_member
+		SET 
+				master_yn = #masterYn#
+		WHERE	room_id = #roomId#
+		  AND	member_id = #memberId#
+	</update>
+	<!-- 방장 업데이트 -->
+	<update id="updateRoomMemberId" parameterClass="chatroomMember">
+		UPDATE	mu_chatroom
+		SET 
+				room_master_id = #memberId#, 
+				updated_date = now()
+		WHERE	room_id = #roomId#
+	</update>
+	
+	<!-- 방 입장 업데이트 -->
+	<update id="updateRoomMemberByRoomId" parameterClass="hashmap">
+		UPDATE	mu_chatroom_member
+		SET 
+				status = 'A', 
+				updated_date = now()
+		WHERE	room_id = #roomId# and member_id = #memberId#
+	</update>
+	
+		
+	
+	
+	<select id="getRoomMemberListByRoomIdExceptMe" resultMap="chatroomMemberResultMap" parameterClass="java.util.Map">
+	    <![CDATA[
+	    SELECT 
+	    		a.*, 
+	    		(SELECT reg_id FROM member WHERE member_id=a.member_id) member_reg_id
+  		FROM room_member a
+ 		WHERE room_id = #roomId#
+ 		  AND member_id <> #memberId#
+ 		]]>
+	</select>
+	
+	<delete id="deleteRoomByRoomId" parameterClass="java.lang.String">
+	    DELETE FROM room
+		WHERE room_id = #roomId#
+	</delete>
+	
+	<delete id="cleanOldChatroom">
+	    <![CDATA[
+	    DELETE FROM mu_chatroom
+	    WHERE 
+	    updated_date IS NOT NULL
+		AND LENGTH(updated_date) > 0
+		AND TIMESTAMPDIFF(MINUTE, updated_date, now()) > 120
+		]]>
+	</delete>
+
+</sqlMap>

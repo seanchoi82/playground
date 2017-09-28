@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <!-- Tomcat 구동시 CATALINA_OPTS 옵션으로 Parameter를 받아옴 -->
+    <!-- missingu_home, CONSOLE_LOG_LEVEL, FILE_LOG_LEVEL -->
+	<appender name="ConsoleLog" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="[%d{HH:mm:ss.SSS}] %p %C{1}.%M(%F:%L) - %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="${CONSOLE_LOG_LEVEL}" />
+			<param name="LevelMax" value="FATAL" />
+			<param name="AcceptOnMatch" value="true" />
+		</filter>
+	</appender>
+    
+	<!-- File Log -->
+	<appender name="FileLog" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${missingu_home}/log/missingu.log" />
+		<param name="Threshold" value="${FILE_LOG_LEVEL}" />
+		<param name="Append" value="true" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="[%d{yyyy-MM-dd HH:mm:ss}] [%5p] [%c{1}.%M():%L] - [Thread: %t %l] %m%n" />
+		</layout>
+	</appender>
+	
+	 <appender name="sql" class="org.apache.log4j.ConsoleAppender">
+	  <layout class="org.apache.log4j.PatternLayout">
+	   <param name="ConversionPattern"
+	    value="%d [%t] %-5p %c{1} - %m%n" />
+	  </layout>
+	          <filter class="org.apache.log4j.varia.StringMatchFilter"> 
+	                  <param name="StringToMatch" value="Result" /> 
+	                  <param name="AcceptOnMatch" value="false" /> 
+	          </filter> 
+	 </appender>
+	
+	 <category name="com.ibatis">
+	  <priority value="debug" />
+	 </category>
+	 <category name="java.sql">
+	  <priority value="debug" />
+	  <appender-ref ref="sql" />
+	 </category>
+
+	<!-- File Log for Debug -->
+	<!-- 
+	<appender name="DebugLog" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${missingu_home}/log/missingu-debug.log" />
+		<param name="Threshold" value="DEBUG" />
+		<param name="Append" value="true" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd-HH" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="[%d{yyyy-MM-dd HH:mm:ss}] [%5p] [%c{1}.%M():%L] - %m%n" />
+		</layout>
+	</appender>
+	 -->
+
+	<!-- 
+	<category name="java.sql.Connection">
+		<priority value="ERROR" />
+	</category>
+
+	<category name="java.sql.PreparedStatement">
+		<priority value="ERROR" />
+	</category>
+
+	<category name="java.sql.ResultSet">
+		<priority value="ERROR" />
+	</category>
+
+	<category name="java.sql.Statement">
+		<priority value="ERROR" />
+	</category>
+
+	<category name="com.ibatis" additivity="false">
+		<priority value="ERROR" />
+	</category>
+	
+	<category name="org.springframework" additivity="false">
+		<priority value="DEBUG" />
+	</category>
+	-->	
+	 
+
+
+	<!-- =========================== -->
+	<!-- Setup the Root category -->
+	<!-- =========================== -->
+	<root>
+		<level value="${FILE_LOG_LEVEL}" />
+		<appender-ref ref="ConsoleLog" />
+		<appender-ref ref="FileLog" />
+	</root>
+</log4j:configuration> 

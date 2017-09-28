@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Friends">
+    <typeAlias alias="SearchFriendsReqVO" type="kr.ko.nexmain.server.MissingU.friends.model.SearchFriendsReqVO" />
+    <typeAlias alias="FriendsVO" type="kr.ko.nexmain.server.MissingU.friends.model.FriendsVO" />
+    <typeAlias alias="CommReqVO" type="kr.ko.nexmain.server.MissingU.common.model.CommReqVO" />
+	
+	<resultMap id="searchFriendsResultMap" class="hashmap">
+		<result property="memberId" column="member_id" />
+		<result property="nickName" column="nick_name" />
+		<result property="sex" column="sex" />
+		<result property="birthDate" column="birth_date" />
+		<result property="purposeCd" column="purpose_cd" />
+		<result property="hobbyCd" column="hobby_cd" />
+		<result property="selfPr" column="self_pr" />
+		<result property="mainPhotoUrl" column="main_photo_url" />
+		<result property="gPosX" column="g_pos_x" />
+		<result property="gPosY" column="g_pos_y" />
+		<result property="location" column="location" />
+		<result property="membership" column="membership"/>
+		<result property="certification" column="certification" />
+	</resultMap>
+	
+	<resultMap id="friendsResultMap" class="FriendsVO">
+		<result property="memberId" column="member_id" />
+		<result property="friendId" column="friend_id" />
+		<result property="friendType" column="friend_type" />
+		<result property="status" column="status" />
+	</resultMap>
+	
+	<select id="selectMemberListForSearchFriends" parameterClass="SearchFriendsReqVO" resultMap="searchFriendsResultMap">
+	    
+	    SELECT 
+	    		member_id,
+	    		status,
+				login_id,
+				login_pw,
+				nick_name,
+				gcm_reg_id,
+				sex,
+				blood_type_cd,
+				birth_date,
+				lunar_solar_cd,
+				birth_time,
+				appearance_type_cd,
+				body_type_cd,
+				purpose_cd,
+				hobby_cd,
+				drinking_habit_cd,
+				smoking_habit_cd,
+				self_pr,
+				main_photo_url,
+				created_date,
+				updated_date,
+				area_cd,
+				g_pos_x,
+				g_pos_y,
+				f_decrypt(location) as location, 
+				get_membership(member_id) as membership,
+				get_certification(member_id) as  certification
+  		FROM	mu_member
+  		WHERE	
+  		status = 'A'
+  		AND		
+  		member_id &lt; IFNULL(#lastItemId#, 9999999999)
+  		<dynamic>
+  		    
+  		    <isNotEmpty property="nickName">
+  		        AND		nick_name LIKE CONCAT('%',#nickName#,'%')
+  		    </isNotEmpty>
+  		    
+	  		<isNotNull property="sex" >
+		        AND		sex 				= #sex#
+		    </isNotNull>
+		    
+	  		<isNotNull property="areaCd" >
+	  		    <isNotNull property="areaNm">  		        
+			        AND f_decrypt(location) LIKE CONCAT('',#areaNm#,'%')
+	  		    </isNotNull>
+	  		    <!--  CAST(AES_DECRYPT(UNHEX(location), '0OKM9IJN8UHB7YGV') AS CHAR) LIKE  "$areaNm$%" -->
+		    </isNotNull>
+		    
+	  		<isNotEmpty property="countryExclusive" >
+		        AND		country &lt;&gt; #countryExclusive#
+		    </isNotEmpty>
+		    
+	  		<isNotNull property="appearanceTypeCd" >
+		        AND		appearance_type_cd 				= #appearanceTypeCd#
+		    </isNotNull>
+		    
+	  		<isNotNull property="bodyTypeCd" >
+		        AND		body_type_cd 				= #bodyTypeCd#
+		    </isNotNull>
+		    
+	  		<isNotNull property="purposeCd" >
+		        AND		purpose_cd 				= #purposeCd#
+		    </isNotNull>
+		    
+	  		<isNotNull property="hobbyCd" >
+		        AND		hobby_cd 				= #hobbyCd#
+		    </isNotNull>
+		    
+	  		<isNotNull property="drinkingHabitCd" >
+		        AND		drinking_habit_cd 				= #drinkingHabitCd#
+		    </isNotNull>
+		    
+	  		<isNotNull property="smokingHabitCd" >
+		        AND		smoking_habit_cd 				= #smokingHabitCd#
+		    </isNotNull>
+		    
+	  		<isNotNull property="smokingHabitCd" >
+		        AND		smoking_habit_cd 				= #smokingHabitCd#
+		    </isNotNull>
+		    
+	  		<isNotNull property="minAge">
+		  		AND		YEAR(curdate()) - substring(birth_date,1,4) BETWEEN IFNULL(#minAge#,0) AND IFNULL(#maxAge#,150)
+	  		</isNotNull>
+		    
+	  		<isNotNull property="distance">
+		  		    AND 
+		  		    (6371 * acos( cos( radians(g_pos_x) ) * cos( radians( #gPosX# ) ) * cos( radians( #gPosY# ) - radians(g_pos_y) ) + sin( radians(g_pos_x) ) * sin( radians( #gPosX# ) ) ) ) &lt;= #distance#
+	  		</isNotNull>
+	    </dynamic>
+
+  		
+  		ORDER BY member_id desc
+  		LIMIT 20
+	</select>
+	
+	<select id="selectMyFriendsList" parameterClass="CommReqVO" resultMap="searchFriendsResultMap">
+	    SELECT 
+	    		m.member_id,
+	    		m.status,
+				m.login_id,
+				m.login_pw,
+				m.nick_name,
+				m.gcm_reg_id,
+				m.sex,
+				m.blood_type_cd,
+				m.birth_date,
+				m.lunar_solar_cd,
+				m.birth_time,
+				m.appearance_type_cd,
+				m.body_type_cd,
+				m.purpose_cd,
+				m.hobby_cd,
+				m.drinking_habit_cd,
+				m.smoking_habit_cd,
+				m.self_pr,
+				m.main_photo_url,
+				m.created_date,
+				m.updated_date,
+				m.area_cd,
+				m.g_pos_x,
+				m.g_pos_y,
+				f_decrypt(m.location) as location,
+				get_membership(m.member_id) AS membership,
+				get_certification(m.member_id) AS certification
+  		FROM	mu_member		m
+  				,mu_friends		f
+		<dynamic>
+			<isEqual property="searchType" compareValue="02">
+			    WHERE	m.member_id = f.member_id
+				AND		f.friend_id = #gMemberId#
+			</isEqual>
+			<isNotEqual property="searchType" compareValue="02">
+			    WHERE	m.member_id = f.friend_id
+				AND		f.member_id = #gMemberId#
+			</isNotEqual>
+		</dynamic>
+		<dynamic>
+			<isEqual property="searchType" compareValue="03">
+				AND		f.status = 'B'
+			</isEqual>
+			<isNotEqual property="searchType" compareValue="03">
+				AND		f.status = 'A'
+			</isNotEqual>
+		</dynamic>
+		AND		m.status = 'A'
+  		ORDER BY nick_name
+	</select>
+	
+	<!-- 친구 조회 -->
+	<select id="selectFriends" parameterClass="FriendsVO" resultMap="friendsResultMap">
+		<![CDATA[
+	    SELECT	*
+	    FROM	mu_friends
+	    WHERE	member_id = #memberId#
+	    AND		friend_id = #friendId#
+	    ]]>
+	</select>
+	
+	<!-- 친구 Insert -->
+	<insert id="insertIntoFriends" parameterClass="FriendsVO">
+		<![CDATA[
+	    INSERT INTO mu_friends
+	    	(member_id, friend_id, friend_type, status, created_date)
+	    VALUES
+	    	(#memberId#, #friendId#, #friendType#, #status#, now())
+	    ]]>
+	</insert>
+	
+	<!-- 친구 Delete -->
+	<delete id="deleteFromFriends" parameterClass="FriendsVO">
+		<![CDATA[
+	    DELETE FROM	mu_friends
+	    WHERE	member_id = #memberId#
+	    AND		friend_id = #friendId#
+	    ]]>
+	</delete>
+	
+	<!-- 아이템 내역 Insert -->
+	<insert id="insertIntoItemSndRcvHist" parameterClass="hashmap">
+		<![CDATA[
+	    INSERT INTO mu_item_snd_rcv_hist
+	    	(sender_id, receiver_id, receiver_read_yn, item_cd, item_amount, created_date)
+	    VALUES
+	    	(#senderId#, #receiverId#, 'N', #itemCd#, #itemAmount#, now())
+	    ]]>
+	</insert>
+	
+	<!-- 인벤토리 아이템 증가 업데이트 : item_amount -->
+	<update id="updateInventoryToIncreaseItemAmount" parameterClass="hashmap">
+		INSERT INTO mu_inventory
+			(
+				member_id,
+				item_cd,
+				item_amount,
+				created_date
+			)
+		VALUES
+			(
+				#receiverId#,
+				#itemCd#,
+				#itemAmount#,
+				now()
+			)
+		ON DUPLICATE KEY
+		UPDATE	item_amount = IFNULL(item_amount,0) + #itemAmount#
+	</update>
+	
+	<update id="updateInventoryToDecreaseItemAmount" parameterClass="hashmap">
+	    UPDATE mu_inventory SET
+	    	item_amount = IFNULL(item_amount,0) - IFNULL(#itemAmount#, 0)
+	    WHERE 
+	    	member_id = #receiverId#
+	    	AND item_cd = #itemCd#
+	</update>
+	
+</sqlMap>

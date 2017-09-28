@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+	http://www.springframework.org/schema/util
+	http://www.springframework.org/schema/util/spring-util-3.0.xsd
+	">
+	
+    <context:annotation-config />
+    <context:component-scan base-package="kr.ko.nexmain.server.MissingU" />
+    
+    <!-- <context:property-placeholder location="classpath:missingu.properties" />  -->
+    <util:properties id="config" location="file:#{systemProperties['missingu_home']}/config/missingu.properties" />
+
+	<!-- Data Source -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<!-- JDBC 드라이버 클래스명 설정  -->
+		<property name="driverClassName">
+			<value>#{config['jdbc.mysql.driver']}</value>
+		</property>
+		<!-- JDBC 접속 문자열 설정  -->
+		<property name="url">
+			<value>#{config['jdbc.mysql.url']}</value>
+		</property>
+		<!-- MySQL 유저ID 설정 -->
+		<property name="username">
+			<value>#{config['jdbc.mysql.username']}</value>
+			<!-- <value>root</value> -->
+		</property>
+		<!-- MySQL 패스워드 설정  -->
+		<property name="password">
+		    <value>#{config['jdbc.mysql.password']}</value>
+			<!-- <value>sprtm0314</value> -->
+		</property>
+	</bean>
+	
+	<!-- JAVA Mail Sender Setting -->
+	<bean id="mailSender"
+	    class="org.springframework.mail.javamail.JavaMailSenderImpl"
+	    p:host="smtp.gmail.com" p:port="587" p:username="appplus2013@gmail.com" p:password="nexmain4123?"
+	    p:defaultEncoding="utf-8" >
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="muMailSender" class="kr.ko.nexmain.server.MissingU.common.mail.MuMailNotifier"
+	    p:mailSender-ref="mailSender"
+	    p:msgUtil-ref="msgUtil" />
+	
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+	    p:dataSource-ref="dataSource">
+	</bean>
+	<tx:annotation-driven />
+	
+	<!-- 
+	<aop:config>
+		<aop:pointcut id="serviceMethods" expression="execution(* kr.ko.nexmain.server.MissingU.chat.service.ChatMainServiceImpl.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethods" />
+	</aop:config>
+
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="doRoomInProcess" propagation="REQUIRED" rollback-for="Exception,RuntimeException" />
+			<tx:method name="doRoomOutProcess" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="*" propagation="SUPPORTS" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+	 -->
+	
+	<!-- ibatis SqlMapClient -->
+	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean"
+	    p:dataSource-ref="dataSource"
+	    p:configLocation="classpath:sqlmap-config/SqlMapConfig.xml">
+	</bean>
+	
+	<!--  MessageSource -->
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>ApplicationResource</value>
+				<value>messages</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>classpath:/message/messages</value>
+			</list>
+		</property>
+		<property name="cacheSeconds">
+			<value>60</value>
+		</property>
+	</bean>
+	 -->
+	
+	<!--  Msg Util -->
+	<bean id="msgUtil" class="kr.ko.nexmain.server.MissingU.common.utils.MsgUtil"
+	    p:messageSource-ref="messageSource">
+	</bean>
+	
+	<!--  Harmony Util -->
+	<bean id="harmonyUtil" class="kr.ko.nexmain.server.MissingU.common.utils.HarmonyUtil">
+	</bean>
+	
+	<!-- ###################################### -->
+	<!-- # Service & Dao Bean					-->
+	<!-- ###################################### -->
+	<!-- ========== 실시간채팅 관련 Bean ========== -->
+	<!-- 
+	<bean id="chatMainService" class="kr.ko.nexmain.server.MissingU.chat.service.ChatMainServiceImpl" 
+	    p:chatMainDao-ref="chatMainDao"
+	    p:c2dmHelper-ref="c2dmHelper"
+	    p:messageSource-ref="messageSource"
+	    p:transactionManager-ref="transactionManager">
+	</bean>
+	 -->
+	
+	<!-- ChatMainDao -->
+	<!-- 
+	<bean id="chatMainDao" class="kr.ko.nexmain.server.MissingU.chat.dao.ChatMainDaoImpl"
+	    p:sqlMapClient-ref="sqlMapClient">
+	</bean>
+	 -->
+	
+	<!-- C2dmHelper -->
+	<!-- 
+	<bean id="c2dmHelper" class="kr.ko.nexmain.server.MissingU.c2dm.C2dmHelper"/>
+	 -->
+	
+	<!-- ========== 관리자메뉴 관련 Bean ========== -->
+	<!-- adminDao -->
+	<bean id="adminDao" class="kr.ko.nexmain.server.MissingU.admin.dao.AdminDaoImpl"
+	    p:sqlMapClient-ref="sqlMapClient">
+	</bean>
+	
+	<bean id="download" class="kr.ko.nexmain.server.MissingU.common.DownloadView"/>
+	
+	
+	<!-- Quartz ============================================================================================================================================= -->
+	<!-- 
+    <bean id="testCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean" >
+        <property name="jobDetail">
+            <bean id="testJobProcess" class="org.springframework.scheduling.quartz.JobDetailBean">
+                <property name="jobClass" value="kr.ko.nexmain.server.MissingU.schedule.MissingUJobTrigger" />
+                <property name="applicationContextJobDataKey" value="applicationContext" />
+            </bean>
+        </property>
+        <property name="cronExpression" value="0/60 * * * * ?" />
+    </bean>
+
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="testCronTrigger" />
+            </list>
+        </property>
+    </bean>
+    -->
+
+</beans>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Harmony">
+    <typeAlias alias="CommReqVO" type="kr.ko.nexmain.server.MissingU.common.model.CommReqVO" />
+	
+	<resultMap id="harmonyResultMap" class="hashmap">
+		<result property="score" column="score" />
+		<result property="harmonyText" column="result_text" />
+	</resultMap>
+	
+	<resultMap id="innerHarmonyResultMap" class="hashmap">
+		<result property="score" column="score" />
+		<result property="love" column="love" />
+		<result property="health" column="health" />
+		<result property="money" column="money" />
+		<result property="children" column="children" />
+		<result property="total" column="total" />
+		<result property="harmonyText" column="result_text" />
+	</resultMap>
+	
+	
+	<!-- 혈액형 궁합 데이터 조회 -->
+	<select id="selectBloodHarmonyData" parameterClass="hashmap" resultMap="harmonyResultMap">
+		<![CDATA[
+	    SELECT
+	    		score,
+	    		result_text
+	    FROM	mu_harmony_blood_data
+	    WHERE	key1 = #key1#
+	    AND		key2 = #key2#
+	    AND		lang = #gLang#
+	    LIMIT 1
+	    ]]>
+	</select>
+	
+	<!-- 별자리 궁합 데이터 조회 -->
+	<select id="selectSignHarmonyData" parameterClass="hashmap" resultMap="harmonyResultMap">
+		<![CDATA[
+	    SELECT
+	    		score,
+	    		result_text
+	    FROM	mu_harmony_sign_data
+	    WHERE	key1 = #key1#
+	    AND		key2 = #key2#
+	    AND		lang = #gLang#
+	    LIMIT 1
+	    ]]>
+	</select>
+	
+	<!-- 겉궁합 데이터 조회 -->
+	<select id="selectOuterHarmonyData" parameterClass="hashmap" resultMap="harmonyResultMap">
+		<![CDATA[
+	    SELECT
+	    		score,
+	    		result_text
+	    FROM	mu_harmony_outer_data
+	    WHERE	key1 = #key1#
+	    AND		key2 = #key2#
+	    AND		lang = #gLang#
+	    LIMIT 1
+	    ]]>
+	</select>
+	
+	<!-- 속궁합 데이터 조회 -->
+	<select id="selectInnerHarmonyData" parameterClass="hashmap" resultMap="innerHarmonyResultMap">
+		<![CDATA[
+	    SELECT
+	    		score,
+				substring(data,1,1)*20  AS love,
+				substring(data,2,1)*20  AS health,
+				substring(data,3,1)*20  AS money,
+				substring(data,4,1)*20  AS children,
+				substring(data,5,1)*20  AS total,
+	    		result_text
+	    FROM	mu_harmony_inner_data
+	    WHERE	key1 = #key1#
+	    AND		key2 = #key2#
+	    AND		lang = #gLang#
+	    LIMIT 1
+	    ]]>
+	</select>
+	
+</sqlMap>

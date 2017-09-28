@@ -1,0 +1,31 @@
+ul.paging li {
+    padding: 10px;
+    background: #83bd63;
+    font-family: georgia;
+    font-size: 24px;
+    color: #fff;
+    line-height: 1;
+    width: 180px;
+    margin-bottom: 1px;
+}
+
+ul.pageNav li{
+    display:block;
+    floaT: left;
+    padding: 3px;
+    font-family: georgia;
+}
+
+ul.pageNav li a{
+    color: #333;
+    text-decoration: none;
+}
+
+li.currentPage {
+	background: red;
+        background: #83bd63;	
+}
+
+ul.pageNav li.currentPage a {
+	color: #fff;	
+}

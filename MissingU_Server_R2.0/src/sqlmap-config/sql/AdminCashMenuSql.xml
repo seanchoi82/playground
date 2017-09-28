@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="AdminCash">
+    
+    <resultMap class="hashmap" id="resultMapPointList">
+        <result property="memberId" column="member_id"/>
+        <result property="loginId" column="login_id"/>
+        <result property="nickName" column="nick_name"/>
+        <result property="sex" column="sex"/>
+        <result property="mainPhotoUrl" column="main_photo_url"/>
+        <result property="createdDate" column="created_date"/>
+        <result property="itemAmount" column="item_amount"/>
+    </resultMap>
+    
+    <select id="selectCashItemList" parameterClass="hashmap" resultClass="kr.ko.nexmain.server.MissingU.admin.model.CashItemHistoryVO">
+        SELECT
+        	hist.id, 
+			sender.member_id AS senderMemberId, 
+			sender.sex AS senderSex, 
+			sender.main_photo_url AS senderMainPhotoUrl, 
+			sender.nick_name AS senderNickName, 
+			sender.country AS senderCountry, 
+			sender.lang AS senderLang, 
+			
+			receiver.member_id AS receiverMemberId, 
+			receiver.sex AS receiverSex, 
+			receiver.main_photo_url AS receiverMainPhotoUrl, 
+			receiver.nick_name AS receiverNickName, 
+			receiver.country AS receiverCountry, 
+			receiver.lang AS receiverLlang,
+			
+			hist.item_amount AS itemAmount,
+			hist.created_date AS createdDate, 
+			hist.receiver_read_yn AS receiverReadYn, 
+			hist.receiver_read_date AS receiverReadDate
+		  
+		FROM mu_item_snd_rcv_hist hist
+		  INNER JOIN mu_member sender ON hist.sender_id = sender.member_id
+		  INNER JOIN mu_member receiver ON hist.receiver_id = receiver.member_id
+		  
+		WHERE
+			hist.item_cd = #itemCd# /** 윙크, 선물, 포인트 코드 **/
+			<isNotEmpty property="receiverLoginId">
+				AND receiver.login_id LIKE CONCAT('%',#senderLoginId#,'%')
+           	</isNotEmpty>
+           	<isNotEmpty property="receiverNickName">
+           	    AND receiver.nick_name LIKE CONCAT('%',#receiverNickName#,'%') 
+           	</isNotEmpty>
+           	<isNotEmpty property="senderLoginId">
+           	    AND sender.login_id LIKE CONCAT('%',#senderLoginId#,'%')
+           	</isNotEmpty>
+           	<isNotEmpty property="senderNickName">
+           	    AND sender.nick_name LIKE CONCAT('%',#senderNickName#,'%')
+           	</isNotEmpty>
+		ORDER BY hist.created_date DESC
+		LIMIT #startRow#, #pageSize#
+    </select>
+    
+    <select id="selectCashItemListCnt" parameterClass="hashmap" resultClass="Integer">
+        SELECT
+        	count(*) AS cnt
+		FROM mu_item_snd_rcv_hist hist
+			INNER JOIN mu_member sender ON hist.sender_id = sender.member_id
+			INNER JOIN mu_member receiver ON hist.receiver_id = receiver.member_id
+		WHERE
+			hist.item_cd = #itemCd# /** 윙크, 선물 코드 **/
+			<isNotEmpty property="receiverLoginId">
+				AND receiver.login_id LIKE CONCAT('%',#senderLoginId#,'%')
+           	</isNotEmpty>
+           	<isNotEmpty property="receiverNickName">
+           	    AND receiver.nick_name LIKE CONCAT('%',#receiverNickName#,'%') 
+           	</isNotEmpty>
+           	<isNotEmpty property="senderLoginId">
+           	    AND sender.login_id LIKE CONCAT('%',#senderLoginId#,'%')
+           	</isNotEmpty>
+           	<isNotEmpty property="senderNickName">
+           	    AND sender.nick_name LIKE CONCAT('%',#senderNickName#,'%')
+           	</isNotEmpty>
+    </select>
+    
+    <delete id="deleteCashItemHistory" parameterClass="Integer">
+        DELETE FROM mu_item_snd_rcv_hist
+        WHERE id = #id#
+    </delete>
+    
+    <select id="selectPointList" parameterClass="hashmap" resultMap="resultMapPointList">
+        SELECT 
+        	  mem.member_id 
+        	, mem.login_id
+        	, mem.nick_name
+        	, mem.sex
+        	, mem.main_photo_url
+        	, mem.created_date
+        	, IFNULL(inven.item_amount, 0) AS item_amount
+        FROM mu_member mem 
+			LEFT JOIN mu_inventory inven ON mem.member_id = inven.member_id
+		WHERE inven.item_cd = 'T00000'
+			<isNotEmpty property="loginId">
+				AND mem.login_id LIKE CONCAT('%',#loginId#,'%')
+           	</isNotEmpty>
+           	<isNotEmpty property="nickName">
+           	    AND mem.nick_name LIKE CONCAT('%',#nickName#,'%') 
+           	</isNotEmpty>
+           	<isNotEmpty property="startPointRange">
+           	    <isNotEmpty property="endPointRange">
+           	        AND inven.item_amount BETWEEN #startPointRange# AND #endPointRange#
+           	    </isNotEmpty>
+           	    <isEmpty property="endPointRange">
+           	        AND inven.item_amount = #startPointRange#
+           	    </isEmpty>
+           	</isNotEmpty>
+		ORDER BY mem.created_date DESC
+		LIMIT #startRow#, #pageSize#
+    </select>
+    
+    <select id="selectPointListCnt" parameterClass="hashmap" resultClass="integer">
+        SELECT 
+        	COUNT(*) AS cnt
+        FROM mu_member mem 
+			LEFT JOIN mu_inventory inven ON mem.member_id = inven.member_id
+		WHERE inven.item_cd = 'T00000'
+			<isNotEmpty property="loginId">
+				AND mem.login_id LIKE CONCAT('%',#loginId#,'%')
+           	</isNotEmpty>
+           	<isNotEmpty property="nickName">
+           	    AND mem.nick_name LIKE CONCAT('%',#nickName#,'%') 
+           	</isNotEmpty>
+           	<isNotEmpty property="startPointRange">
+           	    <isNotEmpty property="endPointRange">
+           	        AND inven.item_amount BETWEEN #startPointRange# AND #endPointRange#
+           	    </isNotEmpty>
+           	    <isEmpty property="endPointRange">
+           	        AND inven.item_amount = #startPointRange#
+           	    </isEmpty>
+           	</isNotEmpty>
+    </select>
+    
+</sqlMap>

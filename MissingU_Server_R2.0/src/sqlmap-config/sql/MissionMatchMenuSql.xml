@@ -1,0 +1,641 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="MissionMatch">
+	<typeAlias alias="CommReqVO"
+		type="kr.ko.nexmain.server.MissingU.common.model.CommReqVO" />
+	<typeAlias alias="MissionMatchReqVO"
+		type="kr.ko.nexmain.server.MissingU.missionmatch.model.MissionMatchReqVO" />
+	<typeAlias alias="MissionMatchReportReqVO"
+		type="kr.ko.nexmain.server.MissingU.missionmatch.model.MissionMatchReportReqVO" />
+	<typeAlias alias="MissionMatchJoinReqVO"
+		type="kr.ko.nexmain.server.MissingU.missionmatch.model.MissionMatchJoinReqVO" />
+	<typeAlias alias="MissionMatchRankReqVO"
+		type="kr.ko.nexmain.server.MissingU.missionmatch.model.MissionMatchRankReqVO" />
+
+	<resultMap id="missionMatchResultMap" class="hashmap">
+		<result property="mId" column="m_id" />
+		<result property="title" column="title" />
+		<result property="description" column="description" />
+		<result property="startDate" column="start_date" />
+		<result property="endDate" column="end_date" />
+		<result property="maxCount" column="max_count" />
+		<result property="status" column="status" />
+		<result property="useMultiVote" column="use_multi_vote" />
+		<result property="multiVoteInterval" column="multi_vote_interval" />
+		<result property="battleCnt" column="battle_cnt" />
+	</resultMap>
+
+	<resultMap id="missionMatchDataByFaceMatchResultMap" class="hashmap">
+		<result property="memberId" column="member_id" />
+		<result property="nickName" column="nick_name" />
+		<result property="sex" column="sex" />
+		<result property="mainPhotoUrl" column="main_photo_url" />
+		<result property="isJoined" column="is_joined" />
+	</resultMap>
+
+	<resultMap id="missionMatchDataResultMap" class="hashmap">
+		<result property="memberId" column="member_id" />
+		<result property="nickName" column="nick_name" />
+		<result property="sex" column="sex" />
+		<result property="mJId" column="mj_id" />
+		<result property="comment" column="comment" />
+		<result property="vote" column="vote" />
+		<result property="viewCnt" column="view_cnt" />
+		<result property="voteByMonth" column="vote_by_month" />
+		<result property="uploadfile" column="uploadfile" />
+		<result property="uploadfileBig" column="uploadfilebig" />
+		<result property="uploadfileOrg" column="uploadfileorg" />
+		<result property="isJoined" column="is_joined" />
+	</resultMap>
+
+	<resultMap id="missionMatchVoteMap" class="hashmap">
+		<result property="mId" column="m_id" />
+		<result property="mJId" column="mj_id" />
+		<result property="memberId" column="member_id" />
+		<result property="createdDate" column="created_date" />
+	</resultMap>
+
+	<resultMap id="missionMatchDataRnkMap" class="hashmap">
+		<result property="rank" column="rank" />
+		<result property="total" column="total" />
+		<result property="memberId" column="member_id" />
+		<result property="nickName" column="nick_name" />
+		<result property="sex" column="sex" />
+		<result property="mJId" column="mj_id" />
+		<result property="vote" column="vote" />
+		<result property="voteByMonth" column="vote_by_month" />
+		<result property="vote" column="vote" />
+		<result property="battleCnt" column="battle_cnt" />
+		<result property="battleJoinCnt" column="battle_join_cnt" />
+	</resultMap>
+
+	<resultMap id="missionMatchTotalDataRnkMap" class="hashmap">
+		<result property="mainPhotoUrl" column="main_photo_url" />
+		<result property="memberId" column="member_id" />
+		<result property="purposeCd" column="purpose_cd" />
+		<result property="location" column="location" />
+		<result property="membership" column="membership" />
+		<result property="certification" column="certification" />
+		<result property="nickName" column="nick_name" />
+		<result property="birthDate" column="birth_date" />
+		<result property="selfPr" column="self_pr" />
+		<result property="sex" column="sex" />
+		<result property="mJId" column="mj_id" />
+		<result property="vote" column="vote" />
+		<result property="voteByMonth" column="vote_by_month" />
+		<result property="battleCnt" column="battle_cnt" />
+		<result property="battleJoinCnt" column="battle_join_cnt" />
+	</resultMap>
+
+	<!-- 최신 미션매치 정보 -->
+	<select id="selectLastedMissionMatch" parameterClass="MissionMatchReqVO"
+		resultMap="missionMatchResultMap">
+		SELECT
+		m_id,
+		title ,
+		description,
+		date_format(start_date,'%Y-%m-%d %H:%i') AS start_date,
+		date_format(end_date,'%Y-%m-%d %H:%i') AS end_date,
+		max_count,
+		status,
+		use_multi_vote,
+		multi_vote_interval,
+		battle_cnt
+		FROM
+		mu_mission_match
+		WHERE
+		type = #type#
+		AND lang = #gLang#
+		AND start_date &lt; now()
+		AND end_date &gt; now()
+		AND status = 1
+		ORDER BY m_id DESC
+		LIMIT 1
+	</select>
+
+	<select id="selectMissionMatch" parameterClass="MissionMatchReqVO"
+		resultMap="missionMatchResultMap">
+		SELECT
+		m_id,
+		title ,
+		description,
+		date_format(start_date,'%Y-%m-%d %H:%i') AS start_date,
+		date_format(end_date,'%Y-%m-%d %H:%i') AS end_date,
+		max_count,
+		status,
+		use_multi_vote,
+		multi_vote_interval,
+		battle_cnt
+		FROM
+		mu_mission_match
+		WHERE
+		1=1
+		AND lang = #gLang#
+		<isNull property="mId">
+			<isNotNull property="type">
+				AND type = #type#
+			</isNotNull>
+		</isNull>
+		<isNotNull property="mId">
+			AND m_id = #mId#
+		</isNotNull>
+		AND start_date &lt; now()
+		AND end_date &gt; now()
+		AND status = 1
+		ORDER BY m_id DESC
+		LIMIT 1
+	</select>
+
+	<!-- 미션매치 배틀 카운트 업데이트 -->
+	<update id="updateMissionMatchBattle" parameterClass="MissionMatchReqVO">
+		UPDATE mu_mission_match SET
+		battle_cnt = battle_cnt + 1
+		WHERE
+		1=1
+		AND lang = #gLang#
+		<isNotEmpty property="type">
+			<isEqual property="type" compareValue="0">
+				AND type = 0
+				AND start_date &lt; now()
+				AND end_date &gt; now()
+				AND status = 1
+			</isEqual>
+		</isNotEmpty>
+		<isNotEmpty property="mId">
+			AND m_id = #mId#
+		</isNotEmpty>
+	</update>
+
+	<!-- 미션매치 배틀 카운트 업데이트 -->
+	<!--  UPDATE mu_mission_match_join SET
+			battle_join_cnt = battle_join_cnt + 1
+		WHERE
+		1=1
+		AND m_id = #mId#  -->
+	<update id="updateMissionMatchJoinBattle" parameterClass="MissionMatchReqVO">
+		UPDATE mu_mission_match_join SET
+			battle_join_cnt = battle_join_cnt + 1
+		WHERE
+		1=1
+		AND m_id = #mId#
+		<dynamic>
+			<isNotNull property="participant">
+				<iterate prepend="AND member_id IN " property="participant" open="(" close=")" conjunction="," >
+					#participant[]#
+				</iterate>
+			</isNotNull>
+		</dynamic>
+		
+	</update>
+
+	<!-- 미션매치 데이터 가져오기 use_yn 업데이트 : update mu_member m inner join mu_fm_result 
+		fm on m.member_id = fm.member_id set facematch_use_yn = case when fm.use_yn 
+		= 'Y' then 1 else 0 end -->
+	<select id="selectMissionMatchDatasByFaceMatchOnWinner"
+		parameterClass="MissionMatchReqVO">
+		SELECT
+		m.member_id
+		FROM
+		mu_member m
+		INNER JOIN mu_mission_match_join mmj ON m.member_id = mmj.member_id
+		INNER JOIN mu_mission_match mm ON mmj.m_id = mm.m_id
+		WHERE
+		m.facematch_use_yn = 1
+		AND mm.lang = #gLang#
+		AND m.member_id > 0
+		AND m.status = 'A'
+		<isNotEmpty property="sex">
+			AND m.sex = #sex#
+		</isNotEmpty>
+		AND mmj.vote > 0
+		AND mm.type = 0
+		ORDER BY RAND()
+		LIMIT #needSeedCount#
+	</select>
+	<select id="selectMissionMatchDatasByFaceMatch" parameterClass="MissionMatchReqVO"
+		resultMap="missionMatchDataByFaceMatchResultMap">
+		(
+		SELECT
+		m.member_id,
+		m.nick_name,
+		m.sex,
+		attr.attr_value as main_photo_url, 
+		IFNULL((SELECT count(*) FROM mu_mission_match_join WHERE member_id = m.member_id AND m_id = #mId#), 0) as is_joined 
+		FROM
+		mu_member m INNER JOIN mu_member_attr attr ON m.member_id = attr.member_id
+		WHERE
+		m.facematch_use_yn = 1
+		AND (attr.attr_name = 'mainPhotoBig' or attr.attr_name = 'mainPhotobig')
+		AND m.member_id > 0
+		AND m.status = 'A'
+		<isNotEmpty property="sex">
+			AND m.sex = #sex#
+		</isNotEmpty>
+		<dynamic>
+			<isNotNull property="winners">
+				<iterate prepend="AND member_id NOT IN " property="winners"
+					open="(" close=")" conjunction=",">
+					#winners[]#
+				</iterate>
+			</isNotNull>
+		</dynamic>
+		ORDER BY RAND()
+		LIMIT #needCount#
+		)
+		UNION ALL
+		(
+		SELECT
+		m.member_id,
+		m.nick_name,
+		m.sex,
+		attr.attr_value as main_photo_url,
+		1 as is_joined
+		FROM
+		mu_member m INNER JOIN mu_member_attr attr ON m.member_id = attr.member_id
+		WHERE
+		1=1
+		AND m.status = 'A'
+		<dynamic>
+			<isNotNull property="winners">
+				<iterate prepend="AND member_id IN " property="winners"
+					open="(" close=")" conjunction=",">
+					#winners[]#
+				</iterate>
+			</isNotNull>
+		</dynamic>
+		ORDER BY RAND()
+		LIMIT #needSeedCount#
+		)
+	</select>
+
+	<select id="selectMissionMatchDatasOnWinner" parameterClass="MissionMatchReqVO">
+		SELECT
+		m.member_id
+		FROM
+		mu_member m
+		INNER JOIN mu_mission_match_join mmj ON m.member_id = mmj.member_id
+		INNER JOIN mu_mission_match mm ON mmj.m_id = mm.m_id
+		WHERE
+		m.facematch_use_yn = 1
+		AND mm.lang = #gLang#
+		AND m.member_id > 0
+		AND m.status = 'A'
+		<isNotEmpty property="sex">
+			AND m.sex = #sex#
+		</isNotEmpty>
+		AND mmj.vote > 0
+		AND mm.m_id = #mId#
+		ORDER BY RAND()
+		LIMIT #needSeedCount#
+	</select>
+
+	<select id="selectMissionMatchDatas" parameterClass="MissionMatchReqVO"
+		resultMap="missionMatchDataResultMap">
+		(
+		SELECT
+		m.member_id,
+		m.nick_name,
+		m.sex,
+		mmj.mj_id,
+		mmj.comment,
+		mmj.vote,
+		mmj.view_cnt,
+		mmj.vote_by_month,
+		mmj.uploadfile,
+		mmj.uploadfilebig,
+		mmj.uploadfileorg ,
+		mmj.battle_join_cnt,
+		1 as is_joined
+		FROM
+		mu_member m
+		INNER JOIN mu_mission_match_join mmj ON m.member_id = mmj.member_id
+		WHERE
+		m.member_id > 0
+		AND m.status = 'A'
+		<isNotEmpty property="sex">
+			AND m.sex = #sex#
+		</isNotEmpty>
+		AND mmj.m_id = #mId#
+		<dynamic>
+			<isNotNull property="winners">
+				<iterate prepend="AND mmj.member_id NOT IN " property="winners"
+					open="(" close=")" conjunction=",">
+					#winners[]#
+				</iterate>
+			</isNotNull>
+		</dynamic>
+		ORDER BY RAND()
+		LIMIT #needCount#
+		)
+		UNION ALL
+		(
+		SELECT
+		m.member_id,
+		m.nick_name,
+		m.sex,
+		mmj.mj_id,
+		mmj.comment,
+		mmj.vote,
+		mmj.view_cnt,
+		mmj.vote_by_month,
+		mmj.uploadfile,
+		mmj.uploadfilebig,
+		mmj.uploadfileorg ,
+		mmj.battle_join_cnt,
+		1 as is_joined
+		FROM
+		mu_member m
+		INNER JOIN mu_mission_match_join mmj ON m.member_id = mmj.member_id
+		WHERE
+		1=1
+		AND m.status = 'A'
+		AND mmj.m_id = #mId#
+		<dynamic>
+			<isNotNull property="winners">
+				<iterate prepend="AND mmj.member_id IN " property="winners"
+					open="(" close=")" conjunction=",">
+					#winners[]#
+				</iterate>
+			</isNotNull>
+		</dynamic>
+		ORDER BY RAND()
+		LIMIT #needSeedCount#
+		)
+	</select>
+
+	<!-- 미션매치 참여여부 -->
+	<select id="selectMissionMatchJoin" parameterClass="MissionMatchReportReqVO"
+		resultClass="hashmap">
+		SELECT
+		mj_id,
+		created_date
+		FROM mu_mission_match_join
+		WHERE
+		member_id = #targetMemberId#
+		AND m_id = #mId#
+		ORDER BY created_date DESC
+		LIMIT 1
+	</select>
+
+	<!-- 미션매치 승수 업데이트 -->
+	<update id="updateJoinMissionMatch" parameterClass="MissionMatchReportReqVO">
+		UPDATE mu_mission_match_join SET
+		vote = vote +1
+		, vote_by_month = vote_by_month + 1
+		, updated_date = NOW()
+		WHERE
+		member_id = #targetMemberId#
+		AND m_id = #mId#
+	</update>
+
+	<!-- 미션매치 참여 -->
+	<insert id="joinMissionMatch" parameterClass="MissionMatchJoinReqVO">
+		INSERT INTO mu_mission_match_join
+		(
+		m_id
+		,member_id
+		,comment
+		,uploadfile
+		,uploadfilebig
+		,uploadfileorg
+		,vote
+		,created_date
+		,view_cnt
+		,vote_by_month
+		,battle_join_cnt
+		)
+		VALUES
+		(
+		#mId#
+		, #gMemberId#
+		, #comment#
+		, #uploadfile#
+		, #uploadfileBig#
+		, #uploadfileOrg#
+		, 1
+		, now()
+		, 1
+		, 1
+		, 0
+		)
+		<selectKey resultClass="Integer" keyProperty="mJId">
+			SELECT
+			last_insert_id()
+		</selectKey>
+	</insert>
+	
+	<!-- 페이스매치 미션매치 참여 저장 처리 -->
+	<insert id="joinMissionMatchByFaceMatchDirect" parameterClass="MissionMatchReportReqVO">
+		INSERT INTO mu_mission_match_join
+		(
+		m_id
+		,member_id
+		,comment
+		,uploadfile
+		,uploadfilebig
+		,uploadfileorg
+		,vote
+		,created_date
+		,view_cnt
+		,vote_by_month
+		, battle_join_cnt
+		)
+		SELECT
+		  #mId#
+		, #targetMemberId#
+		, ''
+		, (SELECT attr_value FROM mu_member_attr WHERE member_id = #targetMemberId# AND attr_name = 'mainPhoto')
+		, (SELECT attr_value FROM mu_member_attr WHERE member_id = #targetMemberId# AND (attr_name = 'mainPhotobig' OR attr_name = 'mainPhotoBig'))
+		, (SELECT attr_value FROM mu_member_attr WHERE member_id = #targetMemberId# AND (attr_name = 'mainPhotoorg' OR attr_name = 'mainPhotoOrg'))
+		, 0
+		, now()
+		, 0
+		, 0
+		, 0
+
+		<selectKey resultClass="Integer" keyProperty="mJId">
+			SELECT
+			last_insert_id()
+		</selectKey>
+	</insert>
+
+	<!-- 페이스매치 미션매치 참여 저장 처리 -->
+	<insert id="joinMissionMatchByFaceMatch" parameterClass="MissionMatchReportReqVO">
+		INSERT INTO mu_mission_match_join
+		(
+		m_id
+		,member_id
+		,comment
+		,uploadfile
+		,uploadfilebig
+		,uploadfileorg
+		,vote
+		,created_date
+		,view_cnt
+		,vote_by_month
+		, battle_join_cnt
+		)
+		SELECT
+		#mId#
+		, #targetMemberId#
+		, ''
+		, (SELECT attr_value FROM mu_member_attr WHERE member_id = #targetMemberId#
+		AND attr_name = 'mainPhoto')
+		, (SELECT attr_value FROM mu_member_attr WHERE member_id = #targetMemberId#
+		AND (attr_name = 'mainPhotobig' OR attr_name = 'mainPhotoBig'))
+		, (SELECT attr_value FROM mu_member_attr WHERE member_id = #targetMemberId#
+		AND (attr_name = 'mainPhotoorg' OR attr_name = 'mainPhotoOrg'))
+		, 1
+		, now()
+		, 1
+		, 1
+		, 0
+
+		<selectKey resultClass="Integer" keyProperty="mJId">
+			SELECT
+			last_insert_id()
+		</selectKey>
+	</insert>
+
+	<!-- 투표 정보 -->
+	<insert id="insertVote" parameterClass="hashmap">
+		INSERT INTO mu_mission_match_vote
+		(
+		m_id
+		, mj_id
+		, member_id
+		, created_date
+		)
+		VALUES
+		(
+		#mId#
+		, #mJId#
+		, #gMemberId#
+		, now()
+		)
+	</insert>
+
+	<!-- 최근 미션매치 투표 정보 반환 -->
+	<select id="selectRecentMissionMatchVote" parameterClass="MissionMatchReportReqVO"
+		resultMap="missionMatchVoteMap">
+		SELECT
+		m_id
+		, mj_id
+		, member_id
+		, date_format(created_date,'%Y-%m-%d %H:%i') AS created_date
+		FROM mu_mission_match_vote
+		WHERE
+		m_id = #mId#
+		AND mj_id = #mJId#
+		AND member_id = #gMemberId#
+		ORDER BY created_date DESC
+		LIMIT 1
+	</select>
+
+	<!-- 미션 정보를 기준으로 몇명이 참여했는지 여부 조회 -->
+	<select id="countJoinMissionMatch" parameterClass="MissionMatchJoinReqVO"
+		resultClass="hashmap">
+		SELECT
+		count(*) AS cnt
+		FROM
+		mu_mission_match_join
+		WHERE
+		m_id = #mId#
+	</select>
+
+	<!-- 내 순위 가져오기 -->
+	<select id="selectMyJoinRankMissionMatch" parameterClass="MissionMatchRankReqVO"
+		resultMap="missionMatchDataRnkMap">
+		SELECT
+		(
+		SELECT COUNT(*) AS cnt
+		FROM mu_mission_match_join
+		WHERE
+		m_id = #mId#
+
+		<isEqual property="searchType" compareValue="A">
+			AND vote > mmj.vote
+		</isEqual>
+
+		<isEqual property="searchType" compareValue="M">
+			AND vote_by_month > mmj.vote_by_month
+		</isEqual>
+
+		) +1 as rank,
+		(
+		SELECT COUNT(*)
+		FROM mu_mission_match_join
+		) as total,
+		m.member_id,
+		m.nick_name,
+		m.sex,
+		mmj.mj_id,
+		mmj.vote,
+		mmj.vote_by_month,
+		mm.battle_cnt,
+		mmj.battle_join_cnt
+		FROM mu_mission_match_join mmj
+		INNER JOIN mu_mission_match mm ON mmj.m_id = mm.m_id
+		INNER JOIN mu_member m ON mmj.member_id = m.member_id
+		WHERE
+		mmj.m_id = #mId#
+		AND m.status = 'A'
+		AND mm.lang = #gLang#
+		AND mmj.member_id = #targetMemberId#
+		LIMIT 1
+	</select>
+	<!-- 전체순위가져오기 -->
+	<select id="selectJoinRankMissionMatch" parameterClass="MissionMatchRankReqVO"
+		resultMap="missionMatchTotalDataRnkMap">
+		SELECT
+		m.member_id,
+		m.main_photo_url,
+		m.purpose_cd,
+		m.nick_name,
+		m.birth_date,
+		m.self_pr,
+		f_decrypt(m.location) as location,
+		get_membership(m.member_id) as membership,
+		get_certification(m.member_id) as certification,
+		m.sex,
+		mmj.mj_id,
+		mmj.vote,
+		mmj.vote_by_month,
+		mm.battle_cnt,
+		mmj.battle_join_cnt
+		FROM mu_mission_match_join mmj
+		INNER JOIN mu_mission_match mm ON mmj.m_id = mm.m_id
+		INNER JOIN mu_member m ON mmj.member_id = m.member_id
+		WHERE
+		1=1
+		AND mm.lang = #gLang#
+		AND m.status = 'A'
+		<isEqual property="type" compareValue="0">
+			AND mm.type = 0
+			AND mm.status = 1
+			AND start_date &lt; now()
+			AND end_date &gt; now()
+		</isEqual>
+		<isNotEmpty property="mId">
+			AND mmj.m_id = #mId#
+		</isNotEmpty>
+		<isNotEmpty property="sex">
+			AND m.sex = #sex#
+		</isNotEmpty>
+		ORDER
+		<isEqual property="searchType" compareValue="A">
+			BY mmj.vote DESC,
+		</isEqual>
+		<isEqual property="searchType" compareValue="M">
+			BY mmj.vote_by_month DESC,
+		</isEqual>
+		mmj.member_id ASC
+		LIMIT 30
+	</select>
+
+
+</sqlMap>

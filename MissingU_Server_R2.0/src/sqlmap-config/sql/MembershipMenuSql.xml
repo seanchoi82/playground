@@ -1,0 +1,644 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Membership">
+    <typeAlias alias="MemberRegisterReqVO" type="kr.ko.nexmain.server.MissingU.membership.model.MemberRegisterReqVO" />
+    <typeAlias alias="UpdateMemberReqVO" type="kr.ko.nexmain.server.MissingU.membership.model.UpdateMemberReqVO" />
+    <typeAlias alias="LoginReqVO" type="kr.ko.nexmain.server.MissingU.membership.model.LoginReqVO" />
+    <typeAlias alias="CommReqVO" type="kr.ko.nexmain.server.MissingU.common.model.CommReqVO" />
+    <typeAlias alias="GcmUpdateReqVO" type="kr.ko.nexmain.server.MissingU.membership.model.GcmUpdateReqVO" />
+    <typeAlias alias="MemberAttr" type="kr.ko.nexmain.server.MissingU.membership.model.MemberAttr" />
+    <typeAlias alias="ItemSndRcvHistReqVO" type="kr.ko.nexmain.server.MissingU.membership.model.ItemSndRcvHistReqVO" />
+    <typeAlias alias="IssueTempPassReqVO" type="kr.ko.nexmain.server.MissingU.membership.model.IssueTempPassReqVO" />
+    <typeAlias alias="UpdateFmJoinYnReqVO" type="kr.ko.nexmain.server.MissingU.membership.model.UpdateFmJoinYnReqVO" />
+	
+    <!-- =============================================== -->
+    <!-- Result Map Mapping -->
+    <!-- =============================================== -->
+    <!-- Member 결과 Map -->
+	<resultMap id="memberResultMap" class="hashmap">
+		<result property="memberId" column="member_id" />
+		<result property="status" column="status" />
+		<result property="gcmUseYn" column="gcm_use_yn" />
+		<result property="gcmRegId" column="gcm_reg_id" />
+		<result property="loginId" column="login_id" />
+		<result property="loginPw" column="login_pw" />
+		<result property="nickName" column="nick_name" />
+		<result property="sex" column="sex" />
+		<result property="bloodTypeCd" column="blood_type_cd" />
+		<result property="birthDate" column="birth_date" />
+		<result property="birthTime" column="birth_time" />
+		<result property="lunarSolarCd" column="lunar_solar_cd" />
+		<result property="appearanceTypeCd" column="appearance_type_cd" />
+		<result property="bodyTypeCd" column="body_type_cd" />
+		<result property="areaCd" column="area_cd" />
+		<result property="purposeCd" column="purpose_cd" />
+		<result property="hobbyCd" column="hobby_cd" />
+		<result property="drinkingHabitCd" column="drinking_habit_cd" />
+		<result property="smokingHabitCd" column="smoking_habit_cd" />
+		<result property="selfPr" column="self_pr" />
+		<result property="mainPhotoUrl" column="main_photo_url" />
+		<result property="lang" column="lang" />
+		<result property="location" column="location" />
+		<result property="country" column="country" />
+		<result property="gPosX" column="g_pos_x" />
+		<result property="gPosY" column="g_pos_y" />
+		<result property="checkPwd" column="check_pwd" />
+		
+	</resultMap>
+	
+	<!-- 회원속성 resultMap -->
+	<resultMap id="memberAttrResultMap" class="hashmap">
+		<result property="memberId" column="member_id" />
+		<result property="attrName" column="attr_name" />
+		<result property="attrValue" column="attr_value" />
+	</resultMap>
+	
+	<resultMap id="simpleMemberResultMap" class="hashmap">
+		<result property="memberId" column="member_id" />
+		<result property="gcmRegId" column="gcm_reg_id" />
+		<result property="gcmUseYn" column="gcm_use_yn" />
+		<result property="nickName" column="nick_name" />
+		<result property="sex" column="sex" />
+		<result property="mainPhotoUrl" column="main_photo_url" />
+		<result property="lang" column="lang" /> 
+	</resultMap>
+	
+	<resultMap id="memberPointResultMap" class="hashmap">
+		<result property="memberId" column="member_id" />
+		<result property="sex" column="sex" />
+		<result property="point" column="point" />
+	</resultMap>
+	
+	<resultMap id="inventoryResultMap" class="hashmap">
+		<result property="itemTypeCd" column="item_cd" />
+		<result property="itemName" column="item_name" />
+		<result property="itemAmount" column="item_amount" />
+		<result property="unreadCount" column="unread_count" />
+	</resultMap>
+	
+	<resultMap id="itemSndRcvHistResultMap" class="hashmap">
+		<result property="itemHistId" column="item_hist_id" />
+		<result property="itemCd" column="item_cd" />
+		<result property="memberId" column="member_id" />
+		<result property="sex" column="sex" />
+		<result property="nickName" column="nick_name" />
+		<result property="mainPhotoUrl" column="main_photo_url" />
+		<result property="itemCnt" column="item_amount" />
+		<result property="sendDate" column="send_date" />
+		<result property="membership" column="membership"/>
+		<result property="certification" column="certification" />
+	</resultMap>
+	
+	<resultMap id="pointUsageHistResultMap" class="hashmap">
+		<result property="pointHistId" column="point_hist_id" />
+		<result property="eventTypeCd" column="event_type_cd" />
+		<result property="usageCd" column="usage_cd" />
+		<result property="useDesc" column="use_desc" />
+		<result property="usePoint" column="use_point" />
+		<result property="remainPoint" column="remain_point" />
+		<result property="useDate" column="use_date" />
+	</resultMap>
+	
+	<resultMap id="itemResultMap" class="hashmap">
+		<result property="itemGroup" column="item_group" />
+		<result property="itemCnt" column="item_cnt" />
+		<result property="itemSendCnt" column="item_send_cnt" />
+		<result property="unreadCnt" column="unread_cnt" />
+	</resultMap>
+	
+	<resultMap id="friendCntResultMap" class="hashmap">
+		<result property="followCnt" column="follow_cnt" />
+		<result property="blackListCnt" column="blocked_cnt" />
+		<result property="followerCnt" column="follower_cnt" />
+	</resultMap>
+	
+	
+	
+	
+	<select id="selectMemberCntByEmailId" parameterClass="MemberRegisterReqVO" resultClass="Integer">
+	    <![CDATA[
+	    SELECT 
+	    		count(*)  cnt 
+  		FROM  mu_member a
+  		WHERE login_id = #loginId#
+	    ]]>
+	</select>
+	
+	<select id="selectMemberCntByNickName" parameterClass="UpdateMemberReqVO" resultClass="Integer">
+	    <![CDATA[
+	    SELECT 
+	    		count(*)  cnt 
+  		FROM  mu_member a
+  		WHERE nick_name = #nickName#
+  		AND   member_id <> #memberId#
+	    ]]>
+	</select>
+	
+	<!-- 
+	<select id="selectMemberCntByLoginAccount" parameterClass="kr.ko.nexmain.server.MissingU.membership.model.LoginReqVO" resultClass="Integer">
+	    <![CDATA[
+	    SELECT 
+	    		count(*)  cnt 
+  		FROM  mu_member a
+  		WHERE login_id = #loginId#
+  		AND   login_pw = password(#loginPw#)
+	    ]]>
+	</select>
+	 -->
+	
+	<!-- 로그인 계정 체크 -->
+	<select id="selectMemberByLoginAccount" parameterClass="LoginReqVO" resultMap="memberResultMap">
+	    <![CDATA[
+	    SELECT 
+	    		member_id,
+	    		status,
+				login_id,
+				login_pw,
+				nick_name,
+				gcm_reg_id,
+				gcm_use_yn,
+				sex,
+				blood_type_cd,
+				birth_date,
+				lunar_solar_cd,
+				birth_time,
+				appearance_type_cd,
+				body_type_cd,
+				purpose_cd,
+				hobby_cd,
+				drinking_habit_cd,
+				smoking_habit_cd,
+				self_pr,
+				main_photo_url,
+				created_date,
+				updated_date,
+				area_cd,
+				g_pos_x,
+				g_pos_y,
+				lang,
+				country, 
+				f_decrypt(location) as location, 
+				CASE WHEN login_pw = password(#loginPw#) THEN 'Y' ELSE 'N' END AS check_pwd 
+  		FROM  mu_member a
+  		WHERE login_id = #loginId#
+  		AND   status = 'A'
+	    ]]>
+	</select>
+	
+	<!-- 마이페이지 조회 -->
+	<select id="selectMemberByMemberId" parameterClass="CommReqVO" resultMap="memberResultMap">
+	    <![CDATA[
+	    SELECT
+	    		member_id,
+	    		status,
+				login_id,
+				login_pw,
+				nick_name,
+				gcm_reg_id,
+				gcm_use_yn,
+				sex,
+				blood_type_cd,
+				birth_date,
+				lunar_solar_cd,
+				birth_time,
+				appearance_type_cd,
+				body_type_cd,
+				purpose_cd,
+				hobby_cd,
+				drinking_habit_cd,
+				smoking_habit_cd,
+				self_pr,
+				main_photo_url,
+				created_date,
+				updated_date,
+				area_cd,
+				g_pos_x,
+				g_pos_y,
+				lang,
+				country, 
+				f_decrypt(location) as location, 
+				'' as check_pwd
+  		FROM	mu_member a
+  		WHERE	member_id = #gMemberId#
+	    ]]>
+	</select>
+	
+	<!-- 회원속성 리스트 조회 -->
+	<select id="selectMemberAttrByMemberId" parameterClass="CommReqVO" resultMap="memberAttrResultMap">
+	<![CDATA[
+	    SELECT
+	    		a.*
+  		FROM	mu_member_attr a
+  		WHERE	member_id = #gMemberId#
+	]]>
+	</select>
+	
+	<!-- 회원속성 조회 -->
+	<select id="selectMemberAttrByMemberIdAndName" parameterClass="MemberAttr" resultMap="memberAttrResultMap">
+	<![CDATA[
+		SELECT
+				a.*
+  		FROM	mu_member_attr a
+  		WHERE	member_id	= #memberId#
+  		AND		attr_name	= #attrName#
+  		LIMIT	1
+	]]>
+	</select>
+	
+	<!-- 회원정보 생성 -->
+	<insert id="insertIntoMember" parameterClass="MemberRegisterReqVO">
+	    INSERT INTO mu_member
+	    	(
+	    		status,
+				login_id,
+				login_pw,
+				nick_name,
+				gcm_reg_id,
+				sex,
+				blood_type_cd,
+				birth_date,
+				lunar_solar_cd,
+				birth_time,
+				appearance_type_cd,
+				body_type_cd,
+				purpose_cd,
+				hobby_cd,
+				drinking_habit_cd,
+				smoking_habit_cd,
+				self_pr,
+				created_date,
+				updated_date,
+				area_cd,
+				g_pos_x,
+				g_pos_y,
+				lang,
+				country, 
+				hp_nm
+	    	)
+	    VALUES
+	    	(
+	    		#status#,
+				#loginId#,
+				password(#loginPw#),
+				#nickName#,
+				#gcmRegId#,
+				#sex#,
+				#bloodTypeCd#,
+				#birthDate#,
+				#lunarSolarCd#,
+				#birthTime#,
+				#appearanceTypeCd#,
+				#bodyTypeCd#,
+				#purposeCd#,
+				#hobbyCd#,
+				#drinkingHabitCd#,
+				#smokingHabitCd#,
+				#selfPr#,
+				now(),
+				null,
+				#areaCd#,
+				#gPosX#,
+				#gPosY#,
+				#gLang#,
+				#gCountry#, 
+				#hpNm#
+	    	)
+	    <selectKey resultClass="Integer" keyProperty="memberId">
+			SELECT last_insert_id()
+		</selectKey>
+	</insert>
+	
+	<!-- 회원정보 수정 -->
+	<update id="updateMemberByMemberId" parameterClass="UpdateMemberReqVO">
+		UPDATE mu_member SET
+				login_id 			= IFNULL(#loginId#,login_id),
+				<isNotEmpty property="loginPw">
+				login_pw 			= password(#loginPw#),    
+				</isNotEmpty>
+				hp_nm			= IFNULL(#hpNm#, hp_nm),
+				status 				= IFNULL(#status#,status),
+				name 			= IFNULL(#name#,name),
+				nick_name 			= IFNULL(#nickName#,nick_name),
+				gcm_reg_id 			= IFNULL(#gcmRegId#,gcm_reg_id),
+				sex 				= IFNULL(#sex#,sex),
+				blood_type_cd 		= IFNULL(#bloodTypeCd#,blood_type_cd),
+				birth_date 			= IFNULL(#birthDate#,birth_date),
+				lunar_solar_cd		= IFNULL(#lunarSolarCd#,lunar_solar_cd),
+				birth_time		 	= IFNULL(#birthTime#,birth_time),
+				appearance_type_cd 	= IFNULL(#appearanceTypeCd#,appearance_type_cd),
+				body_type_cd 		= IFNULL(#bodyTypeCd#,body_type_cd),
+				purpose_cd 			= IFNULL(#purposeCd#,purpose_cd),
+				hobby_cd 			= IFNULL(#hobbyCd#,hobby_cd),
+				drinking_habit_cd 	= IFNULL(#drinkingHabitCd#,drinking_habit_cd),
+				smoking_habit_cd 	= IFNULL(#smokingHabitCd#,smoking_habit_cd),
+				self_pr 			= IFNULL(#selfPr#,self_pr),
+				updated_date 		= now(),
+				area_cd 			= IFNULL(#areaCd#,area_cd),
+				location 			= IFNULL(f_encrypt(#location#), location),
+				g_pos_x 			= IFNULL(#gPosX#,g_pos_x),
+				g_pos_y 			= IFNULL(#gPosY#,g_pos_y),
+				lang				= IFNULL(#gLang#,lang),
+				country				= IFNULL(#gCountry#,country)
+		WHERE 
+				member_id = #memberId#
+	</update>
+	
+	<!-- 회원속성 수정 -->
+	<update id="updateMemberAttr" parameterClass="MemberAttr">
+		INSERT INTO mu_member_attr
+			(
+				member_id,
+				attr_name,
+				attr_value,
+				created_date
+			)
+		VALUES
+			(
+				#memberId#,
+				#attrName#,
+				#attrValue#,
+				now()
+			)
+		ON DUPLICATE KEY
+		UPDATE	attr_name = #attrName#,
+				attr_value = #attrValue#,
+				updated_date = now()
+	</update>
+	
+	<delete id="deleteMemberAttr" parameterClass="MemberAttr">
+	    DELETE FROM mu_member_attr
+	    WHERE
+	    	member_id = #memberId# 
+	    	AND attr_name = #attrName#
+	</delete>
+	
+	<!-- 회원 MainPhotoUrl 업데이트 -->
+	<update id="updateMemberMainPhotoUrl" parameterClass="hashmap">
+		UPDATE mu_member SET
+				main_photo_url		= #mainPhotoUrl#,
+				updated_date 		= now()
+		WHERE	member_id = #memberId#
+	</update>
+	
+	<!-- 간단 회원정보 조회 -->
+	<select id="selectSimpleMemberInfoByMemberId" resultMap="simpleMemberResultMap" parameterClass="Integer">
+	    SELECT	
+	    		member_id,
+	    		gcm_reg_id,
+	    		gcm_use_yn,
+	    		main_photo_url,
+	    		nick_name,
+	    		sex,
+	    		lang
+	    FROM 	mu_member
+	    WHERE	member_id = #memberId#
+	</select>
+	
+	<!-- 회원조회 : 포인트 포함 -->
+	<select id="selectMemberAndPointInfoByMemberId" resultMap="memberPointResultMap" parameterClass="Integer">
+	    SELECT	
+	    		member_id,
+	    		sex,
+	    		IFNULL((SELECT item_amount FROM mu_inventory
+	    				WHERE	member_id = m.member_id
+	    				AND		item_cd = 'T00000'),0)		AS point
+	    FROM 	mu_member	m
+	    WHERE	member_id = #memberId#
+	</select>
+	
+	<!-- 간단 회원정보 조회 -->
+	<select id="selectSimpleMemberByIDAndNickName" resultMap="simpleMemberResultMap" parameterClass="IssueTempPassReqVO">
+	    SELECT	
+	    		member_id,
+	    		gcm_reg_id,
+	    		gcm_use_yn,
+	    		main_photo_url,
+	    		nick_name,
+	    		sex,
+	    		lang
+	    FROM 	mu_member
+	    WHERE	login_id = #loginId#
+	    AND		nick_name = #nickName#
+	</select>
+	
+	<!-- 회원 GCM 정보 업데이트 -->
+	<update id="updateGcmInfo" parameterClass="GcmUpdateReqVO">
+		UPDATE	mu_member SET
+				gcm_reg_id 			= IFNULL(#gcmRegId#, gcm_reg_id),
+				gcm_use_yn 			= IFNULL(#gcmUseYn#, gcm_use_yn),
+				updated_date 		= now()
+		WHERE	member_id = #gMemberId#
+	</update>
+	
+	<!-- 회원 계정 삭제 -->
+	<update id="updateForMemberCancelation" parameterClass="Integer">
+		UPDATE	mu_member SET
+				gcm_reg_id 			= '',
+				status	 			= 'C',
+				updated_date 		= now()
+		WHERE	member_id = #memberId#
+	</update>
+	
+	<!-- 회원 실제 계정 삭제 -->
+	<delete id="deleteMember" parameterClass="Integer">
+		DELETE FROM	mu_member 
+		WHERE	member_id = #memberId#
+	</delete>
+	
+	<!-- 회원 아이템 인벤토리 조회 -->
+	<select id="selectInventoryByMemberId" resultMap="inventoryResultMap" parameterClass="CommReqVO">
+		SELECT	
+				item_cd,
+				(SELECT item_name FROM mu_item WHERE item_cd = i.item_cd)	AS item_name,
+				(SELECT item_order FROM mu_item WHERE item_cd = i.item_cd)	AS item_order,
+				item_amount,
+				(SELECT	count(*) FROM mu_item_snd_rcv_hist
+				 WHERE	receiver_id = i.member_id
+				 AND    item_cd = i.item_cd
+				 AND	receiver_read_yn = 'N')		AS unread_count
+		FROM 	mu_inventory	i
+		WHERE	i.member_id		= #gMemberId#
+		AND		i.show_yn		= 'Y'
+		ORDER BY item_order
+	</select>
+	
+	<!-- 회원 아이템 정보 조회 -->
+	<select id="selectItemInfoByMemberIdAndItemGroup" resultMap="itemResultMap" parameterClass="CommReqVO">
+		SELECT	
+				MAX(t.item_group)	AS item_group,
+				SUM(i.item_amount)	AS item_cnt,
+				SUM((SELECT	count(*) FROM mu_item_snd_rcv_hist
+					WHERE	sender_id = i.member_id
+					AND    item_cd = i.item_cd))		AS item_send_cnt,
+				SUM((SELECT	count(*) FROM mu_item_snd_rcv_hist
+					WHERE	receiver_id = i.member_id
+					AND    item_cd = i.item_cd
+					AND	receiver_read_yn = 'N'))		AS unread_cnt
+		FROM 	mu_inventory	i
+				,mu_item		t
+		WHERE	i.item_cd		= t.item_cd
+		AND		i.member_id		= #gMemberId#
+		AND		i.show_yn		= 'Y'
+		<isNotEmpty property="searchType">
+			AND		t.item_group	= #searchType#
+		</isNotEmpty>
+	</select>
+	
+	<!-- 회원 아이템 수신 내역 조회 -->
+	<select id="selectItemReceiveHistByItemGroup" resultMap="itemSndRcvHistResultMap" parameterClass="ItemSndRcvHistReqVO">
+	<![CDATA[
+		SELECT	
+				i.id			AS item_hist_id,
+				i.sender_id		AS member_id,
+				i.item_cd,
+				i.item_amount,
+				(SELECT sex FROM mu_member WHERE member_id = i.sender_id)				AS sex,
+				(SELECT nick_name FROM mu_member WHERE member_id = i.sender_id)			AS nick_name,
+				(SELECT main_photo_url FROM mu_member WHERE member_id = i.sender_id)	AS main_photo_url,
+				date_format(i.created_date,'%Y-%m-%d %H:%i')							AS send_date, 
+				get_membership(i.sender_id) as membership,
+				get_certification(i.sender_id) as  certification
+		FROM 	mu_item_snd_rcv_hist	i
+				,mu_item		t
+		WHERE	i.item_cd		= t.item_cd
+		AND		i.receiver_id	= #gMemberId#
+		AND		t.item_group	= #itemGroup#
+		AND		i.id < IFNULL(#lastItemId#,999999999999999)
+		ORDER BY i.id desc
+	]]>
+	</select>
+	
+	<!-- 회원 아이템 송신 내역 조회 -->
+	<select id="selectItemSendHistByItemGroup" resultMap="itemSndRcvHistResultMap" parameterClass="ItemSndRcvHistReqVO">
+	<![CDATA[
+		SELECT	
+				i.id				AS item_hist_id,
+				i.receiver_id     AS member_id,
+				i.item_cd,
+				i.item_amount,
+				(SELECT sex FROM mu_member WHERE member_id = i.receiver_id)				AS sex,
+				(SELECT nick_name FROM mu_member WHERE member_id = i.receiver_id)		AS nick_name,
+				(SELECT main_photo_url FROM mu_member WHERE member_id = i.receiver_id)	AS main_photo_url,
+				date_format(i.created_date,'%Y-%m-%d %H:%i')							AS send_date, 
+				get_membership(i.receiver_id) as membership,
+				get_certification(i.receiver_id) as  certification
+		FROM 	mu_item_snd_rcv_hist	i
+				,mu_item		t
+		WHERE	i.item_cd		= t.item_cd
+		AND		i.sender_id		= #gMemberId#
+		AND		t.item_group	= #itemGroup#
+		AND		i.id < IFNULL(#lastItemId#,999999999999999)
+		ORDER BY i.id desc
+	]]>
+	</select>
+	
+	<!-- 친구 수 조회 -->
+	<select id="selectFriendCntByMemberId" resultMap="friendCntResultMap" parameterClass="CommReqVO">
+		SELECT	
+				(SELECT	count(*) FROM mu_friends
+					WHERE	member_id = m.member_id
+					AND		status='A')				AS follow_cnt,
+				(SELECT	count(*) FROM mu_friends
+					WHERE	member_id = m.member_id
+					AND		status='B')				AS blocked_cnt,
+				(SELECT	count(*) FROM mu_friends
+					WHERE	friend_id = m.member_id
+					AND		status='A')				AS follower_cnt
+		FROM 	mu_member	m
+		WHERE	m.member_id		= #gMemberId#
+	</select>
+	
+	<!-- 포인트 사용내역 Insert -->
+	<insert id="insertIntoPointUsageHist" parameterClass="hashmap">
+	    INSERT INTO mu_point_usage_hist
+	    	(member_id, event_type_cd, usage_cd, use_desc, use_point, remain_point, created_date)
+	    VALUES
+	    	(#memberId#, #eventTypeCd#, #usageCd#, #useDesc#, #usePoint#, #remainPoint#, now())
+	</insert>
+	
+	<!-- 포인트 사용내역 조회 -->
+	<select id="selectPointUsageHist" resultMap="pointUsageHistResultMap" parameterClass="CommReqVO">
+	<![CDATA[
+		SELECT	
+				point_hist_id,
+				event_type_cd,
+				usage_cd,
+				use_desc,
+				use_point,
+				remain_point,
+				date_format(created_date,'%Y-%m-%d %H:%i')			AS use_date
+		FROM 	mu_point_usage_hist
+		WHERE	member_id		= #gMemberId#
+		AND		point_hist_id < IFNULL(#lastItemId#,999999999999999)
+		ORDER BY point_hist_id desc
+		LIMIT	15
+	]]>
+	</select>
+	
+	<!-- SELECT : 미확인 윙크, 쪽지 수 조회 -->
+	<select id="selectUnreadItemCntByMemberId" resultClass="Integer" parameterClass="Integer">
+	<![CDATA[
+		SELECT	IFNULL(COUNT(*), 0)     AS unread_item_cnt
+		FROM 	mu_item_snd_rcv_hist
+		WHERE	receiver_id	= #gMemberId#
+		AND		receiver_read_yn = 'N'
+	]]>
+	</select>
+	
+	<update id="updateItemSndRcvHistAsRead" parameterClass="ItemSndRcvHistReqVO">
+		UPDATE	mu_item_snd_rcv_hist	hist,
+				mu_item					item
+		SET
+				hist.receiver_read_yn	= 'Y',
+				hist.receiver_read_date	= now(),
+				hist.updated_date 		= now()
+		WHERE	hist.item_cd		= item.item_cd
+		AND		hist.receiver_id	= #gMemberId#
+		AND		item.item_group 	= #itemGroup#
+		AND		hist.receiver_read_yn = 'N'
+	</update>
+	
+	<!-- 페이스매치 참여 여부 업데이트 -->
+	<update id="updateFmJoinYn" parameterClass="UpdateFmJoinYnReqVO">
+	    UPDATE mu_member SET
+	    	facematch_use_yn = IFNULL(#fmJoinYn#, facematch_use_yn), 
+	    	updated_date 	= now()
+	    WHERE	member_id = #gMemberId#
+		
+	</update>
+	<!-- 페이스매치 참여여부 변경 UPDATE	mu_fm_result SET use_yn 			= IFNULL(#fmJoinYn#, use_yn), updated_date 	= now() WHERE	member_id = #gMemberId# -->
+	
+	<!-- 페이스매치 참여여부 조회 -->
+	<select id="selectFmJoinYnByMemberId" parameterClass="CommReqVO" resultClass="String">
+	    <![CDATA[
+	    SELECT 
+	    	facematch_use_yn 
+  		FROM  mu_member 
+  		WHERE member_id = #gMemberId#
+	    ]]>
+	</select>
+	<!--  SELECT  use_yn  FROM  mu_fm_result WHERE member_id = #gMemberId# LIMIT 1 -->
+	
+	
+	<insert id="defaultInventoryInsert" parameterClass="hashmap">
+	    INSERT INTO mu_inventory
+			(
+				member_id,
+				item_cd,
+				item_amount,
+				created_date
+			)
+		VALUES
+			(
+				#memberId#,
+				#itemCd#,
+				0,
+				now()
+			)
+	</insert>
+	
+</sqlMap>

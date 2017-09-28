@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMapConfig
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+	<settings useStatementNamespaces="true" />
+	<sqlMap resource="sqlmap-config/sql/MsgBoxMenuSql.xml" />
+	<sqlMap resource="sqlmap-config/sql/ChatMenuSql.xml" />
+	<sqlMap resource="sqlmap-config/sql/AdminMenuSql.xml" />
+	<sqlMap resource="sqlmap-config/sql/AdminCashMenuSql.xml" />
+	<sqlMap resource="sqlmap-config/sql/MembershipMenuSql.xml" />
+	<sqlMap resource="sqlmap-config/sql/FriendsMenuSql.xml" />
+	<sqlMap resource="sqlmap-config/sql/TalktomeMenuSql.xml" />
+	<sqlMap resource="sqlmap-config/sql/ConfigMenuSql.xml" />
+	<sqlMap resource="sqlmap-config/sql/FaceMatchMenuSql.xml" />
+	<sqlMap resource="sqlmap-config/sql/TheshopMenuSql.xml" />
+	<sqlMap resource="sqlmap-config/sql/HarmonyMenuSql.xml" />
+	<sqlMap resource="sqlmap-config/sql/CommonMenuSql.xml" />
+	<sqlMap resource="sqlmap-config/sql/VersionInfoMenuSql.xml" />
+	<sqlMap resource="sqlmap-config/sql/MissionMatchMenuSql.xml" />
+</sqlMapConfig>

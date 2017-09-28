@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Talktome">
+    <typeAlias alias="CommReqVO" type="kr.ko.nexmain.server.MissingU.common.model.CommReqVO" />
+    <typeAlias alias="SaveTalkReqVO" type="kr.ko.nexmain.server.MissingU.talktome.model.SaveTalkReqVO" />
+    <typeAlias alias="SaveTalkReplyReqVO" type="kr.ko.nexmain.server.MissingU.talktome.model.SaveTalkReplyReqVO" />
+    <typeAlias alias="GetTalkReqVO" type="kr.ko.nexmain.server.MissingU.talktome.model.GetTalkReqVO" />
+	
+    <!-- =============================================== -->
+    <!-- Result Map Mapping -->
+    <!-- =============================================== -->
+	<!-- 톡투미 글 리스트 resultMap -->
+	<resultMap id="talktomeResultMap" class="hashmap">
+		<result property="talkId" column="talk_id" />
+		<result property="memberId" column="member_id" />
+		<result property="sex" column="sex" />
+		<result property="nickName" column="nick_name" />
+		<result property="mainPhotoUrl" column="main_photo_url" />
+		<result property="title" column="title" />
+		<result property="contents" column="contents" />
+		<result property="readCnt" column="read_cnt" />
+		<result property="replyCnt" column="reply_cnt" />
+		<result property="talkPhotoUrl" column="talk_photo_url" />
+		<result property="talkPhotoBigUrl" column="talk_photo_big_url" />
+		<result property="talkPhotoOrgUrl" column="talk_photo_org_url" />
+		<result property="createdDate" column="created_date" />
+		<result property="country" column="country" />
+		<result property="lang" column="lang" />
+		<result property="membership" column="membership"/>
+		<result property="certification" column="certification" />
+	</resultMap>
+	
+	<!-- 톡투미 댓글 리스트 resultMap -->
+	<resultMap id="talktomeReplyResultMap" class="hashmap">
+		<result property="replyId" column="reply_id" />
+		<result property="talkId" column="talk_id" />
+		<result property="replyContent" column="reply_content" />
+		<result property="memberId" column="member_id" />
+		<result property="sex" column="sex" />
+		<result property="nickName" column="nick_name" />
+		<result property="mainPhotoUrl" column="main_photo_url" />
+		<result property="createdDate" column="created_date" />
+		<result property="membership" column="membership"/>
+		<result property="certification" column="certification" />
+	</resultMap>
+
+	<!-- =============================================== -->
+    <!-- QUERY -->
+    <!-- =============================================== -->
+	<!-- 톡투미 글 리스트 조회 -->
+	<select id="selectTalktomeForList" parameterClass="CommReqVO" resultMap="talktomeResultMap">
+	    
+	    SELECT 
+	    		t.talk_id,
+	    		t.member_id,
+	    		m.sex,
+	    		m.nick_name,
+	    		m.main_photo_url,
+	    		m.lang, 
+	    		m.country, 
+				t.title,
+				t.contents,
+				t.read_cnt,
+				t.reply_cnt,
+				t.talk_photo_url,
+				t.talk_photo_big_url,
+				t.talk_photo_org_url,
+				date_format(t.created_date,'%Y-%m-%d %H:%i')		created_date,
+				date_format(t.updated_date,'%Y-%m-%d %H:%i')		updated_date, 
+				get_membership(m.member_id) as membership,
+				get_certification(m.member_id) as  certification
+  		FROM	mu_talktome t, mu_member m
+  		WHERE	t.member_id = m.member_id
+  		AND		m.status = 'A' 
+  		AND		t.talk_id &lt; IFNULL(#lastItemId#,999999999999999)
+	    AND		t.hide_tag = 0
+  		ORDER BY t.talk_id desc
+  		LIMIT 20
+	    
+	    
+	</select>
+	
+	<!-- 톡투미 글 단건 조회 -->
+	<select id="selectTalktome" parameterClass="GetTalkReqVO" resultMap="talktomeResultMap">
+	    <![CDATA[
+	    SELECT 
+	    		t.talk_id,
+	    		t.member_id,
+	    		m.sex,
+	    		m.nick_name,
+	    		m.main_photo_url,
+	    		m.lang, 
+	    		m.country,
+				t.title,
+				t.contents,
+				t.read_cnt,
+				t.reply_cnt,
+				t.talk_photo_url,
+				t.talk_photo_big_url,
+				t.talk_photo_org_url,
+				date_format(t.created_date,'%Y-%m-%d %H:%i')		created_date,
+				date_format(t.updated_date,'%Y-%m-%d %H:%i')		updated_date, 
+				get_membership(m.member_id) as membership,
+				get_certification(m.member_id) as  certification
+  		FROM	mu_talktome t, mu_member m
+  		WHERE	t.member_id = m.member_id
+  		AND		m.status = 'A'
+  		AND		t.talk_id = #talkId#
+	    ]]>
+	</select>
+	
+	<!-- 톡투미 작성자 회원ID 조회 -->
+	<select id="selectTalkWriterId" parameterClass="Integer" resultClass="Integer">
+	    <![CDATA[
+	    SELECT 
+	    		member_id
+  		FROM	mu_talktome
+  		WHERE	talk_id = #talkId#
+	    ]]>
+	</select>
+	
+	<!-- 톡투미 댓글 조회 -->
+	<select id="selectTalktomeReplyList" parameterClass="GetTalkReqVO" resultMap="talktomeReplyResultMap">
+	    <![CDATA[
+	    SELECT 
+	    		t.reply_id,
+	    		t.talk_id,
+	    		t.member_id,
+	    		m.sex,
+	    		m.nick_name,
+	    		m.main_photo_url,
+				t.reply_content,
+				date_format(t.created_date,'%Y-%m-%d %H:%i')		created_date,
+				date_format(t.updated_date,'%Y-%m-%d %H:%i')		updated_date, 
+				get_membership(m.member_id) as membership,
+				get_certification(m.member_id) as  certification
+  		FROM	mu_talktome_reply t, mu_member m
+  		WHERE	t.member_id = m.member_id
+  		AND		m.status = 'A'
+  		AND		t.talk_id = #talkId#
+  		ORDER BY t.reply_id
+	    ]]>
+	</select>
+		
+	<!-- 톡투미 글 생성 -->
+	<insert id="insertIntoTalktome" parameterClass="SaveTalkReqVO">
+	    INSERT INTO mu_talktome
+	    	(
+				hide_tag, 	    		
+	    		member_id,
+				title,
+				contents,
+				read_cnt,
+				reply_cnt,
+				talk_photo_url,
+				talk_photo_big_url,
+				talk_photo_org_url,
+				created_date
+	    	)
+	    VALUES
+	    	(
+	    		0, 
+	    		#gMemberId#,
+				#title#,
+				#contents#,
+				0,
+				0,
+				#talkPhotoUrl#,
+				#talkPhotoBigUrl#,
+				#talkPhotoOrgUrl#,
+				now()
+	    	)
+	    <selectKey resultClass="Integer" keyProperty="talkId">
+			SELECT last_insert_id()
+		</selectKey>
+	</insert>
+	
+	<!-- 톡투미 글 수정 -->
+	<update id="updateIntoTalktome" parameterClass="SaveTalkReqVO">
+	    update mu_talktome set
+			title = #title#,
+			contents = #contents#,
+			talk_photo_url = IFNULL(#talkPhotoUrl#, talk_photo_url),
+			talk_photo_big_url = IFNULL(#talkPhotoBigUrl#, talk_photo_big_url),
+			talk_photo_org_url = IFNULL(#talkPhotoOrgUrl#, talk_photo_org_url),
+			updated_date = now()
+	    WHERE
+    		member_id = #gMemberId#
+	    	AND talk_id = #talkId#
+	</update>
+	
+	<!-- 톡투미 댓글 생성 -->
+	<insert id="insertIntoTalktomeReply" parameterClass="SaveTalkReplyReqVO">
+	    INSERT INTO mu_talktome_reply
+	    	(
+	    		talk_id,
+				reply_content,
+				member_id,
+				created_date
+	    	)
+	    VALUES
+	    	(
+	    		#talkId#,
+				#replyContent#,
+				#gMemberId#,
+				now()
+	    	)
+	    <selectKey resultClass="Integer" keyProperty="replyId">
+			SELECT last_insert_id()
+		</selectKey>
+	</insert>
+	
+	<!-- 톡투미 Read Count 업데이트 -->
+	<update id="updateTalktomeReadCnt" parameterClass="GetTalkReqVO">
+		UPDATE mu_talktome SET
+				read_cnt 			= IFNULL(read_cnt,0)+1,
+				updated_date 		= now()
+		WHERE	talk_id = #talkId#
+	</update>
+	
+	<!-- 톡투미 Reply Count 업데이트 -->
+	<update id="updateTalktomeReplyCnt" parameterClass="SaveTalkReplyReqVO">
+		UPDATE mu_talktome SET
+				reply_cnt 			= IFNULL(reply_cnt,0)+1,
+				updated_date 		= now()
+		WHERE	talk_id = #talkId#
+	</update>
+	
+	<!-- 톡투미 Reply Count 업데이트 -->
+	<select id="selectTalktomeReplyCnt" resultClass="Integer" parameterClass="SaveTalkReplyReqVO">
+	    SELECT count(*) as replyCnt FROM mu_talktome_reply
+	    WHERE talk_id = #talkId#
+	</select>
+	<update id="updateTalktomeReplyCntSync" parameterClass="hashmap">
+		UPDATE mu_talktome SET
+				reply_cnt 			= IFNULL(#replyCnt#, reply_cnt)
+		WHERE	talk_id = #talkId#
+	</update>
+	
+	<!-- 톡투미 글 삭제 :: 화면만 안보이게 처리 -->
+	<update id="deleteTalktome" parameterClass="GetTalkReqVO">
+	    UPDATE mu_talktome SET
+	    	hide_tag = 1
+	    WHERE 
+	    	talk_id = #talkId# 
+	    	AND member_id = #gMemberId# 
+	</update>
+	
+
+</sqlMap>

@@ -1,0 +1,336 @@
+16:51:57 ========= °Å·¡ ½ÃÀÛ ==========
+16:51:57 code : 301
+16:51:57 0. before process
+16:51:57 IPAddress : 211.45.20.176
+16:51:57 PortNo    : 43001
+16:51:57 Timeout   : 10
+16:51:57 Body      : 20120425164628|1|1|10|SKT|01083398086|6901261018112|127.0.0.1||hongildong|í™ê¸¸ë™|10001|í…ŒìŠ¤íŠ¸|ì˜ˆì•½ì–´1|ì˜ˆì•½ì–´2|ì˜ˆì•½ìŠ¤íŠ¸ë§
+16:51:57 1. write Request 
+16:51:57   Send : f20bf699bfa26939e0b80d09c8ea3f987fdeec665e2e38b61aa9783ebe709ffb95a388f10d168d389e8a35af67152c43bb562422daee64945ea8d1dd31b025d6755da57a16063a6a2e4f502f32944511c4239f46bbb24fc582b34ceca1c5bf805b2afab7915f452be72310344e5ed5457d7d2e2c5b543c1ed96c15a3846533cdccac2ccbf8c8351027cfd60c0e133960
+16:51:57 2. read response body 
+16:51:57   response data : 516dbd6ccd582409efcdb03245cbde91c5ec5384a94664ebd75f188fb7ec8a343423701add5c4b20fa9aa016dddc5bbc8a05a35e4021777bf8b7d51b68ce980c1c79d2ec42f96b1a9f02cc24ac0855abc03b569b0986834284907c32e02185b5f6b164b147f067b7ab70b08094996e47
+16:51:57   response data : 1051|ÀÌ »çÀÌÆ®¿¡¼­ Çã¿ëµÇ´Â ¹üÀ§ÀÇ ±İ¾×À» ¹ş¾î³­ °áÁ¦¿äÃ»ÀÔ´Ï´Ù. »çÀÌÆ®ÀÇ °ü¸®ÀÚ¿¡°Ô ¹®ÀÇÇØ ÁÖ¼¼¿ä.|||||||||
+16:51:57 Processing Time : 0 second
+16:51:57 ========= °Å·¡ Á¾·á ==========
+16:59:22 ========= °Å·¡ ½ÃÀÛ ==========
+16:59:22 code : 301
+16:59:22 0. before process
+16:59:22 IPAddress : 211.45.20.176
+16:59:22 PortNo    : 43001
+16:59:22 Timeout   : 10
+16:59:22 Body      : 20120425164628|1|1|10|SKT|01083398086|6901261018112|127.0.0.1||hongildong|í™ê¸¸ë™|10001|í…ŒìŠ¤íŠ¸|ì˜ˆì•½ì–´1|ì˜ˆì•½ì–´2|ì˜ˆì•½ìŠ¤íŠ¸ë§
+16:59:22 1. write Request 
+16:59:22   Send : f20bf699bfa26939e0b80d09c8ea3f987fdeec665e2e38b61aa9783ebe709ffb95a388f10d168d389e8a35af67152c43bb562422daee64945ea8d1dd31b025d6755da57a16063a6a2e4f502f32944511c4239f46bbb24fc582b34ceca1c5bf805b2afab7915f452be72310344e5ed5457d7d2e2c5b543c1ed96c15a3846533cdccac2ccbf8c8351027cfd60c0e133960
+16:59:22 2. read response body 
+16:59:22   response data : 516dbd6ccd582409efcdb03245cbde91c5ec5384a94664ebd75f188fb7ec8a343423701add5c4b20fa9aa016dddc5bbc8a05a35e4021777bf8b7d51b68ce980c1c79d2ec42f96b1a9f02cc24ac0855abc03b569b0986834284907c32e02185b5f6b164b147f067b7ab70b08094996e47
+16:59:22   response data : 1051|ÀÌ »çÀÌÆ®¿¡¼­ Çã¿ëµÇ´Â ¹üÀ§ÀÇ ±İ¾×À» ¹ş¾î³­ °áÁ¦¿äÃ»ÀÔ´Ï´Ù. »çÀÌÆ®ÀÇ °ü¸®ÀÚ¿¡°Ô ¹®ÀÇÇØ ÁÖ¼¼¿ä.|||||||||
+16:59:22 Processing Time : 0 second
+16:59:22 ========= °Å·¡ Á¾·á ==========
+17:00:07 ========= °Å·¡ ½ÃÀÛ ==========
+17:00:07 code : 301
+17:00:07 0. before process
+17:00:07 IPAddress : 211.45.20.176
+17:00:07 PortNo    : 43001
+17:00:07 Timeout   : 10
+17:00:07 Body      : 20120425164628|1|1|10|SKT|01083398086|6901261018112|127.0.0.1||hongildong|í™ê¸¸ë™|10001|í…ŒìŠ¤íŠ¸|ì˜ˆì•½ì–´1|ì˜ˆì•½ì–´2|ì˜ˆì•½ìŠ¤íŠ¸ë§
+17:00:07 1. write Request 
+17:00:07   Send : f20bf699bfa26939e0b80d09c8ea3f987fdeec665e2e38b61aa9783ebe709ffb95a388f10d168d389e8a35af67152c43bb562422daee64945ea8d1dd31b025d6755da57a16063a6a2e4f502f32944511c4239f46bbb24fc582b34ceca1c5bf805b2afab7915f452be72310344e5ed5457d7d2e2c5b543c1ed96c15a3846533cdccac2ccbf8c8351027cfd60c0e133960
+17:00:07 2. read response body 
+17:00:07   response data : 516dbd6ccd582409efcdb03245cbde91c5ec5384a94664ebd75f188fb7ec8a343423701add5c4b20fa9aa016dddc5bbc8a05a35e4021777bf8b7d51b68ce980c1c79d2ec42f96b1a9f02cc24ac0855abc03b569b0986834284907c32e02185b5f6b164b147f067b7ab70b08094996e47
+17:00:07   response data : 1051|ÀÌ »çÀÌÆ®¿¡¼­ Çã¿ëµÇ´Â ¹üÀ§ÀÇ ±İ¾×À» ¹ş¾î³­ °áÁ¦¿äÃ»ÀÔ´Ï´Ù. »çÀÌÆ®ÀÇ °ü¸®ÀÚ¿¡°Ô ¹®ÀÇÇØ ÁÖ¼¼¿ä.|||||||||
+17:00:07 Processing Time : 0 second
+17:00:07 ========= °Å·¡ Á¾·á ==========
+17:02:35 ========= °Å·¡ ½ÃÀÛ ==========
+17:02:35 code : 301
+17:02:35 0. before process
+17:02:35 IPAddress : 211.45.20.176
+17:02:35 PortNo    : 43001
+17:02:35 Timeout   : 10
+17:02:35 Body      : 20120425164628|1|1|10|SKT|01083398086|6901261018112|127.0.0.1||hongildong|í™ê¸¸ë™|10001|í…ŒìŠ¤íŠ¸|ì˜ˆì•½ì–´1|ì˜ˆì•½ì–´2|ì˜ˆì•½ìŠ¤íŠ¸ë§
+17:02:35 1. write Request 
+17:02:35   Send : f20bf699bfa26939e0b80d09c8ea3f987fdeec665e2e38b61aa9783ebe709ffb95a388f10d168d389e8a35af67152c43bb562422daee64945ea8d1dd31b025d6755da57a16063a6a2e4f502f32944511c4239f46bbb24fc582b34ceca1c5bf805b2afab7915f452be72310344e5ed5457d7d2e2c5b543c1ed96c15a3846533cdccac2ccbf8c8351027cfd60c0e133960
+17:02:36 2. read response body 
+17:02:36   response data : 516dbd6ccd582409efcdb03245cbde91c5ec5384a94664ebd75f188fb7ec8a343423701add5c4b20fa9aa016dddc5bbc8a05a35e4021777bf8b7d51b68ce980c1c79d2ec42f96b1a9f02cc24ac0855abc03b569b0986834284907c32e02185b5f6b164b147f067b7ab70b08094996e47
+17:02:36   response data : 1051|ÀÌ »çÀÌÆ®¿¡¼­ Çã¿ëµÇ´Â ¹üÀ§ÀÇ ±İ¾×À» ¹ş¾î³­ °áÁ¦¿äÃ»ÀÔ´Ï´Ù. »çÀÌÆ®ÀÇ °ü¸®ÀÚ¿¡°Ô ¹®ÀÇÇØ ÁÖ¼¼¿ä.|||||||||
+17:02:36 Processing Time : 1 second
+17:02:36 ========= °Å·¡ Á¾·á ==========
+17:07:29 ========= °Å·¡ ½ÃÀÛ ==========
+17:07:29 code : 301
+17:07:29 0. before process
+17:07:29 IPAddress : 211.45.20.176
+17:07:29 PortNo    : 43001
+17:07:29 Timeout   : 10
+17:07:29 Body      : 20120425164628|1|1|10|SKT|01085949443|7306262528819|127.0.0.1||hongildong|í™ê¸¸ë™|10001|í…ŒìŠ¤íŠ¸|ì˜ˆì•½ì–´1|ì˜ˆì•½ì–´2|ì˜ˆì•½ìŠ¤íŠ¸ë§
+17:07:29 1. write Request 
+17:07:29   Send : f20bf699bfa26939e0b80d09c8ea3f98be81491e5ed94528851368bddb564a07eafe9966bad0707ee34b376717702ce8328142581e6645e8fb1a0653aadfd7080bf4446a26da3bad9342c8797543e3add6870313efa36ba4e3aaee97bfccd296f554655be588071ca75320c32d87f73d3f32567ff4c4df3446cd5f14d570d8b9d46557707e9b3d3eb07a7bae0331346d
+17:07:30 2. read response body 
+17:07:30   response data : 516dbd6ccd582409efcdb03245cbde91c5ec5384a94664ebd75f188fb7ec8a343423701add5c4b20fa9aa016dddc5bbc8a05a35e4021777bf8b7d51b68ce980c1c79d2ec42f96b1a9f02cc24ac0855abc03b569b0986834284907c32e02185b5f6b164b147f067b7ab70b08094996e47
+17:07:30   response data : 1051|ÀÌ »çÀÌÆ®¿¡¼­ Çã¿ëµÇ´Â ¹üÀ§ÀÇ ±İ¾×À» ¹ş¾î³­ °áÁ¦¿äÃ»ÀÔ´Ï´Ù. »çÀÌÆ®ÀÇ °ü¸®ÀÚ¿¡°Ô ¹®ÀÇÇØ ÁÖ¼¼¿ä.|||||||||
+17:07:30 Processing Time : 1 second
+17:07:30 ========= °Å·¡ Á¾·á ==========
+17:08:09 ========= °Å·¡ ½ÃÀÛ ==========
+17:08:09 code : 301
+17:08:09 0. before process
+17:08:09 IPAddress : 211.45.20.176
+17:08:09 PortNo    : 43001
+17:08:09 Timeout   : 10
+17:08:09 Body      : 20120425170753|1|1|10|SKT|01083398086|6901261018112|127.0.0.1||hongildong|í™ê¸¸ë™|10001|í…ŒìŠ¤íŠ¸|ì˜ˆì•½ì–´1|ì˜ˆì•½ì–´2|ì˜ˆì•½ìŠ¤íŠ¸ë§
+17:08:09 1. write Request 
+17:08:09   Send : e94210bdab911c4fe7c07280d785099d15f0d42c105c755217c7c82852fe774eab80277cc3fcfed6a4561f74efd33e1b41decf308dceebf5d6346284e4d0334fdfab0cbeba0272e3f8b187db17ca81064bb9ec2e4d3838fc4d4650d609036b2d55327d2ef2eff491c0cf4a6cf4fdd0eb773330eb0bab32da0e718a87e89c9356720e8bd7816f8e34ae52819f7027bc29
+17:08:09 2. read response body 
+17:08:09   response data : 516dbd6ccd582409efcdb03245cbde91c5ec5384a94664ebd75f188fb7ec8a343423701add5c4b20fa9aa016dddc5bbc8a05a35e4021777bf8b7d51b68ce980c1c79d2ec42f96b1a9f02cc24ac0855abc03b569b0986834284907c32e02185b5f6b164b147f067b7ab70b08094996e47
+17:08:09   response data : 1051|ÀÌ »çÀÌÆ®¿¡¼­ Çã¿ëµÇ´Â ¹üÀ§ÀÇ ±İ¾×À» ¹ş¾î³­ °áÁ¦¿äÃ»ÀÔ´Ï´Ù. »çÀÌÆ®ÀÇ °ü¸®ÀÚ¿¡°Ô ¹®ÀÇÇØ ÁÖ¼¼¿ä.|||||||||
+17:08:09 Processing Time : 0 second
+17:08:09 ========= °Å·¡ Á¾·á ==========
+17:09:56 ========= °Å·¡ ½ÃÀÛ ==========
+17:09:56 code : 301
+17:09:56 0. before process
+17:09:56 IPAddress : 211.45.20.176
+17:09:56 PortNo    : 43001
+17:09:56 Timeout   : 10
+17:09:56 Body      : 20120425170829|1|1|10|LGT|01072449099|4103151018111|127.0.0.1||hongildong|í™ê¸¸ë™|10001|í…ŒìŠ¤íŠ¸|ì˜ˆì•½ì–´1|ì˜ˆì•½ì–´2|ì˜ˆì•½ìŠ¤íŠ¸ë§
+17:09:56 1. write Request 
+17:09:56   Send : e1026acb60a58677d9468672b244034091d056fbbf7525b35103e2432d06de1ecb83e77194c924e15129ffc39ba0d21fa77e2a781c409c2ed33e411bead0d31d31ee640aa3bc4fff79cee0b58d9e464ff1b3f658642b8327e61a5abc63c118e1f023b16d3d8a2a46dbb8de3f6aa99e591943b2c2348713e85016966254c4888962aa39080553b2acd7b26b7945bf183e
+17:09:57 2. read response body 
+17:09:57   response data : 516dbd6ccd582409efcdb03245cbde91c5ec5384a94664ebd75f188fb7ec8a343423701add5c4b20fa9aa016dddc5bbc8a05a35e4021777bf8b7d51b68ce980c1c79d2ec42f96b1a9f02cc24ac0855abc03b569b0986834284907c32e02185b5f6b164b147f067b7ab70b08094996e47
+17:09:57   response data : 1051|ÀÌ »çÀÌÆ®¿¡¼­ Çã¿ëµÇ´Â ¹üÀ§ÀÇ ±İ¾×À» ¹ş¾î³­ °áÁ¦¿äÃ»ÀÔ´Ï´Ù. »çÀÌÆ®ÀÇ °ü¸®ÀÚ¿¡°Ô ¹®ÀÇÇØ ÁÖ¼¼¿ä.|||||||||
+17:09:57 Processing Time : 1 second
+17:09:57 ========= °Å·¡ Á¾·á ==========
+17:12:43 ========= °Å·¡ ½ÃÀÛ ==========
+17:12:43 code : 301
+17:12:43 0. before process
+17:12:43 IPAddress : 211.45.20.176
+17:12:43 PortNo    : 43001
+17:12:43 Timeout   : 10
+17:12:43 Body      : 20120425170829|1|1|400|SKT|01083398086|6901261018112|127.0.0.1||hongildong|í™ê¸¸ë™|10001|í…ŒìŠ¤íŠ¸|ì˜ˆì•½ì–´1|ì˜ˆì•½ì–´2|ì˜ˆì•½ìŠ¤íŠ¸ë§
+17:12:43 1. write Request 
+17:12:43   Send : e1026acb60a58677d9468672b2440340a9cc41ef3c0a14e7dd2f65fec449904af91b81fde4d504802148a1ea435e070605a13e079ea83ce52b1bb16203d30a89eac7fb6c4730e8715c7887e29936fae8e28d4f519a81572f8130560a93c3e72a4eb552de0eb4e5c6e0c39caa67a9edc2b18be6b94b6c28f3cc85df124afca90717eb198b6b71a4925555ae7d18cbb7f8
+17:12:44 2. read response body 
+17:12:44   response data : 48fb8f2bc39a38d98581716a3769ee9b5e4a65474770c125972bd6c3a95c1d78b35e0163b181cecddb395496643e6a8b398dc242e317d1fe7c18bdda36a1d0560ec03f541ccc078f5e2a8444f9d240984ecf1a5abfeea7e9afcfe70f9da0cf870b4685388d2f624c426cb15c2ada081bb160db32c8549a47aeb1500db123176e
+17:12:44   response data : 0000|Á¤»óÃ³¸® µÇ¾ú½À´Ï´Ù.|20120425170829|400|20120425171250|MTS12042517125096713|284310|ì˜ˆì•½ì–´1|ì˜ˆì•½ì–´2|ì˜ˆì•½ìŠ¤íŠ¸ë§
+17:12:44 Processing Time : 1 second
+17:12:44 ========= °Å·¡ Á¾·á ==========
+17:13:17 ========= °Å·¡ ½ÃÀÛ ==========
+17:13:17 code : 302
+17:13:17 0. before process
+17:13:17 IPAddress : 211.45.20.176
+17:13:17 PortNo    : 43001
+17:13:17 Timeout   : 10
+17:13:17 Body      : MTS12042517125096713|01083398086|6901261018112|523160|400
+17:13:17 1. write Request 
+17:13:17   Send : 82874c6df5a6c7ff325764a2a44d2730a9f4166f6265ff7a524223f5cae090b1b39a2f2c0b5efff40e2a4964c1144654dd03b5d2d2c42bb77ed79e77c07d5e3b
+17:13:17 2. read response body 
+17:13:17   response data : 48fb8f2bc39a38d98581716a3769ee9b99a002830751e199418866725390c04e
+17:13:17   response data : 0000|Á¤»óÃ³¸® µÇ¾ú½À´Ï´Ù.
+17:13:17 Processing Time : 0 second
+17:13:17 ========= °Å·¡ Á¾·á ==========
+17:13:17 ========= °Å·¡ ½ÃÀÛ ==========
+17:13:17 code : 303
+17:13:17 0. before process
+17:13:17 IPAddress : 211.45.20.176
+17:13:17 PortNo    : 43001
+17:13:17 Timeout   : 10
+17:13:17 Body      : MTS12042517125096713|400
+17:13:17 1. write Request 
+17:13:17   Send : 82874c6df5a6c7ff325764a2a44d2730d4834321a946c1c41b0e9df402fef4ce
+17:13:18 2. read response body 
+17:13:18   response data : 48fb8f2bc39a38d98581716a3769ee9b14c0a71845526d48be92ec6c44e66f22583f783a72244325f582ea8ecfde48d648d4bc616b29e2017bf9b4a5d1f34d59b6d0dd66977ea93b6fadbc543f480a3c2af494f0cf7b8db66d4868af2f9454d304ae276da61d058800efcf75240ba29bc1ee89e8bf5987023cc71e00e7188382
+17:13:18   response data : 0000|Á¤»óÃ³¸® µÇ¾ú½À´Ï´Ù.|MTS12042517125096713|400|20120425170829|283910|20120425171300|(ÁÖ)´Ù¿ì±â¼ú|test|1111-1111-11111
+17:13:18 Processing Time : 1 second
+17:13:18 ========= °Å·¡ Á¾·á ==========
+17:36:46 ========= °Å·¡ ½ÃÀÛ ==========
+17:36:46 code : 301
+17:36:46 0. before process
+17:36:46 IPAddress : 211.45.20.176
+17:36:46 PortNo    : 43001
+17:36:46 Timeout   : 10
+17:36:46 Body      : 20120425173554|1|1|400|SKT|01083398086|6901261018112|118.33.30.69||hongildong|í™ê¸¸ë™|10001|í…ŒìŠ¤íŠ¸|ì˜ˆì•½ì–´1|ì˜ˆì•½ì–´2|ì˜ˆì•½ìŠ¤íŠ¸ë§
+17:36:46 1. write Request 
+17:36:46   Send : 98a8d6ba630ce3e64af7b33c27a3d008fd1a619937af2414e9f2320ad0f03f7e573e282bb45aef3b18728fcb88898581f88e986f4305ca00326c945167af089abbf57f2f3922c6c9de22153dbafd1ad4b83a6e5465a09d5d12012eca26cef6c1d28e1a2f1bdb34e8ff95858179797cb1625c1407bedbd67aaa18827c4379327ef72c1bc124151f1a8d76a71796964ac7
+17:36:47 2. read response body 
+17:36:47   response data : 48fb8f2bc39a38d98581716a3769ee9b5e4a65474770c125972bd6c3a95c1d78e68c2e6d42700f68a9994767af8c21b33f44f6b36000abd68f29adc8b97754da093efa512d0caa0deebade5d14999c52fd49f1734d1ad39a9d52142d220b226867dd0f6d6a88818394b961a474fd22aab6a1fa1ad1f9db2a160a063be5827a2d
+17:36:47   response data : 0000|Á¤»óÃ³¸® µÇ¾ú½À´Ï´Ù.|20120425173554|400|20120425173652|MTS12042517365296727|283910|ì˜ˆì•½ì–´1|ì˜ˆì•½ì–´2|ì˜ˆì•½ìŠ¤íŠ¸ë§
+17:36:47 Processing Time : 1 second
+17:36:47 ========= °Å·¡ Á¾·á ==========
+17:37:10 ========= °Å·¡ ½ÃÀÛ ==========
+17:37:10 code : 302
+17:37:10 0. before process
+17:37:10 IPAddress : 211.45.20.176
+17:37:10 PortNo    : 43001
+17:37:10 Timeout   : 10
+17:37:10 Body      : MTS12042517365296727|01083398086|6901261018112|989078|400
+17:37:10 1. write Request 
+17:37:10   Send : b63490e319e1ffc9defcb503791b578644f60ea61301268780693ce48d04912bc6dafa429e5afb99b276df12da3bc274d3cda8eb4ffc3e3d09570b4469384f3b
+17:37:10 2. read response body 
+17:37:10   response data : 48fb8f2bc39a38d98581716a3769ee9b99a002830751e199418866725390c04e
+17:37:10   response data : 0000|Á¤»óÃ³¸® µÇ¾ú½À´Ï´Ù.
+17:37:10 Processing Time : 0 second
+17:37:10 ========= °Å·¡ Á¾·á ==========
+17:37:10 ========= °Å·¡ ½ÃÀÛ ==========
+17:37:10 code : 303
+17:37:10 0. before process
+17:37:10 IPAddress : 211.45.20.176
+17:37:10 PortNo    : 43001
+17:37:10 Timeout   : 10
+17:37:10 Body      : MTS12042517365296727|400
+17:37:10 1. write Request 
+17:37:10   Send : b63490e319e1ffc9defcb503791b57868fe234e42b945b5a641c4c8fe3a22e97
+17:37:11 2. read response body 
+17:37:11   response data : 48fb8f2bc39a38d98581716a3769ee9b14c0a71845526d48be92ec6c44e66f22efdb8f5a4d7333db8fb652bf5247f1e514fd9b35605e79626e36ec4f786d1f4dc5407c3a96165011406559b4aa5c38a2cba4627759187ae3250dd69cb9a8bd8c913f190f7951b0c59b82096ce39f20c6de4f1a4dde178e4be1a660a1adb43b58
+17:37:11   response data : 0000|Á¤»óÃ³¸® µÇ¾ú½À´Ï´Ù.|MTS12042517365296727|400|20120425173554|283510|20120425173700|(ÁÖ)´Ù¿ì±â¼ú|test|1111-1111-11111
+17:37:11 Processing Time : 1 second
+17:37:11 ========= °Å·¡ Á¾·á ==========
+17:43:18 ========= °Å·¡ ½ÃÀÛ ==========
+17:43:18 code : 301
+17:43:18 0. before process
+17:43:18 IPAddress : 211.45.20.176
+17:43:18 PortNo    : 43001
+17:43:18 Timeout   : 10
+17:43:18 Body      : 20120425174307|1|1|400|SKT|01083398086|6901261018112|118.33.30.69||hongildong|í™ê¸¸ë™|10001|í…ŒìŠ¤íŠ¸|ì˜ˆì•½ì–´1|ì˜ˆì•½ì–´2|ì˜ˆì•½ìŠ¤íŠ¸ë§
+17:43:18 1. write Request 
+17:43:18   Send : 1c48c94a6b2e73abfec4b49279d512328472de79e42a4c4866bd166f0a93d3dab1ae2976c142a2749e750bfb37abb365ff7eb37644d3d4779222f279ba953b70e0bd7b68634a96913645d6f413a08dc6d18eaebafc9cc34c7fff6e93a986f3d4cdfcc34f731f9c2bdf6638e143a2e7cb0ceb61d2f8133e7f78298d36e90f7edf01247ca3be9a6ea7d0399906fbad94ee
+17:43:19 2. read response body 
+17:43:19   response data : 48fb8f2bc39a38d98581716a3769ee9b5e4a65474770c125972bd6c3a95c1d78a2e29fdfe657ce737264bd5c06d8861d60533339cbbe9354ef62ad33b854721c0c006c657735566ce4e4a4991ff54c237e0667f598535b5d9de64f79af80dab27545c07a66fe9c3e825900af4d1bbf23608bb92ea345e18158f583c9d73a5a35
+17:43:19   response data : 0000|Á¤»óÃ³¸® µÇ¾ú½À´Ï´Ù.|20120425174307|400|20120425174324|MTS12042517432496729|283510|ì˜ˆì•½ì–´1|ì˜ˆì•½ì–´2|ì˜ˆì•½ìŠ¤íŠ¸ë§
+17:43:19 Processing Time : 1 second
+17:43:19 ========= °Å·¡ Á¾·á ==========
+17:44:06 ========= °Å·¡ ½ÃÀÛ ==========
+17:44:06 code : 302
+17:44:06 0. before process
+17:44:06 IPAddress : 211.45.20.176
+17:44:06 PortNo    : 43001
+17:44:06 Timeout   : 10
+17:44:06 Body      : MTS12042517432496729|01083398086|6901261018112|482877|400
+17:44:06 1. write Request 
+17:44:06   Send : c3a4dc7faa50698ab0f4ad588324226d727efe89b471fa9d95b0c0a5ec95ad675ba9b46ee142d10f81dbad6073175f213ab471a44e187d3946ae3c65ac7e9f6b
+17:44:06 2. read response body 
+17:44:06   response data : 48fb8f2bc39a38d98581716a3769ee9b99a002830751e199418866725390c04e
+17:44:06   response data : 0000|Á¤»óÃ³¸® µÇ¾ú½À´Ï´Ù.
+17:44:06 Processing Time : 0 second
+17:44:06 ========= °Å·¡ Á¾·á ==========
+17:44:06 ========= °Å·¡ ½ÃÀÛ ==========
+17:44:06 code : 303
+17:44:06 0. before process
+17:44:06 IPAddress : 211.45.20.176
+17:44:06 PortNo    : 43001
+17:44:06 Timeout   : 10
+17:44:06 Body      : MTS12042517432496729|400
+17:44:06 1. write Request 
+17:44:06   Send : c3a4dc7faa50698ab0f4ad588324226dc6da3f60e343b32061f995735314b559
+17:44:07 2. read response body 
+17:44:07   response data : 48fb8f2bc39a38d98581716a3769ee9b14c0a71845526d48be92ec6c44e66f2227d5a007151048b617f1f2f42a8145e64cfad980e09db84c4f8bf34dcb2925db13a4d773782052f7bd5b155ffc919d2334d0fe2e8e31d0a7c479fdc8935a917b9a4df4c81f01bea46961068db3c74c37de3db8a5c005f4c9b0d5e89d7f549af2
+17:44:07   response data : 0000|Á¤»óÃ³¸® µÇ¾ú½À´Ï´Ù.|MTS12042517432496729|400|20120425174307|283110|20120425174400|(ÁÖ)´Ù¿ì±â¼ú|test|1111-1111-11111
+17:44:07 Processing Time : 1 second
+17:44:07 ========= °Å·¡ Á¾·á ==========
+17:48:29 ========= °Å·¡ ½ÃÀÛ ==========
+17:48:29 code : 301
+17:48:29 0. before process
+17:48:29 IPAddress : 211.45.20.176
+17:48:29 PortNo    : 43001
+17:48:29 Timeout   : 10
+17:48:29 Body      : 20120425174818|1|1|400|SKT|01083398086|6901261018112|118.33.30.69||hongildong|í™ê¸¸ë™|10001|í…ŒìŠ¤íŠ¸|ì˜ˆì•½ì–´1|ì˜ˆì•½ì–´2|ì˜ˆì•½ìŠ¤íŠ¸ë§
+17:48:29 1. write Request 
+17:48:29   Send : 9c313cfa36923d3e2e1904a775417eecaad9fd87bf6f92b3420009dd12421ee06fd5fbdd9e3086926da4edc761a9573b3d6ca5f6355ced7d329f4aa617b6d541e339aeab8e9b55a1834a6f4011dd9aa57205a70805305ec7df968126502e2a1c5f7c44a541d47c9579c2ea875f71eebbbf51b1f75d34d52dfb98249e50f1f97fceceae1df0e758e1a1d7b3cff43c467f
+17:48:30 2. read response body 
+17:48:30   response data : 48fb8f2bc39a38d98581716a3769ee9b5e4a65474770c125972bd6c3a95c1d78a15ee30df9c9b93c26d9f82412dcf73d08fcef3a75f95732291f089f8a0bf810397f4c6a9a79dadd44731deed8008f47e59b44afe8341bb56f6a42076b80eda96bedb7c5d5043755c196b0f05b1f4c51884255a44e88d931437dc1e0cee190ec
+17:48:30   response data : 0000|Á¤»óÃ³¸® µÇ¾ú½À´Ï´Ù.|20120425174818|400|20120425174836|MTS12042517483696732|283110|ì˜ˆì•½ì–´1|ì˜ˆì•½ì–´2|ì˜ˆì•½ìŠ¤íŠ¸ë§
+17:48:30 Processing Time : 1 second
+17:48:30 ========= °Å·¡ Á¾·á ==========
+17:48:59 ========= °Å·¡ ½ÃÀÛ ==========
+17:48:59 code : 302
+17:48:59 0. before process
+17:48:59 IPAddress : 211.45.20.176
+17:48:59 PortNo    : 43001
+17:48:59 Timeout   : 10
+17:48:59 Body      : MTS12042517483696732|01083398086|6901261018112|466401|400
+17:48:59 1. write Request 
+17:48:59   Send : 973c85d97f84c696261bda2bdf0245bc243d18462faf8a64f7042e65f13967366d007aad9c6b1698f23b8441cf6049ecdc6aff94fc71ada119f56c71c9cdf5d9
+17:48:59 2. read response body 
+17:48:59   response data : 48fb8f2bc39a38d98581716a3769ee9b99a002830751e199418866725390c04e
+17:48:59   response data : 0000|Á¤»óÃ³¸® µÇ¾ú½À´Ï´Ù.
+17:48:59 Processing Time : 0 second
+17:48:59 ========= °Å·¡ Á¾·á ==========
+17:48:59 ========= °Å·¡ ½ÃÀÛ ==========
+17:48:59 code : 303
+17:48:59 0. before process
+17:48:59 IPAddress : 211.45.20.176
+17:48:59 PortNo    : 43001
+17:48:59 Timeout   : 10
+17:48:59 Body      : MTS12042517483696732|400
+17:48:59 1. write Request 
+17:48:59   Send : 973c85d97f84c696261bda2bdf0245bc4aec50c0858fb176763091a52806df1d
+17:49:00 2. read response body 
+17:49:00   response data : 48fb8f2bc39a38d98581716a3769ee9b14c0a71845526d48be92ec6c44e66f221194f701ff8e09592d92dae17862a9ea82ee287bca37d6ada3a56d91927d98a3efb705302f73b15049e4633dadb6b8d59c4e1a12c784368bd0c1e7c2e404e22ac6379f05feef97ed653a36f43633c21a8bc2aee528960436a09261ac6abbb3c0
+17:49:00   response data : 0000|Á¤»óÃ³¸® µÇ¾ú½À´Ï´Ù.|MTS12042517483696732|400|20120425174818|282710|20120425174900|(ÁÖ)´Ù¿ì±â¼ú|test|1111-1111-11111
+17:49:00 Processing Time : 1 second
+17:49:00 ========= °Å·¡ Á¾·á ==========
+17:52:17 ========= °Å·¡ ½ÃÀÛ ==========
+17:52:17 code : 303
+17:52:17 0. before process
+17:52:17 IPAddress : 211.45.20.176
+17:52:17 PortNo    : 43001
+17:52:17 Timeout   : 10
+17:52:17 Body      : MTS12042517483696732|400
+17:52:17 1. write Request 
+17:52:17   Send : 973c85d97f84c696261bda2bdf0245bc4aec50c0858fb176763091a52806df1d
+17:52:17 2. read response body 
+17:52:17   response data : c76d8f33593f4f563f481acaa891a27ad40204de3a3224e830d7c706d42d0d6a6addd392f8fcfdc7b692f77b9c7ed353
+17:52:17   response data : 9118|Áßº¹ ½ÂÀÎ¿äÃ» °Ç ÀÔ´Ï´Ù. ||||||||
+17:52:17 Processing Time : 0 second
+17:52:17 ========= °Å·¡ Á¾·á ==========
+17:52:39 ========= °Å·¡ ½ÃÀÛ ==========
+17:52:39 code : 301
+17:52:39 0. before process
+17:52:39 IPAddress : 211.45.20.176
+17:52:39 PortNo    : 43001
+17:52:39 Timeout   : 10
+17:52:39 Body      : 20120425175233|1|1|400|SKT|01083398086|6901261018112|118.33.30.69||hongildong|í™ê¸¸ë™|10001|í…ŒìŠ¤íŠ¸|ì˜ˆì•½ì–´1|ì˜ˆì•½ì–´2|ì˜ˆì•½ìŠ¤íŠ¸ë§
+17:52:39 1. write Request 
+17:52:39   Send : 51d6ecb9b746f182b2f19600ea3112fe131ae61cb4b6747e30cdf98231e99884a8abe0d315b997cef68290f525d91c95c1a03702a0a20623e354d0514fd4965f72d33fd41b6a9d83a1f03c5e426e1aa4e23007873fb1d028458136127c968c1c80ab636835080d8e78b7343b333f476a9dd760b7bced2983720be21c3aa05ac1d237c4ba47279cb4f9ef0ff774ba8630
+17:52:40 2. read response body 
+17:52:40   response data : 48fb8f2bc39a38d98581716a3769ee9b5e4a65474770c125972bd6c3a95c1d78512c9107d886c0888fb7ed2cbd5879a2400918643cb2b2ec3cc334856ebe049ebd9cec82fd232beef349fb46481dc8d65e13f7efbe4d5855224e8022cb87c73416316626437f4f923d67182c52bfc3fae1bb97f47cbd14c43e02196158f56b14
+17:52:40   response data : 0000|Á¤»óÃ³¸® µÇ¾ú½À´Ï´Ù.|20120425175233|400|20120425175246|MTS12042517524696733|282710|ì˜ˆì•½ì–´1|ì˜ˆì•½ì–´2|ì˜ˆì•½ìŠ¤íŠ¸ë§
+17:52:40 Processing Time : 1 second
+17:52:40 ========= °Å·¡ Á¾·á ==========
+17:53:05 ========= °Å·¡ ½ÃÀÛ ==========
+17:53:05 code : 302
+17:53:05 0. before process
+17:53:05 IPAddress : 211.45.20.176
+17:53:05 PortNo    : 43001
+17:53:05 Timeout   : 10
+17:53:05 Body      : MTS12042517524696733|01083398086|6901261018112|279262|400
+17:53:05 1. write Request 
+17:53:05   Send : e50d5f9312078926cae069201df56675fc4f3a34defd6bd8a7ea3340a4bb4749dec47e4295cebca724d4c17f62ac00a7ef95bdc1f64e97e0c1725044fa390f9d
+17:53:05 2. read response body 
+17:53:05   response data : 48fb8f2bc39a38d98581716a3769ee9b99a002830751e199418866725390c04e
+17:53:05   response data : 0000|Á¤»óÃ³¸® µÇ¾ú½À´Ï´Ù.
+17:53:05 Processing Time : 0 second
+17:53:05 ========= °Å·¡ Á¾·á ==========
+17:53:05 ========= °Å·¡ ½ÃÀÛ ==========
+17:53:05 code : 303
+17:53:05 0. before process
+17:53:05 IPAddress : 211.45.20.176
+17:53:05 PortNo    : 43001
+17:53:05 Timeout   : 10
+17:53:05 Body      : MTS12042517524696733|400
+17:53:05 1. write Request 
+17:53:05   Send : e50d5f9312078926cae069201df566753f98de4da0ab1cee6d95e3b2a04a2479
+17:53:06 2. read response body 
+17:53:06   response data : 48fb8f2bc39a38d98581716a3769ee9b14c0a71845526d48be92ec6c44e66f228c732b7bd9fcd797dae5571f4035f81a7f80a6abcef120a9334828fba0f0e1fb40226ac7d1788116b92401a47affabf282584bfdb1c0b61b4e3553189a35a51172f657a83971b818faf29b10d3535866d6f3df98047ec9e971f8c4aaae2c09d3
+17:53:06   response data : 0000|Á¤»óÃ³¸® µÇ¾ú½À´Ï´Ù.|MTS12042517524696733|400|20120425175233|282310|20120425175300|(ÁÖ)´Ù¿ì±â¼ú|test|1111-1111-11111
+17:53:06 Processing Time : 1 second
+17:53:06 ========= °Å·¡ Á¾·á ==========
+17:53:15 ========= °Å·¡ ½ÃÀÛ ==========
+17:53:15 code : 303
+17:53:15 0. before process
+17:53:15 IPAddress : 211.45.20.176
+17:53:15 PortNo    : 43001
+17:53:15 Timeout   : 10
+17:53:15 Body      : MTS12042517524696733|400
+17:53:15 1. write Request 
+17:53:15   Send : e50d5f9312078926cae069201df566753f98de4da0ab1cee6d95e3b2a04a2479
+17:53:16 2. read response body 
+17:53:16   response data : c76d8f33593f4f563f481acaa891a27ad40204de3a3224e830d7c706d42d0d6a6addd392f8fcfdc7b692f77b9c7ed353
+17:53:16   response data : 9118|Áßº¹ ½ÂÀÎ¿äÃ» °Ç ÀÔ´Ï´Ù. ||||||||
+17:53:16 Processing Time : 1 second
+17:53:16 ========= °Å·¡ Á¾·á ==========

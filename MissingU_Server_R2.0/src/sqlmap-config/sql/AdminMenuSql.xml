@@ -1,0 +1,1914 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Admin">
+	<typeAlias alias="apkItem"
+		type="kr.ko.nexmain.server.MissingU.admin.model.ApkItem" />
+<typeAlias alias="MissionMatchJoinReqVO"
+		type="kr.ko.nexmain.server.MissingU.missionmatch.model.MissionMatchJoinReqVO" />
+	<resultMap id="apkItemResultMap" class="apkItem">
+		<result property="apkId" column="apk_id" />
+		<result property="apkDesc" column="apk_desc" />
+		<result property="apkVersion" column="apk_version" />
+		<result property="registerName" column="register_name" />
+		<result property="regDate" column="reg_date" />
+		<result property="apkFileName" column="apk_file_name" />
+	</resultMap>
+
+	<!-- 페이스매치 결과 resultMap -->
+	<resultMap id="fmResultMap" class="hashmap">
+		<result property="memberId" column="member_id" />
+		<result property="nickName" column="nick_name" />
+		<result property="sex" column="sex" />
+		<result property="joinCnt" column="join_cnt" />
+		<result property="winCnt" column="win_cnt" />
+		<result property="votedCnt" column="voted_cnt" />
+		<result property="AccumJoinCnt" column="accum_join_cnt" />
+		<result property="AccumWinCnt" column="accum_win_cnt" />
+		<result property="AccumVotedCnt" column="accum_voted_cnt" />
+	</resultMap>
+
+	<!-- 회원목록 resultMap -->
+	<resultMap id="memberResultMap" class="hashmap">
+		<result property="memberId" column="member_id" />
+		<result property="loginId" column="login_id" />
+		<result property="nickName" column="nick_name" />
+		<result property="sex" column="sex" />
+		<result property="createdDate" column="created_date_fm" />
+		<result property="country" column="country" />
+		<result property="lang" column="lang" />
+		<result property="mainPhotoUrl" column="main_photo_url" />
+	</resultMap>
+	
+	<!-- 회원목록 resultMap -->
+	<resultMap id="memberResultMapNew" class="hashmap">
+		<result property="memberId" column="member_id" />
+		<result property="loginId" column="login_id" />
+		<result property="name" column="name" />
+		<result property="nickName" column="nick_name" />
+		<result property="sex" column="sex" />
+		<result property="age" column="age" />
+		<result property="birthDate" column="birth_date" />
+		<result property="createdDate" column="created_date_fm" />
+		<result property="status" column="status" />
+		<result property="hpNm" column="hp_nm" />
+		<result property="selfPr" column="self_pr" />
+		<result property="country" column="country" />
+		<result property="lang" column="lang" />
+		<result property="mainPhotoUrl" column="main_photo_url" />
+		<result property="point" column="point" />
+		<result property="membership" column="membership"/>
+		<result property="certification" column="certification" />
+	</resultMap>
+
+	<!-- 툭투미 목록 resultmap -->
+	<resultMap id="talkToMeResultMap" class="hashmap">
+		<result property="talkId" column="talk_id" />
+		<result property="title" column="title" />
+		<result property="readCnt" column="read_cnt" />
+		<result property="replyCnt" column="reply_cnt" />
+		<result property="talkPhotoUrl" column="talk_photo_url" />
+		<result property="createdDate" column="created_date" />
+		<result property="memberId" column="member_id" />
+		<result property="loginId" column="login_id" />
+		<result property="nickName" column="nick_name" />
+		<result property="sex" column="sex" />
+		<result property="mainPhotoUrl" column="main_photo_url" />
+		<result property="hideTag" column="hide_tag" />
+	</resultMap>
+
+	<!-- 결제내역 resultMap -->
+	<resultMap id="payHistResultMap" class="hashmap">
+		<result property="id" column="pay_id" />
+		<result property="memberId" column="member_id" />
+		<result property="nickName" column="nick_name" />
+		<result property="mainPhotoUrl" column="main_photo_url" />
+		<result property="sex" column="sex" />
+		<result property="payDate" column="pay_date" />
+		<result property="orderNum" column="order_num" />
+		<result property="status" column="status" />
+		<result property="prodCd" column="prod_cd" />
+		<result property="prodName" column="prod_name" />
+		<result property="amount" column="amount" />
+		<result property="createdDate" column="created_date_fm" />
+	</resultMap>
+
+	<!-- 포인트 사용내역 resultMap -->
+	<resultMap id="pointUseHistResultMap" class="hashmap">
+		<result property="id" column="point_hist_id" />
+		<result property="memberId" column="member_id" />
+		<result property="nickName" column="nick_name" />
+		<result property="mainPhotoUrl" column="main_photo_url" />
+		<result property="sex" column="sex" />
+		<result property="eventTypeCd" column="event_type_cd" />
+		<result property="usageCd" column="usage_cd" />
+		<result property="useDesc" column="use_desc" />
+		<result property="usePoint" column="use_point" />
+		<result property="remainPoint" column="remain_point" />
+		<result property="createdDate" column="created_date_fm" />
+	</resultMap>
+
+	<!-- 공지사항 resultMap -->
+	<resultMap id="noticeResultMap" class="hashmap">
+		<result property="noticeId" column="notice_id" />
+		<result property="title" column="title" />
+		<result property="contents" column="contents" />
+		<result property="readCnt" column="read_cnt" />
+		<result property="showYn" column="show_yn" />
+		<result property="lang" column="lang" />
+		<result property="createdDate" column="created_date" />
+		<result property="updatedDate" column="updated_date" />
+	</resultMap>
+
+	<!-- 사용자가이드 resultMap -->
+	<resultMap id="guideResultMap" class="hashmap">
+		<result property="menuId" column="menu_id" />
+		<result property="menuName" column="menu_name" />
+		<result property="level" column="level" />
+		<result property="contents" column="contents" />
+		<result property="showYn" column="show_yn" />
+		<result property="lang" column="lang" />
+		<result property="createdDate" column="created_date" />
+		<result property="updatedDate" column="updated_date" />
+	</resultMap>
+		
+	<resultMap id="myMsgListResultMap" class="hashmap">
+		<result property="msgId" column="msg_id" javaType="Long"/>
+		<result property="senderId" column="sender_id" />
+		<result property="senderCountry" column="sender_country" nullValue="" />
+		<result property="senderLang" column="sender_lang" nullValue=""  />
+		<result property="senderNickName" column="sender_nick_name" />
+		<result property="senderSex" column="sender_sex" />
+		<result property="senderMainPhotoUrl" column="sender_main_photo_url" />
+		<result property="receiverId" column="receiver_id" />
+		<result property="receiverCountry" column="receiver_country" nullValue=""  />
+		<result property="receiverLang" column="receiver_lang" nullValue=""  />
+		<result property="receiverNickName" column="receiver_nick_name" />
+		<result property="receiverSex" column="receiver_sex" />
+		<result property="receiverMainPhotoUrl" column="receiver_main_photo_url" />
+		<result property="receiverReadYn" column="receiver_read_yn" />
+		<result property="msgText" column="msg_text" />
+		<result property="sendDate" column="send_date" />		
+		<result property="receiverMembership" column="receiver_membership"/>
+		<result property="receiverCertification" column="receiver_certification" />
+		<result property="senderMembership" column="sender_membership"/>
+		<result property="senderCertification" column="sender_certification" />
+	</resultMap>
+	
+	<resultMap id="manToManListResultMap" class="hashmap">
+	    <result property="mId" column="m_id" />
+	    <result property="memberId" column="member_id" />
+	    <result property="nickName" column="nick_name" />
+	    <result property="sex" column="sex" />
+	    <result property="mainPhotoUrl" column="main_photo_url" />
+	    <result property="code" column="code" />
+	    <result property="contract" column="contract" />
+	    <result property="content" column="content" />
+	    <result property="file" column="file" />
+	    <result property="createdDate" column="created_date" />
+	    <result property="updatedDate" column="updated_date" />
+	    <result property="memo" column="memo" />
+	    <result property="status" column="status" />
+	</resultMap>
+	
+	<!-- 미션매치  -->
+	<resultMap class="hashmap" id="missionMatchResultMap">
+	    <result property="mId" column="m_id" />
+	    <result property="type" column="type" />
+	    <result property="status" column="status" />
+	    <result property="title" column="title" />
+	    <result property="description" column="description" />
+	    <result property="startDate" column="start_date" />
+	    <result property="endDate" column="end_date" />
+	    <result property="maxCount" column="max_count" />
+	    <result property="useMultiVote" column="use_multi_vote" />
+	    <result property="multiVoteInterval" column="multi_vote_interval" />
+	    <result property="battleCnt" column="battle_cnt" />
+	    <result property="lang" column="lang" />
+	</resultMap>
+	
+	<!-- 미션매치 통계 -->
+	<resultMap id="missionMatchTotalDataRnkMap" class="hashmap">
+		<result property="mainPhotoUrl" column="main_photo_url" />
+		<result property="memberId" column="member_id" />
+		<result property="purposeCd" column="purpose_cd" />
+		<result property="location" column="location" />
+		<result property="membership" column="membership" />
+		<result property="certification" column="certification" />
+		<result property="nickName" column="nick_name" />
+		<result property="birthDate" column="birth_date" />
+		<result property="selfPr" column="self_pr" />
+		<result property="sex" column="sex" />
+		<result property="mJId" column="mj_id" />
+		<result property="vote" column="vote" />
+		<result property="voteByMonth" column="vote_by_month" />
+		<result property="battleCnt" column="battle_cnt" />
+		<result property="battleJoinCnt" column="battle_join_cnt" />
+	</resultMap>
+	
+	
+	<!-- 미션매치  참여 -->
+	<resultMap class="hashmap" id="missionMatchJoinResultMap">
+	    <result property="mJId" column="mj_id" />
+	    <result property="mId" column="m_id" />
+	    <result property="memberId" column="member_id" />
+	    <result property="sex" column="sex" />
+	    <result property="name" column="name" />
+	    <result property="nickName" column="nick_name" />
+	    <result property="mainPhotoUrl" column="main_photo_url" />
+	    <result property="viewCnt" column="view_cnt" />
+	    <result property="comment" column="comment" />
+	    <result property="vote" column="vote" />
+		<result property="voteByMonth" column="vote_by_month" />
+		<result property="battleJoinCnt" column="battle_join_cnt" />
+		<result property="createdDate" column="created_date" />
+		<result property="updatedDate" column="updated_date" />
+		<result property="uploadfile" column="uploadfile" />
+		<result property="uploadfilebig" column="uploadfilebig" />
+		<result property="uploadfileorg" column="uploadfileorg" />
+		
+	</resultMap>
+	
+	<resultMap id="messageBoxListItemResultMap" class="hashmap">
+		<result property="msgId" column="msg_id" javaType="Long"/>
+		<result property="senderId" column="sender_id" />
+		<result property="senderNickName" column="sender_nick_name" />
+		<result property="senderSex" column="sender_sex" />
+		<result property="senderMainPhotoUrl" column="sender_main_photo_url" />
+		<result property="receiverId" column="receiver_id" />
+		<result property="receiverNickName" column="receiver_nick_name" />
+		<result property="receiverSex" column="receiver_sex" />
+		<result property="receiverMainPhotoUrl" column="receiver_main_photo_url" />
+		<result property="lastSendDate" column="last_send_date" />
+		<result property="lastMsgText" column="last_msg_text" />
+		<result property="unreadMsgCnt" column="unread_msg_cnt" />
+		<result property="receiverMembership" column="receiver_membership"/>
+		<result property="receiverCertification" column="receiver_certification" />
+		<result property="senderMembership" column="sender_membership"/>
+		<result property="senderCertification" column="sender_certification" />
+	</resultMap>
+	
+	<!-- 쪽지함 재개발 (구버전 추후 삭제) -->
+	<resultMap id="messageBoxListItemResultMap" class="hashmap">
+		<result property="msgId" column="msg_id" javaType="Long"/>
+		<result property="senderId" column="sender_id" />
+		<result property="senderNickName" column="sender_nick_name" />
+		<result property="senderSex" column="sender_sex" />
+		<result property="senderMainPhotoUrl" column="sender_main_photo_url" />
+		<result property="receiverId" column="receiver_id" />
+		<result property="receiverNickName" column="receiver_nick_name" />
+		<result property="receiverSex" column="receiver_sex" />
+		<result property="receiverMainPhotoUrl" column="receiver_main_photo_url" />
+		<result property="lastSendDate" column="last_send_date" />
+		<result property="lastMsgText" column="last_msg_text" />
+		<result property="unreadMsgCnt" column="unread_msg_cnt" />
+		<result property="receiverMembership" column="receiver_membership"/>
+		<result property="receiverCertification" column="receiver_certification" />
+		<result property="senderMembership" column="sender_membership"/>
+		<result property="senderCertification" column="sender_certification" />
+	</resultMap>
+	
+	<resultMap id="messageBoxItemResultMap" class="hashmap">
+		<result property="msgId" column="msg_id" javaType="Long"/>
+		<result property="senderId" column="sender_id" />
+		<result property="senderNickName" column="sender_nick_name" />
+		<result property="senderSex" column="sender_sex" />
+		<result property="senderMainPhotoUrl" column="sender_main_photo_url" />
+		<result property="receiverId" column="receiver_id" />
+		<result property="receiverNickName" column="receiver_nick_name" />
+		<result property="receiverSex" column="receiver_sex" />
+		<result property="receiverMainPhotoUrl" column="receiver_main_photo_url" />
+		<result property="receiverReadYn" column="receiver_read_yn" />
+		<result property="receiverReadDate" column="receiver_read_date" />
+		<result property="msgText" column="msg_text" />
+		<result property="status" column="status" />
+		<result property="createdDate" column="created_date" />	  	
+		<result property="receiverMembership" column="receiver_membership"/>
+		<result property="receiverCertification" column="receiver_certification" />
+		<result property="senderMembership" column="sender_membership"/>
+		<result property="senderCertification" column="sender_certification" />
+	</resultMap>
+	
+	<select id="selectMsgList" parameterClass="hashmap" resultMap="messageBoxListItemResultMap">
+	    SELECT 
+				msg.msg_id
+				, msg.sender_id
+				, sender.sex as sender_sex
+				, sender.nick_name as sender_nick_name
+				, sender.main_photo_url as sender_main_photo_url       
+			  	, msg.receiver_id
+			  	, receiver.sex as receiver_sex
+				, receiver.nick_name as receiver_nick_name
+				, receiver.main_photo_url as receiver_main_photo_url
+			  	, comp.un_read_sum as unread_msg_cnt
+			  	, msg.msg_text as last_msg_text
+			  	, msg.created_date as last_send_date
+			  	
+			  	, get_membership(msg.sender_id) as sender_membership
+				, get_certification(msg.sender_id) as  sender_certification 
+				, get_membership(msg.receiver_id) as receiver_membership
+				, get_certification(msg.receiver_id) as  receiver_certification
+			FROM 
+			(
+			      SELECT 
+              		msg.own_member_id,
+			      	msg.receiver_id, 
+			      	msg.sender_id, 
+			      	max(msg.msg_id) as last_msg_id, 
+			      	SUM(CASE WHEN receiver_read_yn = 'N' THEN 1 ELSE 0 END) AS un_read_sum
+			      FROM mu_messagebox_msg msg
+			      WHERE
+			      		msg.status = 'A'
+                	And msg.own_member_id = msg.sender_id
+                	<isNotEmpty property="msgText">
+                	    AND msg.msg_text LIKE CONCAT('%',#msgText#,'%')
+                	</isNotEmpty>
+			      GROUP BY own_member_id, receiver_id, sender_id
+			) comp
+			      	INNER JOIN mu_messagebox_msg msg ON comp.last_msg_id = msg.msg_id
+			      	INNER JOIN mu_member sender ON sender.member_id = msg.sender_id
+					INNER JOIN mu_member receiver ON receiver.member_id = msg.receiver_id
+			WHERE
+				1=1
+					<isNotEmpty property="receiverId">
+                	    AND receiver.member_id = #receiverId#
+                	</isNotEmpty>
+                	<isNotEmpty property="receiverNickName">
+                	    AND receiver.nick_name LIKE CONCAT('%',#receiverNickName#,'%') 
+                	</isNotEmpty>
+                	<isNotEmpty property="senderId">
+                	    AND sender.member_id = #senderId#
+                	</isNotEmpty>
+                	<isNotEmpty property="senderNickName">
+                	    AND sender.nick_name LIKE CONCAT('%',#senderNickName#,'%')
+                	</isNotEmpty>
+			ORDER BY last_send_date DESC, msg_id DESC
+			LIMIT #startRow#, #pageSize#
+	</select>
+	<select id="selectMsgListCnt" parameterClass="hashmap" resultClass="Integer">
+	    SELECT 
+				count(*) as cnt
+			FROM 
+			(
+			      SELECT 
+              		msg.own_member_id,
+			      	msg.receiver_id, 
+			      	msg.sender_id, 
+			      	max(msg.msg_id) as last_msg_id, 
+			      	SUM(CASE WHEN receiver_read_yn = 'N' THEN 1 ELSE 0 END) AS un_read_sum
+			      FROM mu_messagebox_msg msg
+			      WHERE
+			      		msg.own_member_id = msg.sender_id
+                	<isNotEmpty property="msgText">
+                	    AND msg.msg_text LIKE CONCAT('%',#msgText#,'%')
+                	</isNotEmpty>
+			      GROUP BY own_member_id, receiver_id, sender_id
+			) comp
+			      	INNER JOIN mu_messagebox_msg msg ON comp.last_msg_id = msg.msg_id
+			      	INNER JOIN mu_member sender ON sender.member_id = msg.sender_id
+					INNER JOIN mu_member receiver ON receiver.member_id = msg.receiver_id
+			WHERE
+				1=1
+					<isNotEmpty property="receiverId">
+                	    AND receiver.member_id = #receiverId#
+                	</isNotEmpty>
+                	<isNotEmpty property="receiverNickName">
+                	    AND receiver.nick_name LIKE CONCAT('%',#receiverNickName#,'%')
+                	</isNotEmpty>
+                	<isNotEmpty property="senderId">
+                	    AND sender.member_id = #senderId#
+                	</isNotEmpty>
+                	<isNotEmpty property="senderNickName">
+                	    AND sender.nick_name LIKE CONCAT('%',#senderNickName#,'%')
+                	</isNotEmpty>
+	</select>
+	
+	<select id="selectMsgConversation" parameterClass="hashmap" resultMap="messageBoxItemResultMap">
+	    
+	    SELECT 
+				msg.msg_id
+				, msg.sender_id
+				, sender.sex as sender_sex
+				, sender.nick_name as sender_nick_name
+				, sender.main_photo_url as sender_main_photo_url       
+			  	, msg.receiver_id
+			  	, receiver.sex as receiver_sex
+				, receiver.nick_name as receiver_nick_name
+				, receiver.main_photo_url as receiver_main_photo_url
+			  	, msg.receiver_read_yn as receiver_read_yn
+			  	, msg.receiver_read_date as receiver_read_date
+			  	, msg.msg_text as msg_text
+			  	, msg.status as status
+			  	, msg.created_date as created_date
+			  	, get_membership(msg.sender_id) as sender_membership
+				, get_certification(msg.sender_id) as  sender_certification 
+				, get_membership(msg.receiver_id) as receiver_membership
+				, get_certification(msg.receiver_id) as  receiver_certification
+			FROM 
+					mu_messagebox_msg msg
+			      	INNER JOIN mu_member sender ON sender.member_id = msg.sender_id
+					INNER JOIN mu_member receiver ON receiver.member_id = msg.receiver_id
+			WHERE
+				msg.own_member_id = msg.sender_id
+               	AND 
+               	(
+               		(receiver.member_id = #receiverId# AND sender.member_id = #senderId#)
+               		OR
+               		(receiver.member_id = #senderId# AND sender.member_id = #receiverId#)
+               	)
+			ORDER BY created_date ASC, msg_id ASC
+	    
+	</select>
+	
+	<update id="updateMsgConversReadYn" parameterClass="long">
+	    UPDATE mu_messagebox_msg SET
+	    	receiver_read_yn = case when receiver_read_yn = 'N' then 'Y' else 'N' end 
+	    WHERE msg_id = #msgId#
+	</update>
+	
+	<delete id="deleteMsgConvers" parameterClass="long">
+	    DELETE FROM mu_messagebox_msg WHERE msg_id = #msgId#
+	</delete>
+	
+	<delete id="deleteMsgConversGroup" parameterClass="kr.ko.nexmain.server.MissingU.admin.model.MsgDeleteMemberPack">
+	    DELETE FROM mu_messagebox_msg
+	    WHERE
+	    	(receiver_id = #receiverId# AND sender_id = #senderId#)
+	    	OR  
+	    	(receiver_id = #senderId# AND sender_id = #receiverId#)
+	</delete>
+	<!-- // 쪽지함 재개발 (구버전 추후 삭제) -->
+	
+	
+
+	<select id="selectApkItem" resultMap="apkItemResultMap">
+	    <![CDATA[
+	    SELECT 
+	    		a.* 
+  		FROM apk_hist_info a
+ 		ORDER BY apk_id desc
+	    ]]>
+	</select>
+
+	<insert id="insertApkItem" parameterClass="apkItem">
+	    <![CDATA[
+	    INSERT INTO apk_hist_info
+	    	(apk_desc, apk_version, register_name, reg_date, apk_file_name)
+	    VALUES
+	    	(#apkDesc#, #apkVersion#, #registerName#, now(), #apkFileName#)
+	    ]]>
+	</insert>
+
+	<delete id="deleteApkItem" parameterClass="int">
+	    <![CDATA[
+	    DELETE FROM apk_hist_info
+	    WHERE apk_id = #apkId#
+	    ]]>
+	</delete>
+
+	<!-- 페이스매치 조회 Count -->
+	<select id="selectFmListCnt" resultClass="Integer"
+		parameterClass="hashmap">
+		SELECT
+		count(*) cnt
+		FROM mu_fm_result r,
+		mu_member m
+		WHERE r.member_id = m.member_id
+		<isNotEmpty property="cond_memberId">
+			AND r.member_id = #cond_memberId#
+		</isNotEmpty>
+		<isNotEmpty property="cond_eventId">
+			AND r.event_id = #cond_eventId#
+		</isNotEmpty>
+		<isNotEmpty property="cond_nickName">
+			AND m.nick_name like CONCAT('%',#cond_nickName#,'%')
+		</isNotEmpty>
+		<isEqual property="cond_country" compareValue="L">
+			AND m.country = 'kr'
+		</isEqual>
+		<isEqual property="cond_country" compareValue="F">
+			AND m.country != 'kr'
+		</isEqual>
+		<isNotEqual property="cond_sex" compareValue="ALL">
+			AND m.sex = #cond_sex#
+		</isNotEqual>
+	</select>
+
+	<!-- 페이스매치 조회 -->
+	<select id="selectFmList" resultMap="fmResultMap"
+		parameterClass="hashmap">
+		SELECT
+		r.*,
+		m.nick_name
+		FROM mu_fm_result r,
+		mu_member m
+		WHERE r.member_id = m.member_id
+		<isNotEmpty property="cond_memberId">
+			AND r.member_id = #cond_memberId#
+		</isNotEmpty>
+		<isNotEmpty property="cond_eventId">
+			AND r.event_id = #cond_eventId#
+		</isNotEmpty>
+		<isNotEmpty property="cond_nickName">
+			AND m.nick_name like CONCAT('%',#cond_nickName#,'%')
+		</isNotEmpty>
+		<isEqual property="cond_country" compareValue="L">
+			AND m.country = 'kr'
+		</isEqual>
+		<isEqual property="cond_country" compareValue="F">
+			AND m.country != 'kr'
+		</isEqual>
+		<isNotEqual property="cond_sex" compareValue="ALL">
+			AND m.sex = #cond_sex#
+		</isNotEqual>
+		ORDER BY r.win_cnt desc, r.voted_cnt desc
+		LIMIT #startRow#, #pageSize#
+	</select>
+
+	<!-- 회원목록 조회 Count -->
+	<select id="selectMemberListCnt" resultClass="Integer"
+		parameterClass="hashmap">
+		SELECT
+		count(*) cnt
+		FROM mu_member m
+		WHERE 1=1
+		<isNotEmpty property="cond_memberId">
+			AND member_id = #cond_memberId#
+		</isNotEmpty>
+		<isNotEmpty property="cond_loginId">
+			AND login_id like CONCAT('%',#cond_loginId#,'%')
+		</isNotEmpty>
+		<isNotEmpty property="cond_nickName">
+			AND nick_name like CONCAT('%',#cond_nickName#,'%')
+		</isNotEmpty>
+		<isEqual property="cond_country" compareValue="L">
+			AND country = 'kr'
+		</isEqual>
+		<isEqual property="cond_country" compareValue="F">
+			AND country != 'kr'
+		</isEqual>
+		<isNotEqual property="cond_sex" compareValue="ALL">
+			AND sex = #cond_sex#
+		</isNotEqual>
+		<isEqual property="cond_oneselfCertYn" compareValue="Y">
+			AND EXISTS (SELECT 1 FROM mu_member_attr a
+			WHERE m.member_id = a.member_id
+			AND a.attr_name = 'oneselfCertification'
+			AND a.attr_value = 'Y')
+		</isEqual>
+		<isEqual property="cond_oneselfCertYn" compareValue="N">
+			AND NOT EXISTS (SELECT 1 FROM mu_member_attr a
+			WHERE m.member_id = a.member_id
+			AND a.attr_name = 'oneselfCertification'
+			AND a.attr_value = 'Y')
+		</isEqual>
+		<isEqual property="cond_membershipYn" compareValue="Y">
+			AND EXISTS (SELECT 1 FROM mu_member_attr a
+			WHERE m.member_id = a.member_id
+			AND a.attr_name = 'passExpireDay'
+			AND a.attr_value <![CDATA[>=]]>
+			date_format(now(),'%Y%m%d') )
+		</isEqual>
+		<isEqual property="cond_membershipYn" compareValue="N">
+			AND NOT EXISTS (SELECT 1 FROM mu_member_attr a
+			WHERE m.member_id = a.member_id
+			AND a.attr_name = 'passExpireDay'
+			AND a.attr_value <![CDATA[>=]]>
+			date_format(now(),'%Y%m%d') )
+		</isEqual>
+	</select>
+
+	<!-- 회원목록 조회 -->
+	<select id="selectMemberList" resultMap="memberResultMap"
+		parameterClass="hashmap">
+		SELECT
+		date_format(created_date,'%Y-%m-%d %H:%i:%s') created_date_fm,
+		m.*
+		FROM mu_member m
+		WHERE 1=1
+		<isNotEmpty property="cond_memberId">
+			AND member_id = #cond_memberId#
+		</isNotEmpty>
+		<isNotEmpty property="cond_loginId">
+			AND login_id like CONCAT('%',#cond_loginId#,'%')
+		</isNotEmpty>
+		<isNotEmpty property="cond_nickName">
+			AND nick_name like CONCAT('%',#cond_nickName#,'%')
+		</isNotEmpty>
+		<isEqual property="cond_country" compareValue="L">
+			AND country = 'kr'
+		</isEqual>
+		<isEqual property="cond_country" compareValue="F">
+			AND country != 'kr'
+		</isEqual>
+		<isNotEqual property="cond_sex" compareValue="ALL">
+			AND sex = #cond_sex#
+		</isNotEqual>
+		<isEqual property="cond_oneselfCertYn" compareValue="Y">
+			AND EXISTS (SELECT 1 FROM mu_member_attr a
+			WHERE m.member_id = a.member_id
+			AND a.attr_name = 'oneselfCertification'
+			AND a.attr_value = 'Y')
+		</isEqual>
+		<isEqual property="cond_oneselfCertYn" compareValue="N">
+			AND NOT EXISTS (SELECT 1 FROM mu_member_attr a
+			WHERE m.member_id = a.member_id
+			AND a.attr_name = 'oneselfCertification'
+			AND a.attr_value = 'Y')
+		</isEqual>
+		<isEqual property="cond_membershipYn" compareValue="Y">
+			AND EXISTS (SELECT 1 FROM mu_member_attr a
+			WHERE m.member_id = a.member_id
+			AND a.attr_name = 'passExpireDay'
+			AND a.attr_value <![CDATA[>=]]>
+			date_format(now(),'%Y%m%d') )
+		</isEqual>
+		<isEqual property="cond_membershipYn" compareValue="N">
+			AND NOT EXISTS (SELECT 1 FROM mu_member_attr a
+			WHERE m.member_id = a.member_id
+			AND a.attr_name = 'passExpireDay'
+			AND a.attr_value <![CDATA[>=]]>
+			date_format(now(),'%Y%m%d') )
+		</isEqual>
+		ORDER BY member_id desc
+		LIMIT #startRow#, #pageSize#
+	</select>
+
+	<!-- 톡투미 목록 -->
+	<select id="selectTalkToMeList" resultMap="talkToMeResultMap"
+		parameterClass="hashmap">
+		SELECT
+		t.talk_id,
+		t.member_id,
+		t.title,
+		t.read_cnt,
+		t.reply_cnt,
+		t.talk_photo_url,
+		date_format(t.created_date,'%Y-%m-%d %H:%i:%s') created_date,
+		date_format(t.updated_date,'%Y-%m-%d %H:%i:%s') updated_date,
+		t.hide_tag, 
+		m.nick_name,
+		m.login_id,
+		m.sex,
+		m.main_photo_url
+		FROM mu_talktome t left join mu_member m on t.member_id = m.member_id
+		WHERE 1=1
+		<isNotEmpty property="cond_memberId">
+			AND t.member_id = #cond_memberId#
+		</isNotEmpty>
+		<isNotEmpty property="cond_loginId">
+			AND m.login_id like CONCAT('%',#cond_loginId#,'%')
+		</isNotEmpty>
+		<isNotEmpty property="cond_nickName">
+			AND m.nick_name like CONCAT('%',#cond_nickName#,'%')
+		</isNotEmpty>
+		<isNotEmpty property="cond_sex">
+		    AND m.sex = #cond_sex#
+		</isNotEmpty>
+		<isNotEmpty property="cond_title">
+			AND t.title like CONCAT('%',#cond_title#,'%')
+		</isNotEmpty>
+		<isNotEmpty property="cond_contents">
+			AND t.contents like CONCAT('%',#cond_contents#,'%')
+		</isNotEmpty>
+
+		ORDER BY t.talk_id desc
+		LIMIT #startRow#, #pageSize#
+	</select>
+
+	<!-- 톡투미 조회 -->
+	<select id="selectTalkToMeListCnt" resultClass="Integer"
+		parameterClass="hashmap">
+		SELECT
+		count(*) cnt
+		FROM mu_talktome t left join mu_member m on t.member_id = m.member_id
+		WHERE 1=1
+		<isNotEmpty property="cond_memberId">
+			AND t.member_id = #cond_memberId#
+		</isNotEmpty>
+		<isNotEmpty property="cond_loginId">
+			AND m.login_id like CONCAT('%',#cond_loginId#,'%')
+		</isNotEmpty>
+		<isNotEmpty property="cond_nickName">
+			AND m.nick_name like CONCAT('%',#cond_nickName#,'%')
+		</isNotEmpty>
+		<isNotEmpty property="cond_title">
+			AND t.title like CONCAT('%',#cond_title#,'%')
+		</isNotEmpty>
+		<isNotEmpty property="cond_contents">
+			AND t.contents like CONCAT('%',#cond_contents#,'%')
+		</isNotEmpty>
+	</select>
+
+	<!-- 톡투미 삭제 -->
+	<delete id="deleteTalkToMe" parameterClass="hashmap">
+		<![CDATA[
+	    DELETE FROM	mu_talktome WHERE	talk_id = #talkId#;
+	    ]]>
+	</delete>
+
+	<delete id="deleteTalkToMeReply" parameterClass="hashmap">
+		<![CDATA[
+	    DELETE FROM	mu_talktome_reply
+	    WHERE	talk_id = #talkId#
+	    ]]>
+	</delete>
+
+	<delete id="deleteTalkToMeReplyByArray">
+
+		DELETE FROM mu_talktome_reply
+		<dynamic prepend="WHERE	reply_id IN">
+			<iterate open="(" conjunction="," close=")">
+				#[]#
+			</iterate>
+		</dynamic>
+
+	</delete>
+	
+	<delete id="deleteTalkToMeByArrayTalkId">
+
+		DELETE FROM mu_talktome
+		<dynamic prepend="WHERE	talk_id IN">
+			<iterate open="(" conjunction="," close=")">
+				#[]#
+			</iterate>
+		</dynamic>
+
+	</delete>
+	
+	<delete id="deleteTalkToMeReplyByArrayTalkId">
+
+		DELETE FROM mu_talktome_reply
+		<dynamic prepend="WHERE	talk_id IN">
+			<iterate open="(" conjunction="," close=")">
+				#[]#
+			</iterate>
+		</dynamic>
+
+	</delete>
+
+	<!-- 결제내역 조회 Count -->
+	<select id="selectPayHistListCnt" resultClass="Integer"
+		parameterClass="hashmap">
+		SELECT
+		count(*) cnt
+		FROM mu_pay_hist a,
+		mu_member m
+		WHERE m.member_id = a.member_id
+		<isNotEmpty property="cond_memberId">
+			AND m.member_id = #cond_memberId#
+		</isNotEmpty>
+		<isNotEmpty property="cond_loginId">
+			AND m.login_id = #cond_loginId#
+		</isNotEmpty>
+		<isNotEmpty property="cond_nickName">
+			AND m.nick_name = #cond_nickName#
+		</isNotEmpty>
+	</select>
+
+	<!-- 결제내역 조회 -->
+	<select id="selectPayHistList" resultMap="payHistResultMap"
+		parameterClass="hashmap">
+		SELECT
+		date_format(a.created_date,'%Y-%m-%d %H:%i:%s') created_date_fm,
+		a.*,
+		m.nick_name,
+		m.sex, 
+		m.main_photo_url
+		FROM mu_pay_hist a,
+		mu_member m
+		WHERE m.member_id = a.member_id
+		<isNotEmpty property="cond_memberId">
+			AND m.member_id = #cond_memberId#
+		</isNotEmpty>
+		<isNotEmpty property="cond_loginId">
+			AND m.login_id = #cond_loginId#
+		</isNotEmpty>
+		<isNotEmpty property="cond_nickName">
+			AND m.nick_name = #cond_nickName#
+		</isNotEmpty>
+		ORDER BY a.pay_id desc
+		LIMIT #startRow#, #pageSize#
+	</select>
+
+	<!-- 포인트 사용내역 조회 Count -->
+	<select id="selectPointUseHistListCnt" resultClass="Integer"
+		parameterClass="hashmap">
+		SELECT
+		count(*) cnt
+		FROM mu_point_usage_hist a,
+		mu_member m
+		WHERE m.member_id = a.member_id
+		<isNotEmpty property="cond_memberId">
+			AND m.member_id = #cond_memberId#
+		</isNotEmpty>
+		<isNotEmpty property="cond_loginId">
+			AND m.login_id = #cond_loginId#
+		</isNotEmpty>
+		<isNotEmpty property="cond_nickName">
+			AND m.nick_name = #cond_nickName#
+		</isNotEmpty>
+	</select>
+
+	<!-- 포인트 사용내역 조회 -->
+	<select id="selectPointUseHistList" resultMap="pointUseHistResultMap"
+		parameterClass="hashmap">
+		SELECT
+		date_format(a.created_date,'%Y-%m-%d %H:%i:%s') created_date_fm,
+		a.*,
+		m.nick_name,
+		m.main_photo_url,
+		m.sex
+		FROM mu_point_usage_hist a,
+		mu_member m
+		WHERE m.member_id = a.member_id
+		<isNotEmpty property="cond_memberId">
+			AND m.member_id = #cond_memberId#
+		</isNotEmpty>
+		<isNotEmpty property="cond_loginId">
+			AND m.login_id = #cond_loginId#
+		</isNotEmpty>
+		<isNotEmpty property="cond_nickName">
+			AND m.nick_name = #cond_nickName#
+		</isNotEmpty>
+		ORDER BY a.point_hist_id desc
+		LIMIT #startRow#, #pageSize#
+	</select>
+
+
+	<!-- ===================================== -->
+	<!-- 공지사항 관련 SQL -->
+	<!-- ===================================== -->
+	<!-- 공지사항 리스트 조회 Count -->
+	<select id="selectNoticeListCnt" parameterClass="hashmap"
+		resultClass="Integer">
+		SELECT
+		count(*) cnt
+		FROM mu_notice
+		WHERE lang = #cond_lang#
+		<isNotEmpty property="cond_title">
+			AND title like CONCAT('%',#cond_title#,'%') 
+		</isNotEmpty>
+		<isNotEmpty property="cond_contents">
+			AND contents like CONCAT('%',#cond_contents#,'%') 
+		</isNotEmpty>
+		<isNotEmpty property="cond_showYn">
+			AND show_yn = #cond_showYn#
+		</isNotEmpty>
+		AND notice_id <![CDATA[<]]>
+		IFNULL(#lastItemId#,9999999999)
+	</select>
+
+	<!-- 공지사항 리스트 조회 -->
+	<select id="selectNoticeList" parameterClass="hashmap"
+		resultMap="noticeResultMap">
+		SELECT
+		notice_id,
+		title,
+		'' AS contents,
+		read_cnt,
+		show_yn,
+		lang,
+		date_format(created_date,'%Y-%m-%d %r') created_date,
+		date_format(updated_date,'%Y-%m-%d %r') updated_date
+		FROM mu_notice
+		WHERE lang = #cond_lang#
+		<isNotEmpty property="cond_title">
+			AND title like CONCAT('%',#cond_title#,'%') 
+		</isNotEmpty>
+		<isNotEmpty property="cond_contents">
+			AND contents like CONCAT('%',#cond_contents#,'%') 
+		</isNotEmpty>
+		<isNotEmpty property="cond_showYn">
+			AND show_yn = #cond_showYn#
+		</isNotEmpty>
+		AND notice_id <![CDATA[<]]>
+		IFNULL(#lastItemId#,9999999999)
+		ORDER BY notice_id desc
+		LIMIT #startRow#, #pageSize#
+	</select>
+
+	<!-- 공지사항 조회 -->
+	<select id="selectNotice" parameterClass="hashmap" resultMap="noticeResultMap">
+		<![CDATA[
+	    SELECT
+	    		notice_id,
+	    		title,
+	    		contents,
+	    		read_cnt,
+	    		show_yn,
+	    		lang,
+	    		date_format(created_date,'%Y-%m-%d %r')		created_date,
+	    		date_format(updated_date,'%Y-%m-%d %r')		updated_date
+	    FROM	mu_notice
+	    WHERE	notice_id = #noticeId#
+	    ]]>
+	</select>
+
+	<!-- 공지사항 생성 -->
+	<insert id="insertNotice" parameterClass="hashmap">
+		insert into mu_notice
+		(title, contents, lang, show_yn, created_date)
+		VALUES
+		(#title#, #contents#, #lang#, #showYn#, now())
+		<selectKey resultClass="Integer" keyProperty="noticeId">
+			SELECT
+			last_insert_id()
+		</selectKey>
+	</insert>
+
+	<!-- 공지사항 저장 -->
+	<update id="updateNotice" parameterClass="hashmap">
+		<![CDATA[
+	    UPDATE	mu_notice
+	    SET
+	    		title		= #title#,
+	    		contents	= #contents#,
+	    		lang		= #lang#,
+	    		show_yn		= #showYn#,
+	    		updated_date= now()
+	    WHERE	notice_id = #noticeId#
+	    ]]>
+	</update>
+
+	<!-- 공지사항 삭제 -->
+	<update id="deleteNotice" parameterClass="hashmap">
+		<![CDATA[
+	    DELETE FROM	mu_notice
+	    WHERE	notice_id = #noticeId#
+	    ]]>
+	</update>
+
+	<!-- ===================================== -->
+	<!-- 사용자가이드 관련 SQL -->
+	<!-- ===================================== -->
+	<!-- 사용자가이드 리스트 조회 -->
+	<select id="selectGuideListCnt" parameterClass="hashmap"
+		resultClass="Integer">
+		SELECT
+		count(*) cnt
+		FROM mu_user_guide
+		WHERE lang = #cond_lang#
+		<isNotEmpty property="cond_menuName">
+			AND menu_name like CONCAT('%',#cond_menuName#,'%')
+		</isNotEmpty>
+		<isNotEmpty property="cond_contents">
+			AND contents like CONCAT('%',#cond_contents#,'%')
+		</isNotEmpty>
+		<isNotEmpty property="cond_showYn">
+			AND show_yn = #cond_showYn#
+		</isNotEmpty>
+		AND menu_id <![CDATA[<]]>
+		IFNULL(#lastItemId#,9999999999)
+	</select>
+
+	<!-- 사용자가이드 리스트 조회 -->
+	<select id="selectGuideList" parameterClass="hashmap" resultMap="guideResultMap">
+		SELECT
+		menu_id,
+		menu_name,
+		level,
+		show_yn,
+		'' AS contents,
+		lang,
+		date_format(created_date,'%Y-%m-%d %r') created_date,
+		date_format(updated_date,'%Y-%m-%d %r') updated_date
+		FROM mu_user_guide
+		WHERE lang = #cond_lang#
+		<isNotEmpty property="cond_menuName">
+			AND menu_name like CONCAT('%',#cond_menuName#,'%')
+		</isNotEmpty>
+		<isNotEmpty property="cond_contents">
+			AND contents like CONCAT('%',#cond_contents#,'%')
+		</isNotEmpty>
+		<isNotEmpty property="cond_showYn">
+			AND show_yn = #cond_showYn#
+		</isNotEmpty>
+		AND menu_id <![CDATA[<]]>
+		IFNULL(#lastItemId#,9999999999)
+		ORDER BY menu_id
+		LIMIT #startRow#, #pageSize#
+	</select>
+
+	<!-- 사용자가이드 조회 -->
+	<select id="selectGuide" parameterClass="hashmap" resultMap="guideResultMap">
+		<![CDATA[
+	    SELECT
+	    		menu_id,
+	    		menu_name,
+	    		level,
+	    		show_yn,
+	    		contents,
+	    		lang,
+	    		date_format(created_date,'%Y-%m-%d %r')		created_date,
+	    		date_format(updated_date,'%Y-%m-%d %r')		updated_date
+	    FROM	mu_user_guide
+	    WHERE	menu_id = #menuId#
+	    ]]>
+	</select>
+
+	<!-- 사용자가이드 생성 -->
+	<insert id="insertGuide" parameterClass="hashmap">
+		insert into mu_user_guide
+		(menu_id, menu_name, contents, lang, show_yn, created_date)
+		VALUES
+		(#menuId#, #menuName#, #contents#, #lang#, #showYn#, now())
+		<selectKey resultClass="Integer" keyProperty="menuId">
+			SELECT
+			last_insert_id()
+		</selectKey>
+	</insert>
+
+	<!-- 사용자가이드 저장 -->
+	<update id="updateGuide" parameterClass="hashmap">
+		<![CDATA[
+	    UPDATE	mu_user_guide
+	    SET
+	    		menu_id		= #menuId#,
+	    		menu_name	= #menuName#,
+	    		contents	= #contents#,
+	    		lang		= #lang#,
+	    		show_yn		= #showYn#,
+	    		updated_date= now()
+	    WHERE	menu_id = #oldMenuId#
+	    ]]>
+	</update>
+
+	<!-- 사용자가이드 삭제 -->
+	<update id="deleteGuide" parameterClass="hashmap">
+		<![CDATA[
+	    DELETE FROM	mu_user_guide
+	    WHERE	menu_id = #menuId#
+	    ]]>
+	</update>
+
+	<!-- 쪽지 리스트 조회 -->
+	<select id="selectMessageBoxList" resultMap="myMsgListResultMap" parameterClass="hashmap">
+	    
+	    SELECT
+		    msg.msg_id, 
+		    msg.sender_id, 
+		    sender.country as sender_country, 
+		    sender.lang as sender_lang, 
+		    sender.nick_name as sender_nick_name, 
+		    sender.sex as sender_sex, 
+		    sender.main_photo_url as sender_main_photo_url, 
+		    msg.receiver_id, 
+		    receiver.country as receiver_country, 
+		    receiver.lang as receiver_lang, 
+		    receiver.nick_name as receiver_nick_name, 
+		    receiver.sex as receiver_sex, 
+		    receiver.main_photo_url as receiver_main_photo_url,
+		    msg.receiver_read_yn, 
+	    	msg.msg_text, 
+	    	date_format(msg.created_date,'%Y-%m-%d %H:%i')								AS send_date,
+	    	'' as sender_membership,
+			'' as  sender_certification, 
+			'' as receiver_membership,
+			''  as  receiver_certification	
+	    FROM
+	    	mu_msg msg 
+			LEFT JOIN mu_member sender ON msg.sender_id = sender.member_id        
+			LEFT JOIN mu_member receiver ON msg.receiver_id = receiver.member_id             
+				
+	    WHERE
+	    	1=1
+		<isNotNull property="receiverId">
+		    <isNotEmpty property="receiverId">
+				AND		msg.receiver_id  = #receiverId#	    
+		    </isNotEmpty>
+		</isNotNull>
+		<isNotNull property="senderId">
+		    <isNotEmpty property="senderId">
+			AND		msg.sender_id  = #senderId#
+			</isNotEmpty>
+		</isNotNull>
+		<isNotNull property="msgTxt">
+		    <isNotEmpty property="msgTxt">
+			AND		msg.msg_text LIKE CONCAT('%',#msgTxt#,'%')
+			</isNotEmpty>
+		</isNotNull>
+	    ORDER BY msg.msg_id desc
+	    LIMIT #startRow#, #pageSize#
+	</select>
+	
+	<!-- 쪽지 리스트 조회 -->
+	<select id="selectMessageBoxListCnt" resultClass="Integer" parameterClass="hashmap">
+	    
+	    SELECT
+		   	COUNT(*) as cnt
+	    FROM 
+		    mu_msg msg 
+	    WHERE
+	    	1=1
+		<isNotNull property="receiverId">
+		    <isNotEmpty property="receiverId">
+				AND		msg.receiver_id  = #receiverId#	    
+		    </isNotEmpty>
+		</isNotNull>
+		<isNotNull property="senderId">
+		    <isNotEmpty property="senderId">
+			AND		msg.sender_id  = #senderId#
+			</isNotEmpty>
+		</isNotNull>
+		<isNotNull property="msgTxt">
+		    <isNotEmpty property="msgTxt">
+			AND		msg.msg_text LIKE CONCAT('%',#msgTxt#,'%')
+			</isNotEmpty>
+		</isNotNull>
+	</select>
+	
+	<delete id="deleteMsgByArrayMsgId">
+		DELETE msg, msgbox, lnk 
+		FROM 
+		mu_lnk_msgbox_msg lnk
+		LEFT JOIN mu_msgbox msgbox ON lnk.msgbox_id = msgbox.msgbox_id
+		LEFT JOIN mu_msg msg ON lnk.msg_id = msg.msg_id
+		WHERE 
+		<dynamic prepend="lnk.msg_id IN">
+			<iterate open="(" conjunction="," close=")">
+				#[]#
+			</iterate>
+		</dynamic>
+	</delete>
+	
+	
+	<!-- 쪽지 리스트 조회 -->
+	<select id="selectMessageBoxConversationFriends" resultMap="myMsgListResultMap" parameterClass="hashmap">
+	    SELECT
+		    msg.msg_id, 
+		    msg.sender_id, 
+		    sender.country as sender_country, 
+		    sender.lang as sender_lang, 
+			sender.nick_name as sender_nick_name, 
+			sender.sex as sender_sex, 
+			sender.main_photo_url as sender_main_photo_url, 
+			msg.receiver_id, 
+			receiver.country as receiver_country, 
+		    receiver.lang as receiver_lang, 
+			receiver.nick_name as receiver_nick_name, 
+			receiver.sex as receiver_sex, 
+			receiver.main_photo_url as receiver_main_photo_url,
+		    '' AS receiver_read_yn, 
+	    	'' AS msg_text, 
+	    	'' AS send_date,
+	    	'' AS sender_membership,
+			'' AS  sender_certification, 
+			'' AS receiver_membership,
+			'' AS  receiver_certification	
+	    FROM
+	    	(SELECT 
+			        sender_id
+			      , receiver_id 
+			      , MAX(msg_id) AS msg_id
+			    FROM mu_msg 
+				GROUP BY sender_id, receiver_id
+			) msg 
+			LEFT JOIN mu_member sender ON msg.sender_id = sender.member_id        
+			LEFT JOIN mu_member receiver ON msg.receiver_id = receiver.member_id
+	    WHERE
+	    	1=1
+		<isNotNull property="receiverId">
+		    <isNotEmpty property="receiverId">
+				AND		msg.receiver_id  = #receiverId#	    
+		    </isNotEmpty>
+		</isNotNull>
+		<isNotNull property="senderId">
+		    <isNotEmpty property="senderId">
+			AND		msg.sender_id  = #senderId#
+			</isNotEmpty>
+		</isNotNull>
+	    ORDER BY msg.msg_id DESC
+	    LIMIT #startRow#, #pageSize#
+	</select>
+	
+	<!-- 쪽지 리스트 조회 -->
+	<select id="selectMessageBoxConversationFriendsCnt" resultClass="Integer" parameterClass="hashmap">
+	    SELECT
+		   	COUNT(*) as cnt
+	    FROM 
+	    	(SELECT 
+			        sender_id
+			      , receiver_id
+			       FROM mu_msg 
+				GROUP BY sender_id, receiver_id
+			) msg
+	    WHERE
+	    	1=1
+		<isNotNull property="receiverId">
+		    <isNotEmpty property="receiverId">
+				AND		msg.receiver_id  = #receiverId#	    
+		    </isNotEmpty>
+		</isNotNull>
+		<isNotNull property="senderId">
+		    <isNotEmpty property="senderId">
+			AND		msg.sender_id  = #senderId#
+			</isNotEmpty>
+		</isNotNull>
+	</select>
+	
+	<!-- 쪽지 리스트 조회 -->
+	<select id="selectMsgBoxConversationByFriendsId" resultMap="myMsgListResultMap" parameterClass="hashmap">
+	    SELECT
+		    msg.msg_id, 
+		    msg.sender_id, 
+		    sender.country as sender_country, 
+		    sender.lang as sender_lang, 
+			sender.nick_name as sender_nick_name, 
+			sender.sex as sender_sex, 
+			sender.main_photo_url as sender_main_photo_url, 
+			msg.receiver_id, 
+			receiver.country as receiver_country, 
+		    receiver.lang as receiver_lang,
+			receiver.nick_name as receiver_nick_name, 
+			receiver.sex as receiver_sex, 
+			receiver.main_photo_url as receiver_main_photo_url,
+		    msg.receiver_read_yn, 
+	    	msg.msg_text, 
+	    	date_format(msg.created_date,'%Y-%m-%d %H:%i')								AS send_date,
+	    	'' AS sender_membership,
+			'' AS  sender_certification, 
+			'' AS receiver_membership,
+			'' AS  receiver_certification	
+	    FROM
+	    	mu_msg msg 
+			LEFT JOIN mu_member sender ON msg.sender_id = sender.member_id        
+			LEFT JOIN mu_member receiver ON msg.receiver_id = receiver.member_id
+	    WHERE
+	    				(msg.receiver_id  = #receiverId# AND		msg.sender_id  = #senderId#)
+	    			OR (msg.receiver_id  = #senderId# AND		msg.sender_id  = #receiverId#)
+	    ORDER BY msg.msg_id ASC
+	</select>
+	
+	<!-- 1:1문의 리스트 조회 -->
+	<select id="selectManToManQuestionsList" resultMap="manToManListResultMap" parameterClass="hashmap">
+		SELECT  
+			mantoman.m_id, 
+			mantoman.member_id, 
+			mem.nick_name, 
+			mem.sex, 
+			mem.main_photo_url, 
+			mantoman.code, 
+			mantoman.contract, 
+			mantoman.content, 
+			mantoman.file, 
+			date_format(mantoman.created_date,'%Y-%m-%d %H:%i') as created_date, 
+			date_format(mantoman.updated_date,'%Y-%m-%d %H:%i') as updated_date, 
+			mantoman.memo, 
+			mantoman.status
+		FROM
+			mu_man_to_man_question mantoman
+			LEFT JOIN mu_member mem ON mantoman.member_id = mem.member_id
+		WHERE
+			1=1
+			<isNotEmpty property="memberId">
+				AND	mantoman.member_id  = #memberId#	    
+		    </isNotEmpty>
+		    <isNotEmpty property="code">
+				AND	mantoman.code  = #code#	    
+		    </isNotEmpty>
+		    <isNotEmpty property="status">
+				AND	mantoman.status  = #status#	    
+		    </isNotEmpty>
+		ORDER BY mantoman.m_id DESC
+		LIMIT #startRow#, #pageSize#
+	</select>
+	
+	<!-- 1:1문의 리스트 조회 -->
+	<select id="selectManToManQuestionsListCnt" resultClass="Integer" parameterClass="hashmap">
+		SELECT  
+			COUNT(*) AS cnt
+		FROM
+			mu_man_to_man_question mantoman
+		WHERE
+			1=1
+			<isNotEmpty property="memberId">
+				AND	mantoman.member_id  = #memberId#	    
+		    </isNotEmpty>
+		    <isNotEmpty property="code">
+				AND	mantoman.code  = #code#	    
+		    </isNotEmpty>
+		    <isNotEmpty property="status">
+				AND	mantoman.status  = #status#	    
+		    </isNotEmpty>
+	</select>
+
+	<delete id="deleteManToManArrayByMId">
+		DELETE  FROM 
+		mu_man_to_man_question
+		WHERE 
+		<dynamic prepend="m_id IN">
+			<iterate open="(" conjunction="," close=")">
+				#[]#
+			</iterate>
+		</dynamic>
+	</delete>
+	
+	<update id="updateManToManByMId" parameterClass="hashmap">
+	    UPDATE mu_man_to_man_question SET
+	    	memo = #memo#
+	    	, status = #status#
+	    WHERE
+	    	m_id = #mId#
+	</update>
+	
+	
+	
+	<!-- 회원목록 조회 Count -->
+	<select id="selectMemberListCntNew" resultClass="Integer" parameterClass="hashmap">
+		SELECT
+			count(*) cnt
+		FROM mu_member m
+		WHERE 1=1
+		<isNotEmpty property="nick_name">
+			AND nick_name like CONCAT('%',#nick_name#,'%')
+		</isNotEmpty>
+		<isNotEmpty property="sex">
+			AND sex = #sex#
+		</isNotEmpty>
+		
+		<isNotEmpty property="age_start">
+		    <isNotEmpty property="age_end">
+			AND birth_date IS NOT NULL
+			AND datediff(NOW(), date(birth_date))/365.25 BETWEEN #age_start# AND #age_end#
+			</isNotEmpty>
+		</isNotEmpty>
+		
+		<isNotNull property="lang">
+		    <isEqual property="lang" compareValue="ko">
+		        AND lang = 'ko'
+		    </isEqual>
+		    <isNotEqual property="lang" compareValue="ko">
+		        AND lang &lt;&gt; 'ko'
+		    </isNotEqual>
+		</isNotNull>
+		
+		<isNotNull property="country">
+		    <isEqual property="country" compareValue="kr">
+		        AND country = 'kr'
+		    </isEqual>
+		    <isNotEqual property="country" compareValue="kr">
+		        AND country &lt;&gt; 'kr'
+		    </isNotEqual>
+		</isNotNull>
+		
+		<isNotEmpty property="hp_nm">
+			AND hp_nm like CONCAT('%',#hp_nm#,'%')
+		</isNotEmpty>
+		
+		<isEqual property="certification" compareValue="Y">
+			AND EXISTS (SELECT 1 FROM mu_member_attr a
+			WHERE m.member_id = a.member_id
+			AND a.attr_name = 'oneselfCertification'
+			AND a.attr_value = 'Y')
+		</isEqual>
+		
+		<isEqual property="membership" compareValue="Y">
+			AND EXISTS (SELECT 1 FROM mu_member_attr a
+			WHERE m.member_id = a.member_id
+			AND a.attr_name = 'passExpireDay'
+			AND a.attr_value &gt;=
+			date_format(now(),'%Y%m%d') )
+		</isEqual>
+		<isEqual property="membership" compareValue="N">
+			AND NOT EXISTS (SELECT 1 FROM mu_member_attr a
+			WHERE m.member_id = a.member_id
+			AND a.attr_name = 'passExpireDay'
+			AND a.attr_value <![CDATA[>=]]>
+			date_format(now(),'%Y%m%d') )
+		</isEqual>
+		
+		<isNotEmpty property="status">
+			AND status = #status#
+		</isNotEmpty>
+		
+		<isNotEmpty property="created_date_start">
+		    <isNotEmpty property="created_date_end">
+				AND created_date between date('$created_date_start$') AND date('$created_date_end$')
+			</isNotEmpty>
+		</isNotEmpty>
+		
+		<isNotEmpty property="area">
+			AND area like CONCAT('%',#area#,'%')
+		</isNotEmpty>
+		
+		<isNotEmpty property="location">
+			AND location like CONCAT('%',#location#,'%')
+		</isNotEmpty>
+		
+	</select>
+	
+	<!-- 회원목록 조회 -->
+	<select id="selectMemberListNew" resultMap="memberResultMapNew" parameterClass="hashmap">
+		SELECT
+			member_id, 
+			login_id,
+			name, 
+			nick_name, 
+			sex, 
+			ceil(datediff(now(), date(birth_date))/365.25) as age,
+			date_format(date(birth_date),'%Y-%m-%d') as birth_date,
+			date_format(created_date,'%Y-%m-%d %H:%i:%s') created_date_fm,
+			hp_nm, 
+			country, 
+			status, 
+			self_pr,
+			lang, 
+			main_photo_url, 
+			FORMAT(IFNULL((SELECT item_amount FROM mu_inventory WHERE	member_id = m.member_id AND		item_cd = 'T00000'),0), 0) as point, 
+			get_membership(member_id) as membership,
+			get_certification(member_id) as  certification 
+		FROM mu_member m
+		WHERE 1=1
+		<isNotEmpty property="nick_name">
+			AND nick_name like CONCAT('%',#nick_name#,'%')
+		</isNotEmpty>
+		<isNotEmpty property="sex">
+			AND sex = #sex#
+		</isNotEmpty>
+		
+		<isNotEmpty property="age_start">
+		    <isNotEmpty property="age_end">
+			AND birth_date IS NOT NULL
+			AND datediff(NOW(), date(birth_date))/365.25 BETWEEN #age_start# AND #age_end#
+			</isNotEmpty>
+		</isNotEmpty>
+		
+		<isNotNull property="lang">
+		    <isEqual property="lang" compareValue="ko">
+		        AND lang = 'ko'
+		    </isEqual>
+		    <isNotEqual property="lang" compareValue="ko">
+		        AND lang &lt;&gt; 'ko'
+		    </isNotEqual>
+		</isNotNull>
+		
+		<isNotNull property="country">
+		    <isEqual property="country" compareValue="kr">
+		        AND country = 'kr'
+		    </isEqual>
+		    <isNotEqual property="country" compareValue="kr">
+		        AND country &lt;&gt; 'kr'
+		    </isNotEqual>
+		</isNotNull>
+		
+		<isNotEmpty property="hp_nm">
+			AND hp_nm like CONCAT('%',#hp_nm#,'%')
+		</isNotEmpty>
+		
+		<isEqual property="certification" compareValue="Y">
+			AND EXISTS (SELECT 1 FROM mu_member_attr a
+			WHERE m.member_id = a.member_id
+			AND a.attr_name = 'oneselfCertification'
+			AND a.attr_value = 'Y')
+		</isEqual>
+		
+		<isEqual property="membership" compareValue="Y">
+			AND EXISTS (SELECT 1 FROM mu_member_attr a
+			WHERE m.member_id = a.member_id
+			AND a.attr_name = 'passExpireDay'
+			AND a.attr_value &gt;=
+			date_format(now(),'%Y%m%d') )
+		</isEqual>
+		<isEqual property="membership" compareValue="N">
+			AND NOT EXISTS (SELECT 1 FROM mu_member_attr a
+			WHERE m.member_id = a.member_id
+			AND a.attr_name = 'passExpireDay'
+			AND a.attr_value <![CDATA[>=]]>
+			date_format(now(),'%Y%m%d') )
+		</isEqual>
+		
+		<isNotEmpty property="area">
+			AND area like CONCAT('%',#area#,'%')
+		</isNotEmpty>
+		
+		<isNotEmpty property="status">
+			AND status = #status#
+		</isNotEmpty>
+		
+		<isNotEmpty property="created_date_start">
+		    <isNotEmpty property="created_date_end">
+				AND created_date between date('$created_date_start$') AND date('$created_date_end$')
+			</isNotEmpty>
+		</isNotEmpty>
+		
+		<isNotEmpty property="location">
+			AND location like CONCAT('%',#location#,'%')
+		</isNotEmpty>
+		ORDER BY member_id desc
+		LIMIT #startRow#, #pageSize#
+	</select>
+	
+	
+	
+	<!-- 미션매치 리스트 조회 Count -->
+	<select id="selectMissionMatchListCnt" parameterClass="hashmap" resultClass="Integer">
+	    
+	    SELECT 
+	    	count(*) cnt
+  		FROM mu_mission_match
+ 		WHERE     
+ 			1=1
+ 			<isNotEmpty property="is_facematch">
+		       AND type = #is_facematch#
+ 			</isNotEmpty>
+ 			<isNotEmpty property="period_date_start">
+	       		AND start_date > #period_date_start#
+			</isNotEmpty>
+			<isNotEmpty property="period_date_end">
+	       		AND end_date > #period_date_end#
+			</isNotEmpty>
+	       <isNotEmpty property="cond_content">
+			AND description like CONCAT('%',#cond_content#,'%')
+		</isNotEmpty>
+	       <isNotEmpty property="cond_title">
+			AND title like CONCAT('%',#cond_title#,'%')
+		</isNotEmpty>
+		<isNotEmpty property="status">
+			AND status = #status#
+		</isNotEmpty>
+	</select>
+
+	<!-- 미션매치 리스트 조회 -->
+	<select id="selectMissionMatchList" parameterClass="hashmap" resultMap="missionMatchResultMap">
+		SELECT
+			m_id, 
+			type, 
+			title, 
+			description, 
+			start_date,
+			 end_date, 
+			 max_count, 
+			 status, 
+			 use_multi_vote, 
+			 multi_vote_interval, 
+			 battle_cnt, 
+			 lang
+		FROM mu_mission_match
+ 		WHERE     
+ 			1=1
+ 			<isNotEmpty property="lang">
+		       AND lang = #lang#
+ 			</isNotEmpty>
+ 			<isNotEmpty property="is_facematch">
+		       AND type = #is_facematch#
+ 			</isNotEmpty>
+ 			<isNotEmpty property="period_date_start">
+	       		AND start_date > #period_date_start#
+			</isNotEmpty>
+			<isNotEmpty property="period_date_end">
+	       		AND end_date > #period_date_end#
+			</isNotEmpty>
+	       <isNotEmpty property="cond_content">
+			AND description like CONCAT('%',#cond_content#,'%')
+		</isNotEmpty>
+	       <isNotEmpty property="cond_title">
+			AND title like CONCAT('%',#cond_title#,'%')
+		</isNotEmpty>
+		<isNotEmpty property="status">
+			AND status = #status#
+		</isNotEmpty>
+		ORDER BY m_id desc
+		LIMIT #startRow#, #pageSize#
+	</select>
+	
+	<!-- 미션매치 리스트 조회 -->
+	<select id="selectMissionMatch" parameterClass="hashmap" resultMap="missionMatchResultMap">
+		SELECT
+			m_id, 
+			type, 
+			title, 
+			description, 
+			start_date,
+			 end_date, 
+			 max_count, 
+			 status, 
+			 use_multi_vote, 
+			 multi_vote_interval, 
+			 battle_cnt, 
+			 lang
+		FROM mu_mission_match
+ 		WHERE     
+ 			1=1
+ 			AND m_id = #mId#
+	</select>
+	
+	<!-- 미션매치 전체통계 -->
+	<select id="selectMissionMatchStatusAll" parameterClass="hashmap" resultMap="missionMatchTotalDataRnkMap">
+	    SELECT 
+	    	m.member_id,
+	       m.main_photo_url,
+	       m.purpose_cd,
+	       m.nick_name,
+	       m.birth_date,
+	       m.self_pr,
+	       f_decrypt(m.location) AS location,
+	       get_membership(m.member_id) AS membership,
+	       get_certification(m.member_id) AS certification,
+	       m.sex,
+	       mmj.mj_id,
+	       mmj.vote,
+	       mmj.vote_by_month,
+	       mm.battle_cnt,
+	       mmj.battle_join_cnt
+	  FROM mu_mission_match_join mmj
+	       INNER JOIN mu_mission_match mm ON mmj.m_id = mm.m_id
+	       INNER JOIN mu_member m ON mmj.member_id = m.member_id
+	 WHERE 1 = 1
+	 		AND mm.m_id = #mId#
+	 ORDER
+	 BY mmj.vote DESC, mmj.member_id ASC
+	 LIMIT #startRow#, #pageSize#
+	</select>
+	
+	<!-- 미션매치 전체통계 -->
+	<select id="selectMissionMatchStatusAllCnt" parameterClass="hashmap" resultClass="Integer">
+	    SELECT 
+	    	count(*) as cnt
+	  FROM mu_mission_match_join mmj
+	       INNER JOIN mu_mission_match mm ON mmj.m_id = mm.m_id
+	       INNER JOIN mu_member m ON mmj.member_id = m.member_id
+	 WHERE 1 = 1
+	 		AND mm.m_id = #mId#
+	</select>
+	
+	<!-- 미션매치 전체통계 -->
+	<select id="selectMissionMatchStatusPeriod" parameterClass="hashmap" resultMap="missionMatchTotalDataRnkMap">
+		SELECT m.member_id,
+	       m.main_photo_url,
+	       m.purpose_cd,
+	       m.nick_name,
+	       m.birth_date,
+	       m.self_pr,
+	       f_decrypt(m.location) AS location,
+	       get_membership(m.member_id) AS membership,
+	       get_certification(m.member_id) AS certification,
+	       m.sex,
+	       mmr.mr_id,
+	       mmr.vote,
+	       0 as battle_cnt,
+	       mmr.battle_join_cnt
+	  FROM mu_mission_match_result mmr
+	       INNER JOIN mu_mission_match mm ON mmr.m_id = mm.m_id
+	       INNER JOIN mu_member m ON mmr.member_id = m.member_id
+	 WHERE 1 = 1
+	 	AND mmr.m_id = #mId#
+	    AND mmr.`year` = #year#
+	    AND mmr.`month` = #month#
+	 ORDER
+	 BY mmr.vote DESC, mmr.member_id ASC
+	 LIMIT #startRow#, #pageSize#
+	</select>
+	
+	<!-- 미션매치 전체통계 -->
+	<select id="selectMissionMatchStatusPeriodCnt" parameterClass="hashmap" resultClass="Integer">
+	    SELECT 
+	    	count(*) as cnt
+	 FROM mu_mission_match_result mmr
+	       INNER JOIN mu_mission_match mm ON mmr.m_id = mm.m_id
+	       INNER JOIN mu_member m ON mmr.member_id = m.member_id
+	 WHERE 1 = 1
+	 	AND mmr.m_id = #mId#
+	    AND mmr.`year` = #year#
+	    AND mmr.`month` = #month#
+	</select>
+	
+	<!-- 미션매치 생성 -->
+	<insert id="insertMissionMatch" parameterClass="hashmap">
+	    
+	    INSERT INTO mu_mission_match (
+			type, 
+			title, 
+			description, 
+			start_date,
+			end_date, 
+			max_count, 
+			status, 
+			use_multi_vote, 
+			multi_vote_interval, 
+			lang
+		) VALUES (
+			IFNULL(#type#, 1), 
+			#title#, 
+			#description#, 
+			#start_date#,
+			#end_date#, 
+			IFNULL(#max_count#, 0), 
+			IFNULL(#status#, 0), 
+			IFNULL(#use_multi_vote#, 0), 
+			IFNULL(#multi_vote_interval#, 0), 
+			IFNULL(#lang#, 'ko')
+		)
+		
+		<selectKey resultClass="Integer" keyProperty="mId">
+			SELECT
+			last_insert_id()
+		</selectKey>
+	</insert>
+
+	<!-- 미션매치 저장 -->
+	<update id="updateMissionMatch" parameterClass="hashmap">
+		<![CDATA[
+	    UPDATE	mu_mission_match
+	    SET
+	    	type = IFNULL(#type#, type), 
+			title = IFNULL(#title#, title),
+			description = IFNULL(#description#, description),
+			start_date = IFNULL(#start_date#, start_date),
+			end_date = IFNULL(#end_date#, end_date),
+			max_count = IFNULL(#max_count#, max_count),
+			status = IFNULL(#status#, status),
+			use_multi_vote = IFNULL(#use_multi_vote#, use_multi_vote),
+			multi_vote_interval = IFNULL(#multi_vote_interval#, multi_vote_interval), 
+			lang = IFNULL(#lang#, lang)
+	    WHERE	
+	    		m_id = #mId#
+	    ]]>
+	</update>
+
+	<!-- 미션매치 삭제 -->
+	<update id="deleteMissionMatch" parameterClass="hashmap">
+		<![CDATA[
+	    DELETE FROM	mu_mission_match
+	    WHERE	m_id = #mId#
+	    ]]>
+	</update>
+	
+	<!-- 미션매치 참여 리스트 조회 Count -->
+	<select id="selectJoinMissionMatchListCnt" parameterClass="hashmap" resultClass="Integer">
+	    
+	    SELECT 
+	    	count(*) cnt
+  		FROM mu_mission_match_join mmj
+  				INNER JOIN mu_member m ON mmj.member_id = m.member_id
+ 		WHERE     
+ 			1=1
+ 			AND mmj.m_id = #mId#
+ 			<isNotEmpty property="nick_name">
+				AND m.nick_name like CONCAT('%',#nick_name#,'%')
+			</isNotEmpty>
+			<isNotEmpty property="sex">
+				AND m.sex = #sex#
+			</isNotEmpty>
+ 			<isNotEmpty property="created_date_start">
+	       		AND mmj.created_date > #created_date_start#
+			</isNotEmpty>
+			<isNotEmpty property="created_date_end">
+	       		AND mmj.created_date > #created_date_end#
+			</isNotEmpty>
+	       	<isNotEmpty property="comment">
+				AND mmj.comment like CONCAT('%',#comment#,'%')
+			</isNotEmpty>
+	</select>
+
+	<!-- 미션매치 리스트 조회 -->
+	<select id="selectJoinMissionMatchList" parameterClass="hashmap" resultMap="missionMatchJoinResultMap">
+		SELECT
+			mmj.mj_id, 
+			mmj.m_id, 
+			m.member_id, 
+			m.name,
+			m.nick_name, 
+			m.main_photo_url, 
+			m.sex, 
+			mmj.comment,
+			mmj.uploadfile, 
+			mmj.uploadfilebig, 
+			mmj.uploadfileorg, 
+			mmj.created_date, 
+			mmj.updated_date, 
+			mmj.vote, 
+			mmj.view_cnt, 
+			mmj.vote_by_month, 
+			mmj.battle_join_cnt
+		FROM mu_mission_match_join mmj
+  				INNER JOIN mu_member m ON mmj.member_id = m.member_id
+ 		WHERE     
+ 			1=1
+ 			AND mmj.m_id = #mId#
+ 			<isNotEmpty property="nick_name">
+				AND m.nick_name like CONCAT('%',#nick_name#,'%')
+			</isNotEmpty>
+			<isNotEmpty property="sex">
+				AND m.sex = #sex#
+			</isNotEmpty>
+ 			<isNotEmpty property="created_date_start">
+	       		AND mmj.created_date > #created_date_start#
+			</isNotEmpty>
+			<isNotEmpty property="created_date_end">
+	       		AND mmj.created_date > #created_date_end#
+			</isNotEmpty>
+	       	<isNotEmpty property="comment">
+				AND mmj.comment like CONCAT('%',#comment#,'%')
+			</isNotEmpty>
+		ORDER BY mj_id desc
+		LIMIT #startRow#, #pageSize#
+	</select>
+	
+	<!-- 미션참여 삭제 -->
+	<delete id="deleteJoinMissionMatch" >
+	    DELETE FROM mu_mission_match_join
+		<dynamic prepend="WHERE	mj_id IN">
+			<iterate open="(" conjunction="," close=")">
+				#[]#
+			</iterate>
+		</dynamic>
+	</delete>
+	<delete id="deleteJoinMissionMatchVote" >
+	    DELETE FROM mu_mission_match_vote
+		<dynamic prepend="WHERE	mj_id IN">
+			<iterate open="(" conjunction="," close=")">
+				#[]#
+			</iterate>
+		</dynamic>
+	</delete>
+	
+	<!-- 미션 참여 조회-->
+	<select id="selectJoinMissionMatch" parameterClass="hashmap" resultMap="missionMatchJoinResultMap">
+		    SELECT
+				mmj.mj_id, 
+				mmj.m_id, 
+				m.member_id, 
+				m.name,
+				m.nick_name, 
+				m.main_photo_url, 
+				m.sex, 
+				mmj.comment,
+				mmj.uploadfile, 
+				mmj.uploadfilebig, 
+				mmj.uploadfileorg, 
+				mmj.created_date, 
+				mmj.updated_date, 
+				mmj.vote, 
+				mmj.view_cnt, 
+				mmj.vote_by_month, 
+				mmj.battle_join_cnt
+			FROM mu_mission_match_join mmj
+	  				INNER JOIN mu_member m ON mmj.member_id = m.member_id
+	 		WHERE     
+	 			1=1
+	 			AND mmj.mj_id = #mJId#
+	</select>
+	
+	<!-- 미션 참여 등록 -->
+	<insert id="insertJoinMissionMatch" parameterClass="MissionMatchJoinReqVO">
+	    
+	    INSERT INTO mu_mission_match_join
+	    (
+	    	m_id, 
+	    	member_id, 
+	    	comment, 
+	    	uploadfile, 
+	    	uploadfilebig, 
+	    	uploadfileorg, 
+	    	vote, 
+	    	created_date, 
+	    	updated_date, 
+	    	view_cnt, 
+	    	vote_by_month, 
+	    	battle_join_cnt
+	    )
+	    VALUES
+	    (
+	    m_id, 
+	    	#gMemberId#, 
+	    	#comment#, 
+	    	#uploadfile#, 
+	    	#uploadfileBig#, 
+	    	#uploadfileOrg#, 
+	    	IFNULL(#vote#, 0), 
+	    	NOW(), 
+	    	null, 
+	    	IFNULL(#viewCnt#, 0), 
+	    	IFNULL(#voteByMonth#, 0), 
+	    	IFNULL(#battleJoinCnt#, 0)
+	    )
+	    
+	    <selectKey resultClass="Integer" keyProperty="mJId">
+			SELECT
+				last_insert_id()
+		</selectKey>
+	</insert>
+	
+	<update id="updateJoinMissionMatch" parameterClass="MissionMatchJoinReqVO">
+	    
+	    UPDATE	mu_mission_match_join
+	    SET
+	    	member_id = IFNULL(#gMemberId#, member_id), 
+	    	comment = #comment#, 
+	    	uploadfile =  IFNULL(#uploadfile#, uploadfile), 
+	    	uploadfilebig =  IFNULL(#uploadfileBig#, uploadfilebig), 
+	    	uploadfileorg =  IFNULL(#uploadfileOrg#, uploadfileorg),
+	    	vote = IFNULL(#vote#, vote),
+	    	updated_date = NOW(), 
+	    	view_cnt = IFNULL(#viewCnt#, view_cnt), 
+	    	vote_by_month = IFNULL(#voteByMonth#, vote_by_month),
+	    	battle_join_cnt = IFNULL(#battleJoinCnt#, battle_join_cnt)
+	    WHERE	
+	    		mj_id = #mJId#
+	    		
+	</update>
+</sqlMap>

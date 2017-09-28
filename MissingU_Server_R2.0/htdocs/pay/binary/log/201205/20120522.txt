@@ -1,0 +1,28 @@
+08:30:38 ========= 거래 시작 ==========
+08:30:38 code : 303
+08:30:38 0. before process
+08:30:38 IPAddress : 211.45.20.176
+08:30:38 PortNo    : 43001
+08:30:38 Timeout   : 10
+08:30:38 Body      : |
+08:30:38 1. write Request 
+08:30:38   Send : 709def924ee0f593cd8b4c1030020c1d
+08:30:38 2. read response body 
+08:30:38   response data : 553838f5011ec81b1effd081d37dcc899f6fbe23e550bbaa49e264da460e2e2ce2065242f2731090942e0103b207852c
+08:30:38   response data : 9010|전문에 오류가 있습니다.||||||||
+08:30:38 Processing Time : 0 second
+08:30:38 ========= 거래 종료 ==========
+08:30:48 ========= 거래 시작 ==========
+08:30:48 code : 302
+08:30:48 0. before process
+08:30:48 IPAddress : 211.45.20.176
+08:30:48 PortNo    : 43001
+08:30:48 Timeout   : 10
+08:30:48 Body      : ||||
+08:30:48 1. write Request 
+08:30:48   Send : eddbf822807a6af7d7c5a56febb9a420
+08:30:48 2. read response body 
+08:30:48   response data : 553838f5011ec81b1effd081d37dcc89048db881a93c6c0ec068fbd404234855
+08:30:48   response data : 9010|전문에 오류가 있습니다.
+08:30:48 Processing Time : 0 second
+08:30:48 ========= 거래 종료 ==========

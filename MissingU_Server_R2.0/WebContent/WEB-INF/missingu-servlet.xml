@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/mvc
+	http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+	
+    <mvc:annotation-driven />
+    
+    <tx:annotation-driven />
+    
+    <context:component-scan base-package="kr.ko.nexmain.server.MissingU" />
+
+	<!-- HandlerMapping -->
+	<!-- 
+	<bean id="handlerMapping"
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<value>
+			    /missingu/chat/send_c2dm_msg_by_room_id.html=sendC2dmMsgByRoomIdController
+			    /missingu/chat/room_in.html=roomInController
+			    /missingu/chat/room_out.html=roomOutController
+			    /missingu/chat/make_room.html=makeRoomController
+			    /missingu/chat/chatroom_list.html=chatRoomListController
+			</value>
+		</property>
+	</bean>
+	 -->
+	
+	<!-- 관리자 사이트 -->
+	<mvc:view-controller path="/login.html" view-name="admin/login/masterLogin" />
+	<mvc:view-controller path="/logout.html" view-name="admin/login/logout" />
+	
+	<mvc:view-controller path="/missingu/admin/memberSearch.html" view-name="admin/membermgr/admin_memberSearch" />
+	<mvc:view-controller path="/missingu/admin/memberSearchPop.html" view-name="admin/membermgr/admin_memberSearchPop" />
+	<mvc:view-controller path="/missingu/admin/payHistList.html" view-name="admin/pointmgr/admin_payHistList" />
+	<mvc:view-controller path="/missingu/admin/pointUseHistList.html" view-name="admin/pointmgr/admin_pointUseHistList" />
+	<mvc:view-controller path="/missingu/admin/noticeList.html" view-name="admin/noticemgr/admin_noticeList" />
+	<mvc:view-controller path="/missingu/admin/guideList.html" view-name="admin/guidemgr/admin_guideList" />
+	<mvc:view-controller path="/missingu/admin/fmSearch.html" view-name="admin/fmatchmgr/admin_faceMatchSearch" />
+	
+	<!-- <mvc:view-controller path="/missingu/theshop/onselfCert.html" view-name="theshop/oneselfCertification" />  -->
+	<!-- <mvc:view-controller path="/missingu/theshop/pointCharge.html" view-name="theshop/pointSelection" />  -->
+	<mvc:view-controller path="/missingu/pay/orderComplete.html" view-name="theshop/daoupay_success" />
+	<!-- <mvc:view-controller path="/missingu/theshop/buyItem.html" view-name="theshop/itemSelection" /> -->
+	<!-- <mvc:view-controller path="/missingu/theshop/history.html" view-name="theshop/history" />  -->
+	
+	<!-- For File Upload/Download -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
+		p:maxUploadSize="104857600" p:maxInMemorySize="10485760">
+	</bean>
+	
+	<!-- 
+	<bean name="exampleJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+	    <property name="jobClass" value="kr.ko.nexmain.server.MissingU.schedule.ExampleJob"></property>
+	    <property name="jobDataAsMap">
+	        <map>
+	            <entry key="timeout" value="5"></entry>
+	        </map>
+	    </property>
+	</bean>
+	-->
+	
+	<bean class="org.springframework.jdbc.support.lob.DefaultLobHandler"></bean>
+
+	<!-- Controller START -->
+	<!-- 
+	<bean id="sendC2dmMsgByRoomIdController" class="kr.ko.nexmain.server.MissingU.chat.controller.SendC2dmMsgByRoomIdController"
+		p:chatMainService-ref="chatMainService">
+	</bean>
+	
+	<bean id="roomInController" class="kr.ko.nexmain.server.MissingU.chat.controller.RoomInController"
+		p:chatMainService-ref="chatMainService">
+	</bean>
+	
+	<bean id="roomOutController" class="kr.ko.nexmain.server.MissingU.chat.controller.RoomOutController"
+		p:chatMainService-ref="chatMainService">
+	</bean>
+	
+	<bean id="makeRoomController" class="kr.ko.nexmain.server.MissingU.chat.controller.MakeRoomController"
+		p:chatMainService-ref="chatMainService">
+	</bean>
+	
+	<bean id="chatRoomListController" class="kr.ko.nexmain.server.MissingU.chat.controller.ChatRoomListController"
+		p:chatMainService-ref="chatMainService">
+	</bean>
+	 -->
+	<!-- //Controller END -->
+	
+	<!-- ViewResolver -->
+	<bean id="internalResourceViewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass">
+			<value>org.springframework.web.servlet.view.JstlView</value>
+		</property>
+		<property name="prefix">
+			<value>/jsp/</value>
+		</property>
+		<property name="suffix">
+			<value>.jsp</value>
+		</property>
+		<property name="order" value="1"/>
+	</bean>
+	
+	<!-- ViewResolver for File Download -->
+	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+	    <property name="order" value="0"/>
+	</bean>
+	
+	<!-- interceptor -->
+	<mvc:interceptors>
+	    <!-- 서비스 로깅 관련 -->
+		<mvc:interceptor>
+			<mvc:mapping path="/missingu/friends/**" />
+			<mvc:mapping path="/missingu/facematch/**" />
+			<mvc:mapping path="/missingu/harmony/**" />
+			<mvc:mapping path="/missingu/chat/**" />
+			<mvc:mapping path="/missingu/msgbox/**" />
+			<mvc:mapping path="/missingu/membership/**" />
+			<mvc:mapping path="/missingu/config/**" />
+			<mvc:mapping path="/missingu/theshop/**" />
+			<mvc:mapping path="/missingu/pay/**" />
+			<mvc:mapping path="/missingu/talktome/**" />
+			<mvc:mapping path="/missingu/vscheck/**" />
+			<bean class="kr.ko.nexmain.server.MissingU.common.interceptor.ServiceInterceptor" />
+		</mvc:interceptor>
+		<!-- 포인트 체크 관련 -->
+		<mvc:interceptor>
+			<mvc:mapping path="/missingu/chat/createRoom.html" />
+			<mvc:mapping path="/missingu/chat/roomIn.html" />
+			<mvc:mapping path="/missingu/msgbox/sendMsg.html" />
+			<mvc:mapping path="/missingu/msgbox/openMsg.html" />
+			<mvc:mapping path="/missingu/talktome/saveTalk.html" />
+			<!--  <mvc:mapping path="/missingu/talktome/saveTalkReply.html" /> -->
+			<mvc:mapping path="/missingu/friends/sendWink.html" />
+			<bean class="kr.ko.nexmain.server.MissingU.membership.interceptor.PointCheckInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+</beans>

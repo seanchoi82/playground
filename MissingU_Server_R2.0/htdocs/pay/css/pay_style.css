@@ -1,0 +1,61 @@
+/*pay all*/
+BODY,TABLE,TD,INPUT {font-family:돋움,arial; line-height:130%; font-size:12px; color:#484848; word-break:break-all;}
+img {border:0}
+
+/*body {scrollbar-3dlight-color:E8E8E8;
+scrollbar-arrow-color:7D7D7D;
+scrollbar-track-color:#FAFAFA;
+scrollbar-darkshadow-color:#FFFFFF;
+scrollbar-face-color:F4F4F4;
+scrollbar-highlight-color:#FFFFFF;
+scrollbar-shadow-color:DCDCDC}*/
+
+A:link {font-family:돋움,arial; text-decoration:none; font-size:12px; color:#484848}
+A:visited {font-family:돋움,arial; text-decoration:none; font-size:12px; color:#484848}
+A:hover {font-family:돋움,arial; text-decoration:underline; font-size:12px; color:#61bb39}
+A:active {font-family:돋움,arial; text-decoration:none; font-size:12px; color:#484848}
+
+
+
+ .txt_s {font-family:돋움,arial; font-size:11px; color:#828282}
+A.txt_s:link {font-family:돋움,arial; font-size:11px; color:#828282}
+A.txt_s:visited {font-family:돋움,arial; font-size:11px; color:#828282}
+A.txt_s:hover {font-family:돋움,arial; font-size:11px; color:#5FB436}
+A.txt_s:active {font-family:돋움,arial; font-size:11px; color:#828282}
+
+ .txt_s_green {font-family:돋움,arial; font-size:11px; color:#5FB436}
+A.txt_s_green:link {font-family:돋움,arial; font-size:11px; color:#5FB436}
+A.txt_s_green:visited {font-family:돋움,arial; font-size:11px; color:#5FB436}
+A.txt_s_green:hover {font-family:돋움,arial; font-size:11px; color:#5FB436}
+A.txt_s_green:active {font-family:돋움,arial; font-size:11px; color:#5FB436}
+
+.input01 {font-family:돋움,arial; font-size:12px; color:#585858; border:#BDBDBD 1px solid; height:20}
+.input02 {font-family:돋움,arial; font-size:12px; color:#585858; border:#BDBDBD 1px solid; height:20; padding-left:5}
+
+.txt_11_white {font-family:돋움,arial; text-decoration:none; font-size:11px; color:#ffffff; font-weight:none}
+.txt_b12{font-family:돋움,arial; text-decoration:none; font-size:12px; color:#222222; font-weight:bold}
+.txt_b13_o{font-family:굴림,arial; text-decoration:none; font-size:13px; color:#ff3d0d; font-weight:bold}
+.txt_b13_m{font-family:굴림,arial; text-decoration:none; font-size:13px; color:#222222; font-weight:bold}
+
+.tb_line01 {background:#e7e7e7; height:1px}
+.tb_bg_top {height:1px; background-image:url("../images/ad_t_tb_bg.gif")}
+
+.bg_01 {background:#f8f8f8;} 
+.bg_02 {background:#cfcdcd}  
+.bg_03 {background:#F7F7F7}
+.bg_04 {background:#f0faf2}
+.bg_05 {background:#ffffff}
+
+
+.txt_p01 {font-family:돋움,arial; font-size:12px; color:#383838}
+.txt_p02 {font-family:돋움,arial; font-size:12px; color:#383838; font-weight:bold}
+.txt_p03 {font-family:돋움,arial; font-size:11px; color:#383838}
+.txt_p_green01 {font-family:돋움,arial; font-size:12px; color:#3d7d1d}
+.txt_p_green01_b {font-family:돋움,arial; font-size:12px; color:#3d7d1d; font-weight:bold; letter-spacing:-1px}
+.txt_p_green02 {font-family:돋움,arial; font-size:11px; color:#3d7d1d}
+.txt_p_green02_b {font-family:돋움,arial; font-size:11px; color:#3d7d1d; font-weight:bold}
+.txt_p_line01 {font-family:돋움,arial; font-size:12px; color:#383838; padding-left:18px; align:center}
+.txt_p_line02 {font-family:돋움,arial; font-size:12px; color:#383838; padding-left:22px; align:center}
+
+.p_line_gray01 {border-bottom:1px solid #b9babf; border-left:1px solid #b9babf; border-right:1px solid #b9babf; background:#edf7e8}
+.p_line_gray02 {border-bottom:1px solid #b9babf; border-right:1px solid #b9babf}

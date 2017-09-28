@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Config">
+    <typeAlias alias="CommReqVO" type="kr.ko.nexmain.server.MissingU.common.model.CommReqVO" />
+    <typeAlias alias="GetNoticeReqVO" type="kr.ko.nexmain.server.MissingU.config.model.GetNoticeReqVO" />
+    <typeAlias alias="GetUserGuideReqVO" type="kr.ko.nexmain.server.MissingU.config.model.GetUserGuideReqVO" />
+    <typeAlias alias="SaveManToManReqVO" type="kr.ko.nexmain.server.MissingU.config.model.SaveManToManReqVO" />
+	
+	<resultMap id="noticeListResultMap" class="hashmap">
+		<result property="noticeId" column="notice_id" />
+		<result property="title" column="title" />
+		<result property="readCnt" column="read_cnt" />
+		<result property="createdDate" column="created_date" />
+	</resultMap>
+	
+	<resultMap id="noticeResultMap" class="hashmap">
+		<result property="noticeId" column="notice_id" />
+		<result property="title" column="title" />
+		<result property="contents" column="contents" />
+		<result property="readCnt" column="read_cnt" />
+		<result property="createdDate" column="created_date" />
+	</resultMap>
+	
+	<resultMap id="guideListResultMap" class="hashmap">
+		<result property="menuId" column="menu_id" />
+		<result property="level" column="level" />
+		<result property="upperMenuId" column="upper_menu_id" />
+		<result property="menuName" column="menu_name" />
+	</resultMap>
+	
+	<resultMap id="guideResultMap" class="hashmap">
+		<result property="menuId" column="menu_id" />
+		<result property="level" column="level" />
+		<result property="upperMenuId" column="upper_menu_id" />
+		<result property="menuName" column="menu_name" />
+		<result property="contents" column="contents" />
+	</resultMap>
+	
+	<resultMap id="emrNoticeResultMap" class="hashmap">
+	    <result property="showYn" column="show_yn" />
+	    <result property="lang" column="lang" />
+	    <result property="emrNoticeId" column="emr_notice_id" />
+	    <result property="onday" column="onday" />
+	    <result property="message" column="msg" />
+	    <result property="positiveUsable" column="positive_usable" />
+	    <result property="positiveLabel" column="positive_label" />
+	    <result property="positiveAction" column="positive_action" />
+	    <result property="positiveUrl" column="positive_url" />
+	    <result property="negativeUsable" column="negative_usable" />
+	    <result property="negativeLabel" column="negative_label" />
+	    <result property="negativeAction" column="negative_action" />
+	    <result property="negativeUrl" column="negative_url" />
+	    <result property="ignoreUsable" column="ignore_usable" />
+	    <result property="ignoreLabel" column="ignore_label" />
+	    <result property="ignoreAction" column="ignore_action" />
+	    <result property="ignoreUrl" column="ignore_url" />
+		
+	</resultMap>
+	
+	
+	<!-- 공지사항 리스트 조회 -->
+	<select id="selectNoticeList" parameterClass="CommReqVO" resultMap="noticeListResultMap">
+	    <![CDATA[
+	    SELECT 
+	    		notice_id,
+	    		title,
+	    		read_cnt,
+	    		date_format(created_date,'%Y-%m-%d')		created_date
+  		FROM	mu_notice
+  		WHERE	show_yn = 'Y'
+  		AND		notice_id < IFNULL(#lastItemId#,9999999999)
+  		AND		lang = #gLang#
+  		ORDER BY notice_id desc
+  		LIMIT 10
+	    ]]>
+	</select>
+	
+	<!-- 공지사항 조회 -->
+	<select id="selectNotice" parameterClass="GetNoticeReqVO" resultMap="noticeResultMap">
+		<![CDATA[
+	    SELECT
+	    		notice_id,
+	    		title,
+	    		contents,
+	    		read_cnt,
+	    		date_format(created_date,'%Y-%m-%d')		created_date
+	    FROM	mu_notice
+	    WHERE	notice_id = #noticeId#
+	    ]]>
+	</select>
+	
+	<!-- SELECT : 미확인 공지사항 수 조회 -->
+	<select id="selectUnreadNotiCnt" resultClass="Integer" parameterClass="Integer">
+	<![CDATA[
+		SELECT	count(*)     AS unread_noti_cnt
+		FROM 	mu_notice
+		WHERE	lang = #gLang#
+		AND		notice_id > #lastReadNoticeId#
+	]]>
+	</select>
+	
+	<!-- 공지사항 업데이트 : 조회수 증가 -->
+	<update id="updateNoticeReadCnt" parameterClass="GetNoticeReqVO">
+		UPDATE	mu_notice SET 
+				read_cnt = read_cnt + 1
+		WHERE	notice_id = #noticeId#
+	</update>
+	
+	<!-- 사용자가이드 리스트 조회 -->
+	<select id="selectUserGuideList" parameterClass="CommReqVO" resultMap="guideListResultMap">
+	    <![CDATA[
+	    SELECT 
+	    		menu_id,
+	    		level,
+	    		upper_menu_id,
+	    		menu_name
+  		FROM	mu_user_guide
+  		WHERE	show_yn = 'Y'
+  		AND		lang	= #gLang#
+  		ORDER BY menu_id
+	    ]]>
+	</select>
+	
+	<!-- 사용자가이드 조회 -->
+	<select id="selectUserGuide" parameterClass="GetUserGuideReqVO" resultMap="guideResultMap">
+	    <![CDATA[
+	    SELECT 
+	    		menu_id,
+	    		level,
+	    		upper_menu_id,
+	    		menu_name,
+	    		contents
+  		FROM	mu_user_guide
+  		WHERE	show_yn = 'Y'
+  		AND		menu_id = #menuId#
+  		ORDER BY menu_id
+	    ]]>
+	</select>
+	
+	<!-- 긴급공지 조회 -->
+	<select id="selectEMRNofitice" parameterClass="hashmap" resultMap="emrNoticeResultMap">
+
+	    SELECT 
+	    		lang, 
+	    		show_yn, 
+	    		emr_notice_id, 
+	    		onday, 
+	    		msg, 
+	    		positive_usable, 
+	    		positive_label, 
+	    		positive_action, 
+	    		positive_url, 
+	    		negative_usable, 
+	    		negative_label, 
+	    		negative_action, 
+	    		negative_url, 
+	    		ignore_usable, 
+	    		ignore_label, 
+	    		ignore_action, 
+	    		ignore_url 
+  		FROM	mu_emr_notice
+  		WHERE	
+  			lang = #gLang#
+	    <isEqual property="useShowYN" compareValue="1">
+  					AND show_yn = 'Y'			        
+	    </isEqual>  					
+  		ORDER BY emr_notice_id DESC
+  		LIMIT 0, 1
+	    
+	</select>
+	
+	<!-- 톡투미 글 생성 -->
+	<insert id="insertIntoManToManQuestion" parameterClass="SaveManToManReqVO">
+	    INSERT INTO mu_man_to_man_question
+	    	(
+				member_id, 
+				code, 
+				contract, 
+				content, 
+				file, 
+				created_date, 
+				status
+	    	)
+	    VALUES
+	    	( 
+	    		#gMemberId#,
+				#code#,
+				#contract#, 
+				#content#,
+				#file#,
+				now(), 
+				0
+	    	)
+	    <selectKey resultClass="Integer" keyProperty="mId">
+			SELECT last_insert_id()
+		</selectKey>
+	</insert>
+	
+	
+	<!-- 긴급공지 조회 -->
+	<select id="selectEMRNofiticeRandomChat" parameterClass="hashmap" resultMap="emrNoticeResultMap">
+
+	    SELECT 
+	    		lang, 
+	    		show_yn, 
+	    		emr_notice_id, 
+	    		onday, 
+	    		msg, 
+	    		positive_usable, 
+	    		positive_label, 
+	    		positive_action, 
+	    		positive_url, 
+	    		negative_usable, 
+	    		negative_label, 
+	    		negative_action, 
+	    		negative_url, 
+	    		ignore_usable, 
+	    		ignore_label, 
+	    		ignore_action, 
+	    		ignore_url 
+  		FROM	mu_emr_notice_randomchat
+  		WHERE	
+  			lang = #gLang#
+	    <isEqual property="useShowYN" compareValue="1">
+  					AND show_yn = 'Y'			        
+	    </isEqual>  					
+  		ORDER BY emr_notice_id DESC
+  		LIMIT 0, 1
+	    
+	</select>
+</sqlMap>

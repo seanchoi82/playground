@@ -1,0 +1,156 @@
+<html>
+<head>
+<title>결제페이지</title>
+<meta http-equiv="Content-Type" content="text/html; charset=uft-8">
+<meta http-equiv="Cache-Control" content="no-cache"/> 
+<meta http-equiv="Expires" content="0"/> 
+<meta http-equiv="Pragma" content="no-cache"/>
+
+	<script language="javascript">
+	<!--
+		var pf;
+
+		function init() {
+			pf = document.payForm;
+			pf.orderno.value= getTimeStamp();
+		}
+
+		function pay() {
+
+			var paytype = pf.paytype.value;
+			var fileName;
+
+			if (paytype == "") {
+				alert("결제방법을 선택하여 주십시오");
+				return;
+			}
+			if (paytype == "mobile") {
+					fileName = "order_mobile.php";
+			} 
+
+			DAOUPAY = window.open("", "DAOUPAY", "width=470,height=560");
+			DAOUPAY.focus();
+			
+			pf.target = "DAOUPAY";
+			pf.action = fileName;
+			pf.method = "post";
+			pf.submit();
+
+		}
+
+		function getTimeStamp() {
+			var d = new Date();
+			var month = d.getMonth() + 1
+			var date = d.getDate()
+			var hour = d.getHours()
+			var minute = d.getMinutes()
+			var second = d.getSeconds()
+
+			month = (month < 10 ? "0" : "") + month;
+			date = (date < 10 ? "0" : "") + date;
+			hour = (hour < 10 ? "0" : "") + hour;
+			minute = (minute < 10 ? "0" : "") + minute;
+			second = (second < 10 ? "0" : "") + second;
+
+			var s =
+			d.getFullYear() + month + date + hour + minute + second
+
+			return s;
+		}
+
+
+ 	//-->
+	</script>
+
+
+</HEAD>
+
+<BODY onLoad="init();">
+
+<form name="payForm"> 
+
+            <table width="510" border="0" cellspacing="0" cellpadding="0">
+              <tr> 
+                <td width="510"  style="padding:0 0 0 23"> 
+                     <u>다우페이 승인 테스트 </u><br><br><br>
+                     <table width="470" border="0" cellspacing="0" cellpadding="0">
+                    <tr> 
+                      <td width="107" align="center">&nbsp;</td>
+                      <td width="88" height="25"><font size="2">결 제 방 법</font> </td>
+                      <td width="275"> <select name=paytype >
+                          <option value="mobile">휴대폰 결제</option>
+												
+                          </select></td>
+                    </tr>
+                    <tr> 
+                      <td height="1" colspan="3" align="center"  bacground="img/line.gif" width="470"></td>
+                    </tr>
+                    <tr> 
+                      <td width="107" align="center">&nbsp;</td>
+                      <td width="88" height="26"><font size="2">상 품 명</font></td>
+                      <td width="275"><input type=text name=productname size=20 value="테스트"></td>
+                    </tr>
+                    <tr> 
+                      <td width="107" align="center">&nbsp;</td>
+                      <td width="88" height="25"><font size="2">가 격</font></td>
+                      <td width="275"><input type=text name=amount size=20 value="10"></td>
+                    </tr>
+                    <tr valign="bottom"> 
+                      <td height="40" colspan="3" align="center" width="470"><input type=button value="결제하기" onClick="pay()" width="63" height="25"></td>
+                    </tr>
+              
+                  </table></td>
+              </tr>
+            </table>
+
+
+
+<!--------------------------------------------------------------------------------------------
+ * ORDERNO : 주문번호[필수항목]
+ * 상점의 유일한 key값으로 주문번호를 생성해서 입력하시면 됩니다.
+----------------------------------------------------------------------------------------------><br>
+주문번호:<input type=text name=orderno value="">
+<!--------------------------------------------------------------------------------------------
+ * PRODUCTTYPE : 상품구분[필수항목]
+ * 1:디지털, 2:실물
+----------------------------------------------------------------------------------------------><br>
+상품구분:<input type=text name=producttype value="1">
+<!--------------------------------------------------------------------------------------------
+ * BILLTYPE : 과금유형[필수항목]
+ * 1:일반, 2:월자동
+----------------------------------------------------------------------------------------------><br>
+과금유형:<input type=text name=billtype value="1">
+<!--------------------------------------------------------------------------------------------
+ * USERID : 고객아이디[필수항목]
+ * 주문자 아이디를 입력하시면 됩니다.
+----------------------------------------------------------------------------------------------><br>
+고객아이디:<input type=text name=userid value="hongildong">
+<!--------------------------------------------------------------------------------------------
+ * USERNAME : 고객이름[선택항목]
+ * 주문자 이름을 입력하시면 됩니다.
+----------------------------------------------------------------------------------------------><br>
+고객이름:<input type=text name=username value="홍길동">
+<!--------------------------------------------------------------------------------------------
+ * PRODUCTCODE : 상품코드[선택항목]
+----------------------------------------------------------------------------------------------><br>
+상품코드:<input type=text name=productcode value="10001">
+<!--------------------------------------------------------------------------------------------
+ * RESERVEDINDEX1 : 예약항목1[선택항목]
+ * 다우페이 어드민의 거래내역에서 보고싶은 항목이나 검색할 내용을 입력합니다
+----------------------------------------------------------------------------------------------><br>
+예약항목1:<input type=text name=reservedindex1 value="예약어1">
+<!--------------------------------------------------------------------------------------------
+ * RESERVEDINDEX1 : 예약항목2[선택항목]
+ * 다우페이 어드민의 거래내역에서 보고싶은 항목이나 검색할 내용을 입력합니다
+----------------------------------------------------------------------------------------------><br>
+예약항목2:<input type=text name=reservedindex2 value="예약어2">
+<!--------------------------------------------------------------------------------------------
+ * RESERVEDSTRING : 예약스트링[선택항목]
+ * 거래시 필요한 정보를 입력하여 상점에서 사용할때 유용합니다.
+----------------------------------------------------------------------------------------------><br>
+예약스트링:<input type=text name=reservedstring value="예약스트링">
+
+</form>
+</BODY>
+</HTML>
+

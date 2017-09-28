@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="FaceMatch">
+    <typeAlias alias="CommReqVO" type="kr.ko.nexmain.server.MissingU.common.model.CommReqVO" />
+    <typeAlias alias="GetCandidatesReqVO" type="kr.ko.nexmain.server.MissingU.facematch.model.GetCandidatesReqVO" />
+    <typeAlias alias="FmResultVO" type="kr.ko.nexmain.server.MissingU.facematch.model.FmResultVO" />
+	
+	<resultMap id="candidateResultMap" class="hashmap">
+		<result property="memberId" column="member_id" />
+		<result property="photoUrl" column="photo_url" />
+		<result property="nickName" column="nick_name" />
+	</resultMap>
+	
+	<!-- 페이스매치 전적 ResultMap -->
+	<resultMap id="fmRecordResultMap" class="hashmap">
+		<result property="participateCnt" column="join_cnt" />
+		<result property="winCnt" column="win_cnt" />
+		<result property="votedCnt" column="win_cnt" />
+		<result property="curRank" column="cur_rank" javaType="java.lang.Integer"/>
+		<result property="totalRank" column="accum_rank" javaType="java.lang.Integer"/>
+	</resultMap>
+	
+	<resultMap id="eventResultMap" class="hashmap">
+		<result property="eventId" column="event_id" />
+		<result property="eventName" column="event_name" />
+		<result property="eventDesc" column="event_desc" />
+	</resultMap>
+
+	<resultMap id="fmRankResultMap" class="hashmap">
+		<result property="rank" column="rank" /> 
+		<result property="memberId" column="member_id" />
+		<result property="nickName" column="nick_name" />
+		<result property="sex" column="sex" />
+		<result property="birthDate" column="birth_date" />
+		<result property="purposeCd" column="purpose_cd" />
+		<result property="hobbyCd" column="hobby_cd" />
+		<result property="selfPr" column="self_pr" />
+		<result property="mainPhotoUrl" column="main_photo_url" />
+		<result property="gPosX" column="g_pos_x" />
+		<result property="gPosY" column="g_pos_y" />
+		<result property="location" column="location" />
+		<result property="membership" column="membership"/>
+		<result property="certification" column="certification" />
+	</resultMap>
+	
+	
+	<!-- 페이스매치 후보 조회 -->
+	<select id="selectCandidatesFromFmResult" parameterClass="FmResultVO" resultMap="candidateResultMap">
+	    <![CDATA[
+	    SELECT 
+	    		a.fm_id,
+	    		a.member_id,
+	    		a.photo_url,
+	    		(select nick_name from mu_member where a.member_id = member_id)	nick_name 
+  		FROM	mu_fm_result	a
+  		WHERE	event_id	= #eventId#	
+  		AND		sex 		= #sex#
+  		AND		use_yn		= 'Y'
+  		ORDER BY matched_date
+  		LIMIT 32
+	    ]]>
+	</select>
+	
+	<select id="selectCurrentEvent" resultMap="eventResultMap">
+	    <![CDATA[
+	    SELECT 
+	    		event_id,
+	    		event_name,
+	    		event_desc
+  		FROM	mu_fm_event
+  		WHERE	status = 'A'
+  		ORDER BY event_type desc, end_date desc
+  		LIMIT 1
+	    ]]>
+	</select>
+	
+	<!-- 페이스매치 결과 업데이트 -->
+	<update id="updateFmResult" parameterClass="FmResultVO">
+		UPDATE	mu_fm_result
+		SET 
+				join_cnt			= IFNULL(join_cnt,0) + 1,
+				win_cnt				= IFNULL(win_cnt,0) + IFNULL(#winCnt#,0),
+				voted_cnt			= IFNULL(voted_cnt,0) + IFNULL(#votedCnt#,0),
+				accum_join_cnt		= IFNULL(accum_join_cnt,0) + 1,
+				accum_win_cnt		= IFNULL(accum_win_cnt,0) + IFNULL(#winCnt#,0),
+				accum_voted_cnt		= IFNULL(accum_voted_cnt,0) + IFNULL(#votedCnt#,0),
+				matched_date		= now(),
+				updated_date 		= now()
+		WHERE	event_id	= #eventId#
+		AND		member_id	= #memberId#
+	</update>
+	
+	<!-- 페이스매치 승자 업데이트 -->
+	<update id="updateFmWinner" parameterClass="FmResultVO">
+		UPDATE	mu_fm_result
+		SET 
+				prefer_member_id	= IFNULL(#preferMemberId#,prefer_member_id),
+				updated_date 		= now()
+		WHERE	event_id	= #eventId#
+		AND		member_id	= #memberId#
+	</update>
+	
+	<!-- 페이스매치 순위 조회 -->
+	<select id="selectFmRank" parameterClass="FmResultVO" resultMap="fmRankResultMap">
+	    <![CDATA[
+	    SELECT
+	    		@ROWNUM := @ROWNUM + 1 AS rank,
+	    		f_decrypt(b.location) as location,
+	    		get_membership(b.member_id) as membership,
+				get_certification(b.member_id) as  certification, 
+	    		b.*
+	    FROM	(
+	    		SELECT  *
+	    		FROM	mu_fm_result
+		  		WHERE	event_id	= #eventId#
+		  		AND		sex			= #sex#
+		  		ORDER BY voted_cnt desc
+				LIMIT 30
+				) a
+				,mu_member		b
+				,(SELECT @ROWNUM := 0) R
+		WHERE	a.member_id = b.member_id
+	    ]]>
+	</select>
+	
+	<!-- 페이스매치 사진 업데이트 -->
+	<update id="insertOrUpdateFmPhoto" parameterClass="hashmap">
+		INSERT INTO mu_fm_result
+			(
+				event_id,
+				member_id,
+				sex,
+				photo_url,
+				voted_cnt,
+				use_yn,
+				created_date
+			)
+		VALUES
+			(
+				#eventId#,
+				#gMemberId#,
+				(SELECT sex FROM mu_member WHERE member_id = #gMemberId#),
+				#photoUrl#,
+				0,
+				'Y',
+				now()
+			)
+		ON DUPLICATE KEY
+		UPDATE  photo_url		= #photoUrl#,
+				updated_date	= now()
+	</update>
+	
+	<!-- 페이스매치 전적 조회 -->
+	<select id="selectFmRecord" parameterClass="CommReqVO" resultMap="fmRecordResultMap">
+	    SELECT 
+	    		a.join_cnt,
+	    		a.win_cnt,
+	    		a.voted_cnt,
+				(
+				 SELECT cur_rank
+				 FROM (
+					SELECT @ROWNUM := @ROWNUM + 1 AS cur_rank, member_id
+					FROM 	(
+						SELECT member_id FROM mu_fm_result a, (SELECT @ROWNUM := 0) R
+						ORDER BY a.win_cnt desc, a.voted_cnt desc
+							) a
+					) sub
+				 WHERE sub.member_id = #gMemberId#
+				) AS cur_rank,
+				(
+				 SELECT accum_rank
+				 FROM (
+					SELECT @ROWNUM := @ROWNUM + 1 AS accum_rank, member_id
+					FROM 	(
+						SELECT member_id FROM mu_fm_result a, (SELECT @ROWNUM := 0) R
+						ORDER BY a.accum_win_cnt desc, a.accum_voted_cnt desc
+							) a
+					) sub
+				 WHERE sub.member_id = #gMemberId#
+				) AS accum_rank
+  		FROM	mu_fm_result	a
+  		WHERE	event_id	= (SELECT event_id FROM mu_fm_event WHERE status='A' LIMIT 1)
+  		AND		member_id	= #gMemberId#
+	</select>
+	
+
+	
+
+	
+</sqlMap>

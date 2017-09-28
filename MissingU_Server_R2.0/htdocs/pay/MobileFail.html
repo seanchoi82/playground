@@ -1,0 +1,156 @@
+<html>
+<head>
+<title>결제 실패</title>
+<link rel=stylesheet href="./css/pay_style.css">
+</head>
+
+<body leftmargin="0" topmargin="0">
+<table border="0" cellspacing="0" cellpadding="0" width=470 height=560>
+  <tr>
+    <td colspan=3 background="images/p_top.gif" width=470 height=41>
+	 <table border="0" cellspacing="0" cellpadding="0" widht=460>
+	  <tr>
+	   <td width=20></td>
+	   <td  height="41" style="padding-bottom:5px;"><img src="images/p_title01.gif"></td>
+	  </tr>
+	 </table>
+	</td>
+  </tr>
+  <tr>
+    <td width=20 height="390" align=left background="images/p_left.gif"></td>
+    <td width=460>
+	 <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td height=17 colspan="2">&nbsp;</td>
+        </tr>
+		<tr>
+          <td height=22 colspan="2" align="right" width=440>휴대폰결제 > <span class="txt_p_green01">결제 실패</span></td>
+        </tr>
+		<tr>
+          <td colspan="2">
+		   <table cellpadding="0" cellspacing="0" border="0" width=420 align="center">
+		    <tr>
+			 <td background="images/p_box_top.gif" width=420 height=4></td>
+			</tr>
+			<tr>
+			 <td background="images/p_box_middle.gif">
+			  <table cellpadding="5" cellspacing="0" border="0" >
+			  
+			   <tr>
+			    <td rowspan="2" width=84 align="center"><img src="images/p_img_004.gif"></td>
+			    <td width=4 height=12 align="right"><img src="images/p_bul_01.gif"></td>
+				<td width="342" height=12 ><span class="txt_p_green01">결제가 실패하였습니다.</span></td>
+				</tr>
+			   <tr>
+			   <td width=4 height=12 align="right"><img src="images/p_bul_01.gif"></td>
+				<td>확인후 다시 시도하시거나 고객센터로 연락주세요.</td>
+				</tr>
+			  </table>
+			 </td>
+			</tr>
+			<tr>
+			 <td background="images/p_box_bottom.gif" width=420 height=6></td>
+			</tr>
+		   </table>
+		  </td>
+        </tr>
+		<tr>
+		  <td height=20 colspan="2"> </td>
+		</tr>
+		
+		<tr>
+		  <td colspan=3>
+		   <table cellpadding="0" cellspacing="0" border="0" width=460> 
+		    <tr>
+			 <td width=20></td>
+			 <td><img src="images/a_img_001.gif"></td>
+			</tr>
+		   </table>
+		  </td>
+	    </tr>
+		<tr>
+		  <td colspan="2">
+		   <table cellpadding="3" cellspacing="0" border="0" width=420 align="center">
+		    <tr> 
+			 <td colspan=2 height=2 bgcolor="#53980a"></td>
+			</tr>
+			<tr>
+			 <td class="p_line_gray01" width=116 height=20><span class="txt_p_line01">에러코드</span></td>
+			 <td class="p_line_gray02" width=292 height=20><span class="txt_p_line02">
+			 <?=$res_resultcode?>
+			 </span></td>
+			</tr>
+			<tr>
+			 <td class="p_line_gray01" width=116 height=20><span class="txt_p_line01">에러메세지</span></td>
+			 <td class="p_line_gray02" width=292 height=20><span class="txt_p_line02">&nbsp;<br><br><?=iconv("EUC-KR", "UTF-8", $res_errormessage);?><br><br>
+			  </span></td>
+			</tr>
+			
+		   </table>
+		  </td>
+		</tr>
+		<tr>
+		  <td height=7 colspan="2"></td>
+		</tr>
+		
+		<tr>
+		  <td height=20 colspan="2"></td>
+		</tr>
+		<tr>
+		  <td colspan="2" align=center><a href="javascript:window.close();"><img src="images/p_bt_ok.gif" alt="확인" border="0"></a></td>
+	    </tr>
+		<tr>
+		  <td height=86 colspan="2"></td>
+		</tr>
+		<tr>
+		  <td colspan="2">
+		    <table cellpadding="0" cellspacing="0" border="0" width=420 align="center">
+			  <tr>
+			    <td width=10 align="left" height=20></td>
+				<td height=20></td>
+			  </tr>
+			  <tr>
+			    <td width=10 align="left" height=20></td>
+				<td  height=20></td>
+			  </tr>
+			  <tr>
+			    <td width=10 align="left" height=20></td>
+				<td  height=20></td>
+			  </tr>
+			<tr>
+		  <td height=5 colspan="2"></td>
+		</tr>
+			  <tr>
+		  <td height=1 colspan="2"   align="center" bgcolor=#5bb342></td>
+		</tr>
+			</table>
+		  </td>
+		</tr>
+		
+		<tr>
+		  <td height=10 colspan="3" ></td>
+		</tr>
+		<tr>
+		  <td colspan="3">
+		    <table width="420" border="0" align="center" cellpadding="0" cellspacing="0">
+			 <tr>
+			  <td width="211"><img src="images/p_bul_02.gif"> 결제문의 : <span class="txt_p_green01">1588-5984</span></td>
+			  <td width="209">&nbsp;</td>
+			 </tr>
+			 <tr>
+			  <td width="211"><img src="images/p_bul_02.gif"> 결제내역조회 : <a href="http://www.daouPay.com" target="_blank">www.daoupay.com</a></td>
+			  <td align="right" width="209">&nbsp;<img src="images/p_bul_02.gif"> 문의메일 : <a href="mailto:help@daoupay.com" target="_blank">help@daoupay.com</a></td>
+			 </tr>
+			</table>
+		  </td>
+		</tr>
+	 </table>
+	</td>
+    <td background="images/p_right.gif" width=20 align=right></td>
+  </tr>
+  <tr>
+    <td colspan=3 background="images/p_bottom.gif" width=500 height=9></td>
+  </tr>
+</table>
+</body>
+</html>

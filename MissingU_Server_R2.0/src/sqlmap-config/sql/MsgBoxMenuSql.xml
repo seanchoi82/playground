@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="MsgBox">
+    <typeAlias alias="CommReqVO" type="kr.ko.nexmain.server.MissingU.common.model.CommReqVO" />
+	<typeAlias alias="MsgBoxVO" type="kr.ko.nexmain.server.MissingU.msgbox.model.MsgBoxVO" />
+	<typeAlias alias="MsgVO" type="kr.ko.nexmain.server.MissingU.msgbox.model.MsgVO" />
+	<typeAlias alias="LnkMsgboxMsgVO" type="kr.ko.nexmain.server.MissingU.msgbox.model.LnkMsgboxMsgVO" />
+	<typeAlias alias="MsgListReqVO" type="kr.ko.nexmain.server.MissingU.msgbox.model.MsgListReqVO" />
+	
+	<typeAlias alias="MsgBoxConversVO" type="kr.ko.nexmain.server.MissingU.msgbox.model.MsgBoxConversVO" />
+	<typeAlias alias="MsgBoxConversSendVO" type="kr.ko.nexmain.server.MissingU.msgbox.model.MsgBoxConversSendVO" /> 
+	
+	<resultMap id="msgBoxItemResultMap" class="hashmap">
+		<result property="msgboxId" column="msgbox_id" javaType="Long"/>
+		<result property="senderId" column="sender_id" />
+		<result property="sex" column="sex" />
+		<result property="nickName" column="nick_name" />
+		<result property="lastSendDate" column="last_send_date" />
+		<result property="lastMsgText" column="last_msg_text" />
+		<result property="unreadMsgCnt" column="unread_msg_cnt" />
+		<result property="mainPhotoUrl" column="main_photo_url" />
+	</resultMap>
+	
+	<resultMap id="msgboxResultMap" class="hashmap">
+		<result property="msgboxId" column="msgbox_id" javaType="Long"/>
+		<result property="memberId" column="member_id" />
+		<result property="senderId" column="sender_id" />
+		<result property="status" column="status" />
+		<result property="createdDate" column="created_date" />
+	</resultMap>
+	
+	<resultMap id="msgListResultMap" class="hashmap">
+		<result property="msgId" column="msg_id" javaType="Long"/>
+		<result property="senderId" column="sender_id" />
+		<result property="msgText" column="msg_text" />
+		<result property="sendDate" column="send_date" />
+		<result property="nickName" column="nick_name" />
+		<result property="sex" column="sex" />
+		<result property="mainPhotoUrl" column="main_photo_url" />
+	</resultMap>
+	
+	<resultMap id="myMsgListResultMap" class="hashmap">
+		<result property="msgId" column="msg_id" javaType="Long"/>
+		<result property="senderId" column="sender_id" />
+		<result property="senderNickName" column="sender_nick_name" />
+		<result property="senderSex" column="sender_sex" />
+		<result property="senderMainPhotoUrl" column="sender_main_photo_url" />
+		<result property="receiverId" column="receiver_id" />
+		<result property="receiverNickName" column="receiver_nick_name" />
+		<result property="receiverSex" column="receiver_sex" />
+		<result property="receiverMainPhotoUrl" column="receiver_main_photo_url" />
+		<result property="receiverReadYn" column="receiver_read_yn" />
+		<result property="msgText" column="msg_text" />
+		<result property="sendDate" column="send_date" />		
+		<result property="receiverMembership" column="receiver_membership"/>
+		<result property="receiverCertification" column="receiver_certification" />
+		<result property="senderMembership" column="sender_membership"/>
+		<result property="senderCertification" column="sender_certification" />
+	</resultMap>
+	
+	
+	<resultMap id="messageBoxListItemResultMap" class="hashmap">
+		<result property="msgId" column="msg_id" javaType="Long"/>
+		<result property="senderId" column="sender_id" />
+		<result property="senderNickName" column="sender_nick_name" />
+		<result property="senderSex" column="sender_sex" />
+		<result property="senderMainPhotoUrl" column="sender_main_photo_url" />
+		<result property="receiverId" column="receiver_id" />
+		<result property="receiverNickName" column="receiver_nick_name" />
+		<result property="receiverSex" column="receiver_sex" />
+		<result property="receiverMainPhotoUrl" column="receiver_main_photo_url" />
+		<result property="lastSendDate" column="last_send_date" />
+		<result property="lastMsgText" column="last_msg_text" />
+		<result property="unreadMsgCnt" column="unread_msg_cnt" />
+		<result property="receiverMembership" column="receiver_membership"/>
+		<result property="receiverCertification" column="receiver_certification" />
+		<result property="senderMembership" column="sender_membership"/>
+		<result property="senderCertification" column="sender_certification" />
+	</resultMap>
+	
+	<resultMap id="messageBoxItemResultMap" class="hashmap">
+		<result property="msgId" column="msg_id" javaType="Long"/>
+		<result property="senderId" column="sender_id" />
+		<result property="senderNickName" column="sender_nick_name" />
+		<result property="senderSex" column="sender_sex" />
+		<result property="senderMainPhotoUrl" column="sender_main_photo_url" />
+		<result property="receiverId" column="receiver_id" />
+		<result property="receiverNickName" column="receiver_nick_name" />
+		<result property="receiverSex" column="receiver_sex" />
+		<result property="receiverMainPhotoUrl" column="receiver_main_photo_url" />
+		<result property="receiverReadYn" column="receiver_read_yn" />
+		<result property="receiverReadDate" column="receiver_read_date" />
+		<result property="msgText" column="msg_text" />
+		<result property="createdDate" column="created_date" />	  	
+		<result property="receiverMembership" column="receiver_membership"/>
+		<result property="receiverCertification" column="receiver_certification" />
+		<result property="senderMembership" column="sender_membership"/>
+		<result property="senderCertification" column="sender_certification" />
+	</resultMap>
+	
+	
+	<!-- 쪽지함 재개발 -->
+	
+	<!-- 쪽지 등록 : 내가 볼것과 상대방이 볼것을 감안해서 2개씩 호출 하도록 한다. (동일한 내용으로 receiverId, senderId를 토글 시킨다.)-->
+	<select id="selectMessageBoxConversByMsgId" parameterClass="MsgBoxConversSendVO" resultMap="messageBoxItemResultMap">
+	    SELECT 
+				msg.msg_id
+				, msg.sender_id
+				, sender.sex as sender_sex
+				, sender.nick_name as sender_nick_name
+				, sender.main_photo_url as sender_main_photo_url       
+        		, msg.receiver_id
+			  	, receiver.sex as receiver_sex
+				, receiver.nick_name as receiver_nick_name
+				, receiver.main_photo_url as receiver_main_photo_url
+		        , msg.receiver_read_yn
+		        , msg.receiver_read_date
+				, msg.msg_text
+				, date_format(msg.created_date,'%Y-%m-%d %H:%i') as created_date
+			  	, get_membership(msg.sender_id) as sender_membership
+				, get_certification(msg.sender_id) as  sender_certification 
+				, get_membership(msg.receiver_id) as receiver_membership
+				, get_certification(msg.receiver_id) as  receiver_certification
+			FROM mu_messagebox_msg msg
+          			INNER JOIN mu_member sender ON sender.member_id = msg.sender_id
+				  	INNER JOIN mu_member receiver ON receiver.member_id = msg.receiver_id
+      		WHERE
+                	msg.msg_id = #msgId#
+	</select>
+	
+	<insert id="insertMessageBoxMsg" parameterClass="MsgBoxConversSendVO">
+	    INSERT INTO mu_messagebox_msg
+	    (
+	    	own_member_id, receiver_id, sender_id, msg_text, created_date, updated_date, receiver_read_yn, receiver_read_date, status
+	    )
+	    VALUES
+	    (
+	    	#gMemberId#, #targetMemberId#, #gMemberId#, #msgText#, now(), null, 'N', null, 'A'
+	    )
+	    <selectKey resultClass="Long" keyProperty="msgId">
+			SELECT last_insert_id()
+		</selectKey>
+	</insert>
+	
+	<insert id="insertMessageBoxMsgEcho" parameterClass="MsgBoxConversSendVO">
+	    INSERT INTO mu_messagebox_msg
+	    (
+	    	own_member_id, receiver_id, sender_id, msg_text, created_date, updated_date, receiver_read_yn, receiver_read_date, status
+	    )
+	    VALUES
+	    (
+	    	#targetMemberId#, #targetMemberId#, #gMemberId#, #msgText#, now(), null, 'N', null, 'A'
+	    )
+	    <selectKey resultClass="Long" keyProperty="msgId">
+			SELECT last_insert_id()
+		</selectKey>
+	</insert>
+	
+	<!-- 쪽지 삭제 (실제 삭제는 관리자만 가능하도록) -->
+	<update id="updateAfterMessageBoxMsgDelete" parameterClass="MsgBoxConversVO">
+	    UPDATE mu_messagebox_msg SET
+	    	updated_date = NOW()
+	    	, status = 'D'
+	   	WHERE
+	   		
+	   		(own_member_id = #gMemberId# AND receiver_id = #gMemberId# AND sender_id = #targetMemberId#)
+	   		OR
+	   		(own_member_id = #gMemberId# AND receiver_id = #targetMemberId# AND sender_id = #gMemberId#)
+	</update>
+	
+	<!-- 쪽지 읽기 상태 업데이트 : 상대가 보낸 것 중에 내 쪽지는 다 읽은 걸로 처리한다.  -->
+	<update id="updateMessageBoxReadAll" parameterClass="MsgBoxConversVO">
+	    UPDATE mu_messagebox_msg SET
+	    	receiver_read_yn = 'Y'
+	    	, receiver_read_date = NOW()
+	    WHERE
+	    	(
+	    		(receiver_id = #targetMemberId# AND sender_id = #gMemberId#)
+	    		OR 
+	    		(receiver_id = #gMemberId# AND sender_id = #targetMemberId#)
+	    	)
+	    	AND own_member_id = #gMemberId#
+	</update>
+	
+	<!-- 쪽지 대화목록 추출 -->
+	<select id="selectMessageBoxConversationByMemberId"  resultMap="messageBoxItemResultMap" parameterClass="MsgBoxConversVO">
+	    	SELECT 
+				msg.msg_id
+				, msg.sender_id
+				, sender.sex as sender_sex
+				, sender.nick_name as sender_nick_name
+				, sender.main_photo_url as sender_main_photo_url       
+        , msg.receiver_id
+			  , receiver.sex as receiver_sex
+				, receiver.nick_name as receiver_nick_name
+				, receiver.main_photo_url as receiver_main_photo_url
+        , msg.receiver_read_yn
+        , date_format(msg.receiver_read_date,'%Y-%m-%d %H:%i') as receiver_read_date
+			  , msg.msg_text
+			  , date_format(msg.created_date,'%Y-%m-%d %H:%i') as created_date
+			  , get_membership(msg.sender_id) as sender_membership
+				, get_certification(msg.sender_id) as  sender_certification 
+				, get_membership(msg.receiver_id) as receiver_membership
+				, get_certification(msg.receiver_id) as  receiver_certification
+			FROM mu_messagebox_msg msg
+          			INNER JOIN mu_member sender ON sender.member_id = msg.sender_id
+				  	INNER JOIN mu_member receiver ON receiver.member_id = msg.receiver_id
+      		WHERE
+                (
+        	    		(msg.receiver_id = #targetMemberId# AND msg.sender_id = #gMemberId#)
+        	    		OR 
+        	    		(msg.receiver_id = #gMemberId# AND msg.sender_id = #targetMemberId#)
+        	    	)
+          		AND msg.status = 'A'
+          		AND own_member_id = #gMemberId#
+  			ORDER BY created_date ASC
+	</select>
+	
+	<!-- 쪽지함 목록(대화형) -->
+	<select id="selectMessageBoxListByMemberId" resultMap="messageBoxListItemResultMap" parameterClass="Integer">
+	    
+		    SELECT 
+				msg.msg_id
+				, msg.sender_id
+				, sender.sex as sender_sex
+				, sender.nick_name as sender_nick_name
+				, sender.main_photo_url as sender_main_photo_url       
+			  	, msg.receiver_id
+			  	, receiver.sex as receiver_sex
+				, receiver.nick_name as receiver_nick_name
+				, receiver.main_photo_url as receiver_main_photo_url
+			  	, comp.un_read_sum as unread_msg_cnt
+			  	, msg.msg_text as last_msg_text
+			  	, date_format(msg.created_date,'%Y-%m-%d %H:%i') as last_send_date
+			  	
+			  	, get_membership(msg.sender_id) as sender_membership
+				, get_certification(msg.sender_id) as  sender_certification 
+				, get_membership(msg.receiver_id) as receiver_membership
+				, get_certification(msg.receiver_id) as  receiver_certification
+			FROM 
+			(
+			      SELECT 
+			      	msg.receiver_id, 
+			      	msg.sender_id, 
+			      	max(msg.msg_id) as last_msg_id, 
+			      	SUM(CASE WHEN receiver_read_yn = 'N' THEN 1 ELSE 0 END) AS un_read_sum
+			      FROM mu_messagebox_msg msg
+			      WHERE
+			      		msg.status = 'A'
+			      AND own_member_id = #memberId#
+			      AND (msg.receiver_id = #memberId# OR msg.sender_id = #memberId#)
+			      GROUP BY receiver_id, sender_id
+			) comp
+			      	INNER JOIN mu_messagebox_msg msg ON comp.last_msg_id = msg.msg_id
+			      	INNER JOIN mu_member sender ON sender.member_id = msg.sender_id
+					INNER JOIN mu_member receiver ON receiver.member_id = msg.receiver_id
+			ORDER BY last_send_date DESC
+			
+
+	</select>
+	
+	<!-- // 쪽지함 재개발 -->
+	
+	<select id="selectMsgBoxListByMemberId" resultMap="msgBoxItemResultMap" parameterClass="Integer">
+		SELECT	sub.msgbox_id														AS msgbox_id,
+				sub.sender_id														AS sender_id,
+		       (SELECT sex FROM mu_member m WHERE m.member_id=sub.sender_id) 		AS sex,
+		       (SELECT nick_name FROM mu_member m WHERE m.member_id=sub.sender_id) 	AS nick_name,
+		       (SELECT date_format(created_date,'%Y-%m-%d %H:%i') FROM mu_msg m WHERE m.msg_id=sub.msg_id) 		AS last_send_date,
+		       (SELECT msg_text FROM mu_msg m WHERE m.msg_id=sub.msg_id) 			AS last_msg_text,
+		       cnt 																	AS unread_msg_cnt,
+		       (SELECT main_photo_url FROM mu_member m WHERE m.member_id=sub.sender_id) AS main_photo_url
+		FROM (
+		      SELECT MAX(mbox.msgbox_id)	AS msgbox_id,
+		             MAX(mbox.member_id)	AS member_id,
+		             MAX(mbox.sender_id)	AS sender_id,
+		             MAX(msg.msg_id)		AS msg_id,
+		             SUM(CASE WHEN msg.receiver_read_yn = 'N' AND msg.receiver_id = #memberId# THEN 1 ELSE 0 END) AS cnt
+		      FROM 	mu_msgbox			mbox
+		          	,mu_lnk_msgbox_msg	lnk
+		          	,mu_msg				msg
+		      WHERE mbox.msgbox_id = lnk.msgbox_id
+		      AND 	lnk.msg_id = msg.msg_id
+		      AND 	mbox.member_id = #memberId#
+		      AND 	mbox.status = 'A'
+		      GROUP BY mbox.msgbox_id
+		     ) sub
+		ORDER BY last_send_date desc
+	</select>
+	
+	<!-- 쪽지함 조회 -->
+	<select id="selectMsgboxByMemberIdAndSenderId" resultMap="msgboxResultMap" parameterClass="MsgBoxVO">
+	    SELECT	*	
+	    FROM 	mu_msgbox
+	    WHERE	member_id	= #memberId#
+	    AND		sender_id	= #senderId#
+	    AND		status		= #status#
+	</select>
+	
+	<!-- 쪽지 리스트 조회 -->
+	<select id="selectMsgListByMsgboxId" resultMap="msgListResultMap" parameterClass="MsgListReqVO">
+	    <![CDATA[
+	    SELECT	msg.msg_id
+	    		,date_format(msg.created_date,'%Y-%m-%d %H:%i')							AS send_date
+	    		,msg.sender_id
+	    		,msg.msg_text
+	    		,(SELECT nick_name FROM mu_member m WHERE m.member_id=sender_id)		AS nick_name
+	    		,(SELECT sex FROM mu_member m WHERE m.member_id=sender_id)				AS sex
+	    		,(SELECT main_photo_url FROM mu_member m WHERE m.member_id=sender_id)	AS main_photo_url
+	    FROM 	mu_msg				msg
+	    		,mu_lnk_msgbox_msg	lnk
+	    WHERE	msg.msg_id		= lnk.msg_id
+	    AND		lnk.msgbox_id	= #msgboxId#
+	    ORDER BY msg.msg_id
+	    ]]>
+	</select>
+	
+	<!-- 쪽지함 Insert -->
+	<insert id="insertIntoMsgbox" parameterClass="MsgBoxVO">
+	    insert into mu_msgbox 
+	    	(member_id, sender_id, status, created_date)
+	    VALUES
+	    	(#memberId#, #senderId#, #status#, now())
+	    <selectKey resultClass="Long" keyProperty="msgboxId">
+			SELECT last_insert_id()
+		</selectKey>
+	</insert>
+	
+	<!-- 쪽지 Insert -->
+	<insert id="insertIntoMsg" parameterClass="MsgVO">
+	    insert into mu_msg
+	    	(sender_id, receiver_id, msg_text, receiver_read_yn, created_date)
+	    VALUES
+	    	(#senderId#, #receiverId#, #msgText#, 'N', now())
+	    <selectKey resultClass="Long" keyProperty="msgId">
+			SELECT last_insert_id()
+		</selectKey>
+	</insert>
+	
+	
+	
+	<!-- 링크_쪽지함_쪽지 Insert -->
+	<insert id="insertIntoLnkMsgboxMsg" parameterClass="LnkMsgboxMsgVO">
+	    insert into mu_lnk_msgbox_msg
+	    	(msgbox_id, msg_id, created_date)
+	    VALUES
+	    	(#msgboxId#, #msgId#, now())
+	</insert>
+	
+	<!-- 링크_쪽지함_쪽지 Delete -->
+	<update id="deleteLnkMsgboxMsgByMsgId" parameterClass="LnkMsgboxMsgVO">
+	    DELETE FROM mu_lnk_msgbox_msg
+	    WHERE	msgbox_id	= #msgboxId#
+	    <isNotEmpty property="msgId">        
+		    AND		msg_id		= #msgId#
+	    </isNotEmpty>
+	</update>
+	
+	<!-- 쪽지함 Status 업데이트 -->
+	<update id="updateMsgboxStatus" parameterClass="MsgBoxVO">
+		UPDATE	mu_msgbox
+		SET 
+				status = #status#
+		WHERE	msgbox_id = #msgboxId#
+	</update>
+	
+	<!-- 쪽지 업데이트 -->
+	<update id="updateMsgAsRead" parameterClass="Long">
+		UPDATE	 mu_msg				msg
+				,mu_lnk_msgbox_msg	lnk
+				,mu_msgbox			box
+		SET 
+				msg.receiver_read_yn = 'Y',
+				msg.receiver_read_date = now(),
+				msg.updated_date = now()
+		WHERE	box.msgbox_id	= lnk.msgbox_id
+		AND		lnk.msg_id		= msg.msg_id
+		AND		box.msgbox_id	= #msgboxId#
+		AND		msg.receiver_read_yn != 'Y'
+	</update>
+	
+	<!-- 쪽지 업데이트 -->
+	<update id="updateMsgAsReadByMsgId" parameterClass="Long">
+		UPDATE	 mu_msg				msg
+		SET 
+				msg.receiver_read_yn = 'Y',
+				msg.receiver_read_date = now(),
+				msg.updated_date = now()
+		WHERE	msg.msg_id	= #msgId#
+		AND		msg.receiver_read_yn != 'Y'
+	</update>
+	
+	<!-- 쪽지 업데이트 -->
+	<update id="updateMsgAsReadYNToogleByMsgId" parameterClass="Long">
+		UPDATE	 mu_msg				msg
+		SET 
+				msg.receiver_read_yn = case msg.receiver_read_yn when 'Y' 
+													then 'N'
+													else 'Y' end,
+				msg.receiver_read_date = now(),
+				msg.updated_date = now()
+		WHERE	msg.msg_id	= #msgId#
+	</update>
+	
+	<!-- SELECT : 미확인 쪽지 수 조회 -->
+	<select id="selectUnreadMsgCntByMemberId" resultClass="Integer" parameterClass="Integer">
+	<![CDATA[
+	SELECT	IFNULL(SUM(CASE WHEN msg.receiver_read_yn = 'N' THEN 1 ELSE 0 END), 0)     AS unread_msg_cnt
+		FROM 	mu_messagebox_msg				msg
+		WHERE	
+			msg.receiver_id= #memberId#
+			AND msg.own_member_id = #memberId#
+			AND msg.receiver_read_yn	= 'N'
+			AND msg.status = 'A'
+		
+	]]>
+	</select>
+	<!-- SELECT	IFNULL(SUM(CASE WHEN msg.receiver_read_yn = 'N' THEN 1 ELSE 0 END), 0)     AS unread_msg_cnt
+		FROM 	mu_msgbox			mbox
+				,mu_lnk_msgbox_msg	lnk
+				,mu_msg				msg
+		WHERE	mbox.msgbox_id	= lnk.msgbox_id
+		AND 	lnk.msg_id		= msg.msg_id
+		AND 	mbox.member_id	= #memberId#
+		AND 	mbox.status		= 'A' -->
+	
+	<!-- SELECT : 미확인 쪽지 수 조회 -->
+	<select id="selectUnreadMsgCntByMsgId" resultClass="Integer" parameterClass="Long">
+	<![CDATA[
+		SELECT	count(*)     AS unread_msg_cnt
+		FROM 	mu_msg		msg
+		WHERE	msg.msg_id				= #msgId#
+		AND 	msg.receiver_read_yn	= 'N'
+		AND  msg.status = 'A'
+	]]>
+	</select>
+	
+	<!-- 내 쪽지 리스트 조회 -->
+	<select id="selectMyMsgList" resultMap="myMsgListResultMap" parameterClass="CommReqVO">
+	    SELECT	msg.msg_id
+	    		,msg.sender_id
+	    		,(SELECT nick_name FROM mu_member m WHERE m.member_id=msg.sender_id)		AS sender_nick_name
+	    		,(SELECT sex FROM mu_member m WHERE m.member_id=msg.sender_id)				AS sender_sex
+	    		,(SELECT main_photo_url FROM mu_member m WHERE m.member_id=msg.sender_id)	AS sender_main_photo_url
+	    		,msg.receiver_id
+	    		,(SELECT nick_name FROM mu_member m WHERE m.member_id=msg.receiver_id)		AS receiver_nick_name
+	    		,(SELECT sex FROM mu_member m WHERE m.member_id=msg.receiver_id)			AS receiver_sex
+	    		,(SELECT main_photo_url FROM mu_member m WHERE m.member_id=msg.receiver_id)	AS receiver_main_photo_url
+	    		,msg.receiver_read_yn
+	    		, msg.msg_text AS msg_text
+	    		,date_format(msg.created_date,'%Y-%m-%d %H:%i')								AS send_date, 
+	    		
+	    		get_membership(msg.sender_id) as sender_membership,
+				get_certification(msg.sender_id) as  sender_certification, 
+				get_membership(msg.receiver_id) as receiver_membership,
+				get_certification(msg.receiver_id) as  receiver_certification
+				
+		FROM 	mu_msgbox			mbox
+				,mu_lnk_msgbox_msg	lnk
+				,mu_msg				msg
+		WHERE	mbox.msgbox_id	= lnk.msgbox_id
+		AND 	lnk.msg_id		= msg.msg_id
+		AND		mbox.member_id  = #gMemberId#
+		AND		mbox.sender_id  = #gMemberId#
+		<isNotEmpty property="searchType">
+			<isEqual property="searchType" compareValue="RCV">
+				AND		msg.receiver_id	= #gMemberId#
+			</isEqual>
+			<isEqual property="searchType" compareValue="SND">
+			    AND		msg.sender_id	= #gMemberId#
+			</isEqual>
+		</isNotEmpty>
+	    AND		(msg.receiver_id	= #gMemberId# OR msg.sender_id	= #gMemberId#)
+	    AND		msg.msg_id <![CDATA[<]]> IFNULL(#lastItemId#,999999999999999)
+	    ORDER BY msg.msg_id desc
+	    LIMIT	15
+	</select>
+	
+	<!-- 내 쪽지 조회 -->
+	<select id="selectMsgByMsgId" resultMap="myMsgListResultMap" parameterClass="Long">
+	    SELECT	msg.msg_id
+	    		,msg.sender_id
+	    		,(SELECT nick_name FROM mu_member m WHERE m.member_id=msg.sender_id)		AS sender_nick_name
+	    		,(SELECT sex FROM mu_member m WHERE m.member_id=msg.sender_id)				AS sender_sex
+	    		,(SELECT main_photo_url FROM mu_member m WHERE m.member_id=msg.sender_id)	AS sender_main_photo_url
+	    		,msg.receiver_id
+	    		,(SELECT nick_name FROM mu_member m WHERE m.member_id=msg.receiver_id)		AS receiver_nick_name
+	    		,(SELECT sex FROM mu_member m WHERE m.member_id=msg.receiver_id)			AS receiver_sex
+	    		,(SELECT main_photo_url FROM mu_member m WHERE m.member_id=msg.receiver_id)	AS receiver_main_photo_url
+	    		,msg.receiver_read_yn
+	    		,msg.msg_text
+	    		,date_format(msg.created_date,'%Y-%m-%d %H:%i')								AS send_date, 
+	    		
+	    		get_membership(msg.sender_id) as sender_membership,
+				get_certification(msg.sender_id) as  sender_certification, 
+				get_membership(msg.receiver_id) as receiver_membership,
+				get_certification(msg.receiver_id) as  receiver_certification
+	    FROM 	mu_msg		msg
+	    WHERE	msg.msg_id = #msgId#
+	    LIMIT	1
+	</select>
+
+
+</sqlMap>

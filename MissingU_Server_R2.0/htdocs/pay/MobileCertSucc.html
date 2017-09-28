@@ -1,0 +1,206 @@
+<html>
+<head>
+<title>휴대폰 결제</title>
+<link rel=stylesheet href="./css/pay_style.css">
+<script language="JavaScript">
+function jsDoSubmit()
+{
+	var form = document.pay_cert;
+	
+	form.submit();
+	
+}
+</script>
+</head>
+
+<body leftmargin="0" topmargin="0" >
+<form name="pay_cert" method="post" 		action="MobileSecondCert.php">
+<input type="hidden" name="daoutrx"  		value="<?=$res_daoutrx?>">
+<input type="hidden" name="mobileno"  		value="<?=$mobileno?>">
+<input type="hidden" name="userssn"  		value="<?=$userssn?>">
+<input type="hidden" name="productname"  		value="<?=$productname?>">
+<input type="hidden" name="email"  		value="<?=$email?>">
+<input type="hidden" name="resultcode"  	value="<?=$res_resultcode?>">
+<input type="hidden" name="errormesaage"  	value="<?=$res_errormesaage?>">
+<input type="hidden" name="orderno"  		value="<?=$res_orderno?>">
+<input type="hidden" name="amount"  		value="<?=$res_amount?>">
+<input type="hidden" name="certdate"  		value="<?=$res_certdate?>">
+<input type="hidden" name="limitamount"		value="<?=$res_limamount?>">
+<input type="hidden" name="reservedindex1"	value="<?=$res_reservedindex1?>">
+<input type="hidden" name="reservedindex2"	value="<?=$res_reservedindex2?>">
+<input type="hidden" name="reservedstring"	value="<?=$res_reservedstring?>">
+<table border="0" cellspacing="0" cellpadding="0" width=470 >
+  <tr>
+    <td colspan=3 background="images/p_top.gif" width=470 height=46>
+	 <table border="0" cellspacing="0" cellpadding="0" widht=460>
+	  <tr>
+	   <td width=20s></td>
+	   <td  height="41" style="padding-bottom:5px;"><img src="images/p_title01.gif"></td>
+	  </tr>
+	 </table>
+	</td>
+  </tr>
+  <tr>
+    <td width=20 height="390" align=left background="images/p_left.gif"></td>
+    <td width=460>
+	 <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td height=17 colspan="3">&nbsp;</td>
+        </tr>
+		<tr>
+          <td height=22 colspan="3" align="right" width=440>휴대폰결제 > <span class="txt_p_green01">결제정보인증</span></td>
+        </tr>
+		<tr>
+          <td colspan="3">
+		   <table cellpadding="0" cellspacing="0" border="0" width=420 align="center">
+		    <tr>
+			 <td background="images/p_box_top.gif" width=420 height=4></td>
+			</tr>
+			<tr>
+			 <td background="images/p_box_middle.gif">
+			  <table cellpadding="5" cellspacing="0" border="0">
+			   <tr>
+			    <td width=24 height=12 align="right"><img src="images/p_bul_01.gif"></td>
+				<td height=12 ><span class=txt_p01>상품명</span></td>
+				<td height=12></td>
+				<td > <span class=txt_p02><?=$productname?></span> </td>
+			   </tr>
+			   <tr>
+			    <td width=24 height=12 align="right"><img src="images/p_bul_01.gif"></td>
+				<td><span class=txt_p01>이용금액</span></td>
+				<td></td>
+				<td><span class=txt_p02><?=number_format($res_amount)?>원</span></td>
+			   </tr>
+			  </table>
+			 </td>
+			</tr>
+			<tr>
+			 <td background="images/p_box_bottom.gif" width=460 height=6></td>
+			</tr>
+		   </table>
+		  </td>
+        </tr>
+		<tr>
+		  <td height=8 colspan="3"> </td>
+		</tr>
+		<tr>
+		  <td  colspan="3">
+		    <table cellpadding="0" cellspacing="0" border="0" width=420 align="center">
+			  <tr>
+			    <td width="53" rowspan="2"><img src="images/p_img_002.gif"></td>
+				<td width="407">승인번호가 고객님의 휴대폰으로 발송되었습니다.</td>
+			  </tr>
+			  <tr>
+			    <td>승인번호 수신후 <span class="txt_p_green01">3분이내</span>에 입력해 주세요.</td>
+			  </tr>
+			  <tr>
+		  <td height=25 colspan="3"> </td>
+		</tr>
+			</table>
+		  </td> 
+		</tr>
+		<tr>
+		 <td colspan=3>
+		  <table cellpadding="0" cellspacing="0" border="0" width=420 align="center">
+		  <tr>
+		  <td colspan="2"><img src="images/p_img_001.gif"></td>
+		  <td align="left" width="120"><span class="txt_p_green01_b">승인유효시간 :</span><span class="txt_p02">3:00</span></td>
+		</tr>
+		</table>
+		</td>
+ 		</tr>
+		<tr>
+		  <td colspan="3">
+		   <table cellpadding="3" cellspacing="0" border="0" width=420 align="center">
+		    <tr> 
+			 <td colspan=2 height=2 bgcolor="#53980a"></td>
+			</tr>
+			<tr>
+			 <td class="p_line_gray01" width=116 height=20><span class="txt_p_line01">결제금액</span></td>
+			 <td class="p_line_gray02" width=292 height=20><span class="txt_p_line02">
+			 <strong><?=number_format($res_amount)?>원</strong>
+			 </span></td>
+			</tr>
+			<tr>
+			 <td class="p_line_gray01" width=116 height=20><span class="txt_p_line01">승인번호</span></td>
+			 <td class="p_line_gray02" width=292 height=20><span class="txt_p_line02">
+			   <input name="certno" type="text" size="15"></span><span class="txt_p_green02_b"> 결제잔액한도 : <?=number_format($res_limamount)?>원</span></td>
+			</tr>
+			
+		   </table>
+		  </td>
+		</tr>
+		<tr>
+		  <td height=7 colspan="3"></td>
+		</tr>
+		<tr>
+		 <td colspan="3">
+		  <table cellpadding="0" cellspacing="0" border="0" width=420 align=center>
+		   <tr>
+		    <td height=20 width=10 align="left"><img src="images/p_bul_01.gif"></td>
+		    <td >승인번호를 정확하게 입력한 후 <span class="txt_p_green01_b">확인</span>을 누르세요</td>
+		   </tr>
+		  </table>
+		 </td>
+		</tr>
+		<tr>
+		  <td height=30 colspan="3"></td>
+		</tr>
+		<tr>
+		  <td width="211" align=right><a href="javascript:jsDoSubmit();"><img src="images/p_bt_ok.gif" alt="확인" border="0"></a></td>
+		  <td width="38" ></td>
+		  <td width="211" align=left ><a href="javascript:window.close();"><img src="images/p_bt_cancel.gif" alt="취소" border="0"></a></td>
+		</tr>
+		<tr>
+		  <td height=83 colspan="3">
+		  </td>
+		</tr>
+		<tr>
+		  <td colspan="3">
+		    <table cellpadding="0" cellspacing="0" border="0" width=420 align="center">
+			  <tr>
+			    <td width=10 align="left" height=22></td>
+				<td height=22></td>
+			  </tr>
+			  <tr>
+			    <td width=10 align="left" height=22></td>
+				<td  height=22></td>
+			  </tr>
+			<tr>
+		  <td height=5 colspan="2"></td>
+		</tr>
+			  <tr>
+		  <td height=1 colspan="2"   align="center" bgcolor=#5bb342></td>
+		</tr>
+			</table>
+		  </td>
+		</tr>
+		
+		<tr>
+		  <td height=10 colspan="3" ></td>
+		</tr>
+		<tr>
+		  <td colspan="3">
+		    <table width="420" border="0" align="center" cellpadding="0" cellspacing="0">
+			 <tr>
+			  <td width="211"><img src="images/p_bul_02.gif"> 결제문의 : <span class="txt_p_green01">1588-5984</span></td>
+			  <td width="209">&nbsp;</td>
+			 </tr>
+			 <tr>
+			  <td width="211"><img src="images/p_bul_02.gif"> 결제내역조회 : <a href="http://www.daouPay.com" target="_blank">www.daoupay.com</a></td>
+			  <td align="right" width="209">&nbsp;<img src="images/p_bul_02.gif"> 문의메일 : <a href="mailto:help@daoupay.com" target="_blank">help@daoupay.com</a></td>
+			 </tr>
+			</table>
+		  </td>
+		</tr>
+	 </table>
+	</td>
+    <td background="images/p_right.gif" width=20 align=right></td>
+  </tr>
+  <tr>
+    <td colspan=3 background="images/p_bottom.gif" width=500 height=9></td>
+  </tr>
+</table>
+</form>
+</body>
+</html>

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Theshop">
+    <typeAlias alias="CommReqVO" type="kr.ko.nexmain.server.MissingU.common.model.CommReqVO" />
+	
+	<resultMap id="payHistResultMap" class="hashmap">
+		<result property="payId" column="pay_id" />
+		<result property="memberId" column="member_id" />
+		<result property="prodCd" column="prod_cd" />
+		<result property="prodName" column="prod_name" />
+		<result property="amount" column="amount" />
+		<result property="updatedDate" column="updated_date" />
+	</resultMap>
+	
+	<select id="selectPayHistCntByMemberId" parameterClass="hashmap" resultClass="Integer">
+	    <![CDATA[
+	    SELECT 
+	    		count(*) as totalCnt
+  		FROM	mu_pay_hist
+  		WHERE	member_id = #gMemberId#
+  		AND		status = 'S' 
+	    ]]>
+	</select>
+	
+	<select id="selectPayHistByMemberId" parameterClass="hashmap" resultMap="payHistResultMap">
+	    SELECT 
+	    		pay_id,
+	    		member_id,
+				prod_cd,
+				prod_name,
+				amount,
+				date_format(created_date,'%Y-%m-%d %H:%i') AS	updated_date
+  		FROM	mu_pay_hist
+  		WHERE	member_id = #gMemberId#
+  		AND		status = 'S'
+  		ORDER BY pay_id desc
+  		LIMIT #startRow#, #pageSize# 
+	</select>
+	
+	<!-- 결제내역 Insert -->
+	<insert id="insertPayHist" parameterClass="hashmap">
+		INSERT INTO mu_pay_hist
+			(
+				member_id,
+				order_num,
+				status,
+				pay_method,
+				prod_cd,
+				prod_name,
+				amount,
+				pay_date,
+				cpid,
+				trx_id,
+				mobile_com,
+				mobile_no,
+				email,
+				keyword1,
+				keyword2,
+				keyword3,
+				token,
+				created_date
+			)
+		VALUES
+			(
+				#gMemberId#,
+				#orderNum#,
+				#status#,
+				#payMethod#,
+				#prodCd#,
+				#prodName#,
+				#amount#,
+				#payDate#,
+				#cpid#,
+				#trxId#,
+				#mobileCom#,
+				#mobileNo#,
+				#email#,
+				#keyword1#,
+				#keyword2#,
+				#keyword3#,
+				#token#,
+				now()
+			)
+	</insert>
+	
+	<!-- 결제내역 업데이트 -->
+	<update id="updatePayHist" parameterClass="hashmap">
+
+		UPDATE	mu_pay_hist
+		SET
+				status		= #status#,
+				pay_method	= #payMethod#,
+				prod_cd		= #prodCd#,
+				prod_name	= #prodName#,
+				amount		= #amount#,
+				pay_date	= #payDate#,
+				updated_date	= now()
+		WHERE	member_id	= #gMemberId#
+		  AND	order_num	= #orderNum#
+		  AND	token		= #token#
+	</update>
+	
+	<!-- 결제내역 업데이트 -->
+	<update id="insertOrUpdatePayHist" parameterClass="hashmap">
+		INSERT INTO mu_pay_hist
+			(
+				member_id,
+				order_num,
+				token,
+				status,
+				created_date,
+				pay_method,  
+				prod_cd, 
+				prod_name
+			)
+		VALUES
+			(
+				#gMemberId#,
+				#orderNum#,
+				#token#,
+				'P',
+				now(), 
+				#payMethod#,
+				#prodCd#, 
+				#prodName#
+			)
+		ON DUPLICATE KEY
+		UPDATE  status		= #status#,
+				pay_method	= #payMethod#,
+				prod_cd		= #prodCd#,
+				prod_name	= #prodName#,
+				amount		= #amount#,
+				pay_date	= #payDate#,
+				updated_date	= now()
+	</update>
+	
+	<!-- 결제내역 업데이트 -->
+	<update id="insertOrUpdatePayHistTStore" parameterClass="hashmap">
+		INSERT INTO mu_pay_hist
+			(
+				member_id,
+				order_num,
+				token,
+				status,
+				created_date,
+				pay_method,  
+				prod_cd, 
+				prod_name, 
+				txid, 
+				signdata
+			)
+		VALUES
+			(
+				#gMemberId#,
+				#orderNum#,
+				#token#,
+				'P',
+				now(), 
+				#payMethod#,
+				#prodCd#, 
+				#prodName#, 
+				#txid#, 
+				#signdata#
+			)
+		ON DUPLICATE KEY
+		UPDATE  status		= #status#,
+				pay_method	= #payMethod#,
+				prod_cd		= #prodCd#,
+				prod_name	= #prodName#,
+				amount		= #amount#,
+				pay_date	= #payDate#,
+				updated_date	= now(), 
+				txid = #txid#, 
+				signdata = #signdata#
+	</update>
+	
+</sqlMap>
